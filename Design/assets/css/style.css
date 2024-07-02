@@ -54,3 +54,7 @@ a:hover,
 .w-block {
     width: 70px;
 }
+
+input:focus {
+    outline: none;
+}
