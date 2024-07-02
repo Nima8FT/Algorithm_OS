@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Algorithm OS</title>
+        <link rel="stylesheet" href="./assets/css/bootstrap.min.css">
+        <link rel="stylesheet" href="./assets/css/nima.css">
+    </head>
+    <body>
+
+        <nav
+            class="navbar orange navbar-light d-flex flex-row justify-content-around shadow rounded">
+            <a class="nav-item h5 fw-bold active">Algorithms for cpu
+                scheduling</a>
+            <a class="nav-item h5 fw-bold">Algorithms for memory allocation</a>
+            <a class="nav-item h5 fw-bold">The banker's algorithm</a>
+        </nav>
+
+        <main class="container d-flex justify-content-around mt-5 mb-5">
+            <article class="w-25 bg-light card shadow rounded"
+                style="height: 550px;">
+                <div class="card-body">
+                    <h5 class="card-title h1 fw-bold">Input</h5>
+                    <form class="mt-4">
+                        <div class="form-group mb-4">
+                            <label class="mb-1 fw-bold blue"
+                                for="algorithm">Algorithm</label>
+                            <select class="form-control form-select"
+                                name="algorithm"
+                                id="algorithm">
+                                <option class="m-2" value="fcfs">FCFS</option>
+                                <option value="sjf">SJF</option>
+                                <option value="rr">Round Roubin</option>
+                                <option value="srt">SRTF</option>
+                            </select>
+                        </div>
+                        <div class="form-group mb-4">
+                            <label class="mb-1 fw-bold blue"
+                                for="arrival">Arrival Times</label>
+                            <input type="text" class="form-control" id="arrival"
+                                placeholder="0 2 4 6 8">
+                        </div>
+
+                        <div class="form-group mb-4">
+                            <label class="mb-1 fw-bold blue"
+                                for="burst">Burst Times</label>
+                            <input type="text" class="form-control" id="burst"
+                                placeholder="2 4 6 8 10">
+                        </div>
+
+                        <div class="form-group mb-4">
+                            <label class="mb-1 fw-bold blue"
+                                for="quantom">Time Quantom</label>
+                            <input type="text" class="form-control" id="quantom"
+                                placeholder="3">
+                        </div>
+
+                        <div class="d-grid gap-2">
+                            <button type="submit"
+                                class="btn orange text-light fw-bold">Solve</button>
+                        </div>
+                    </form>
+                </div>
+            </article>
+            <article class="w-75 bg-light card shadow rounded ms-5">
+                <div class="card-body">
+                    <div class="card-body-top d-flex justify-content-between">
+                        <h5 class="card-title h1 fw-bold">OutPut</h5>
+                        <h5
+                            class="card-title h4 fw-bold border orange p-2 px-4 shadow rounded text-light">FCFS</h5>
+                    </div>
+
+                    <div class="card-body-chart mt-3">
+                        <h4 class="text-center">Gantt Chart</h4>
+
+                        <div
+                            class="d-flex justify-content-center align-items-center mt-2 flex-wrap">
+                            <div
+                                class="w-box h-25 orange p-2 text-center border border-secondary text-white fw-bold">A</div>
+                            <div
+                                class="w-box h-25 orange p-2 text-center border border-secondary text-white fw-bold">B</div>
+                            <div
+                                class="w-box h-25 orange p-2 text-center border border-secondary text-white fw-bold">C</div>
+                            <div
+                                class="w-box h-25 orange p-2 text-center border border-secondary text-white fw-bold">D</div>
+                            <div
+                                class="w-box h-25 orange p-2 text-center border border-secondary text-white fw-bold">E</div>
+                        </div>
+
+                        <div
+                            class="d-flex justify-content-center align-items-center ms-4">
+                            <span class="w-number p-2">0</span>
+                            <span class="w-number p-2">2</span>
+                            <span class="w-number p-2">5</span>
+                            <span class="w-number p-2">7</span>
+                            <span class="w-number p-2">10</span>
+                            <span class="w-number p-2">20</span>
+                        </div>
+
+                    </div>
+
+                    <table class="table table-bordered text-center mt-4">
+                        <thead>
+                            <tr>
+                                <th scope="col">Proccess</th>
+                                <th scope="col">Arrival Time</th>
+                                <th scope="col">Burst Time</th>
+                                <th scope="col">Finish Time</th>
+                                <th scope="col">Turnaround Time</th>
+                                <th scope="col">Waiting Time</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr scope="row">
+                                <td>A</td>
+                                <td>2</td>
+                                <td>2</td>
+                                <td>2</td>
+                                <td>2</td>
+                                <td>2</td>
+                            </tr>
+
+                            <tr scope="row">
+                                <td>A</td>
+                                <td>2</td>
+                                <td>2</td>
+                                <td>2</td>
+                                <td>2</td>
+                                <td>2</td>
+                            </tr>
+
+                            <tr scope="row">
+                                <td>A</td>
+                                <td>2</td>
+                                <td>2</td>
+                                <td>2</td>
+                                <td>2</td>
+                                <td>2</td>
+                            </tr>
+
+                            <tr scope="row">
+                                <td>A</td>
+                                <td>2</td>
+                                <td>2</td>
+                                <td>2</td>
+                                <td>2</td>
+                                <td>2</td>
+                            </tr>
+
+                            <tr scope="row">
+                                <td>A</td>
+                                <td>2</td>
+                                <td>2</td>
+                                <td>2</td>
+                                <td>2</td>
+                                <td>2</td>
+                            </tr>
+
+                            <tr scope="row">
+                                <td colspan="4" class="text-end">Average</td>
+                                <td>2</td>
+                                <td>2</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+
+            </article>
+        </main>
+
+        <script src="./assets/js/bootstrap.min.js"></script>
+        <script src="./assets/js/main.js"></script>
+    </body>
+</html>

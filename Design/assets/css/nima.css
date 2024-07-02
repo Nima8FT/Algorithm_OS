@@ -1,0 +1,52 @@
+@font-face {
+    font-family: RobotoBold;
+    src: url('/Design/assets/fonts/Roboto-Bold.ttf') format('ttf');
+}
+
+@font-face {
+    font-family: RobotoNormal;
+    src: url('/Design/assets/fonts/Roboto-Regular.ttf');
+}
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: sans-serif;
+}
+
+a {
+    color: #ffffff;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all ease-in-out 0.2s;
+}
+
+a:hover,
+.active {
+    color: #201D52;
+}
+
+.navbar {
+    height: 70px;
+}
+
+.navbar a {
+    margin-top: 10px;
+}
+
+.orange {
+    background-color: #FF8E2C;
+}
+
+.blue {
+    color: #201D52 !important;
+}
+
+.w-box {
+    width: 45px;
+}
+
+.w-number {
+    width: 45px;
+}
