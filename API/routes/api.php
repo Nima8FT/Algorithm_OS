@@ -9,3 +9,4 @@ use Illuminate\Support\Facades\Route;
 // })->middleware('auth:sanctum');
 
 Route::post('/fcfs', [CpuController::class, 'fcfs']);
+Route::post('/sjf', [CpuController::class, 'sjf']);
