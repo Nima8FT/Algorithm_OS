@@ -10,3 +10,4 @@ use Illuminate\Support\Facades\Route;
 
 Route::post('/fcfs', [CpuController::class, 'fcfs']);
 Route::post('/sjf', [CpuController::class, 'sjf']);
+Route::post('/ljf', [CpuController::class, 'ljf']);
