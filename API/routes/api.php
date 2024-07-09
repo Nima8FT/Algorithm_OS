@@ -13,3 +13,4 @@ Route::post('/sjf', [CpuController::class, 'sjf']);
 Route::post('/ljf', [CpuController::class, 'ljf']);
 Route::post('/rr', [CpuController::class, 'rr']);
 Route::post('/srtf', [CpuController::class, 'srtf']);
+Route::post('/lrtf', [CpuController::class, 'lrtf']);

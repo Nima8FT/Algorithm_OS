@@ -520,4 +520,101 @@ class CpuController extends Controller
         }
     }
 
+    public function lrtf(Request $request)
+    {
+        if ($request->input("Algorithm") == "LRTF") {
+            $arrival_array = explode(' ', $request->get("Arrival"));
+            $burst_array = explode(' ', $request->get('Burst'));
+
+            for ($i = 0; $i < count($arrival_array); $i++) {
+                $processes[$i] = [
+                    "process" => "P" . $i + 1,
+                    "arrival_time" => $arrival_array[$i],
+                    "burst_time" => $burst_array[$i],
+                ];
+            }
+
+            usort($processes, function ($a, $b) {
+                return $a['arrival_time'] <=> $b['arrival_time'];
+            });
+
+            $j = 0;
+            $current_time = 0;
+            $arrival_time = 0;
+            $finish_time = [];
+            $turnaround_time = [];
+            $waiting_time = [];
+            $remaining_burst_time = array_column($processes, 'burst_time');
+            $remaining_arrival_time = array_column($processes, 'arrival_time');
+            $is_process_complete = array_fill(0, count($processes), false);
+            $gantt_chart = [];
+
+            while ($j < count($processes)) {
+                $index_process = -1;
+                $longest_burst_process = 0;
+
+                for ($i = 0; $i < count($processes); $i++) {
+                    if ($processes[$i]["arrival_time"] <= $current_time && !$is_process_complete[$i] && $remaining_burst_time[$i] > $longest_burst_process) {
+                        $longest_burst_process = $remaining_burst_time[$i];
+                        $index_process = $i;
+                    }
+                }
+
+                if ($index_process == -1) {
+                    $gantt_chart[] = [
+                        "process" => "gap",
+                        "start" => $current_time,
+                        "end" => $current_time + 1,
+                    ];
+                    $current_time++;
+                    continue;
+                }
+
+                $gantt_chart[] = [
+                    "process" => $processes[$index_process]["process"],
+                    "start" => $current_time,
+                    "end" => $current_time + 1,
+                ];
+                $current_time++;
+                $remaining_burst_time[$index_process] -= 1;
+                if ($remaining_burst_time[$index_process] == 0) {
+                    $is_process_complete[$index_process] = true;
+                    $j++;
+                    $finish_time[$index_process] = $current_time;
+                    $turnaround_time[$index_process] = $finish_time[$index_process] - $processes[$index_process]["arrival_time"];
+                    $waiting_time[$index_process] = $turnaround_time[$index_process] - $processes[$index_process]["burst_time"];
+                }
+
+            }
+        }
+
+        for ($i = 0; $i < count($processes); $i++) {
+            array_push($processes[$i], [
+                "finish_time" => $finish_time[$i],
+                "turnaround_time" => $turnaround_time[$i],
+                "waiting_time" => $waiting_time[$i],
+            ]);
+            $processes[$i] = array_merge($processes[$i], $processes[$i][0]);
+            unset($processes[$i][0]);
+        }
+
+        $col_turnaround = collect($turnaround_time);
+        $avg_turnaround = $col_turnaround->avg();
+
+        $col_waiting = collect($waiting_time);
+        $avg_waiting = $col_waiting->avg();
+
+        usort($processes, function ($a, $b) {
+            return $a['process'] <=> $b['process'];
+        });
+
+        return response()->json(
+            [
+                "Process" => $processes,
+                "avg_turnaround" => $avg_turnaround,
+                "avg_waiting" => $avg_waiting,
+                "chart" => $gantt_chart
+            ]
+        );
+    }
 }
