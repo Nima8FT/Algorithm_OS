@@ -15,3 +15,4 @@ Route::post('/rr', [CpuController::class, 'rr']);
 Route::post('/srtf', [CpuController::class, 'srtf']);
 Route::post('/lrtf', [CpuController::class, 'lrtf']);
 Route::post('/hrrn', [CpuController::class, 'hrrn']);
+Route::post('/priority/none-preemptive', [CpuController::class, 'priority_none_preemptive']);

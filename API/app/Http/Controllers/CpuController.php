@@ -713,4 +713,109 @@ class CpuController extends Controller
             );
         }
     }
+
+    public function priority_none_preemptive(Request $request)
+    {
+        if ($request->input("Algorithm") == "Priority" && $request->input("Mode") == "None-Preemptive") {
+            $arrival_array = explode(' ', $request->get("Arrival"));
+            $burst_array = explode(' ', $request->get('Burst'));
+            $priority_array = explode(' ', $request->get('Priority'));
+
+            for ($i = 0; $i < count($arrival_array); $i++) {
+                $processes[$i] = [
+                    "process" => "P" . $i + 1,
+                    "arrival_time" => $arrival_array[$i],
+                    "burst_time" => $burst_array[$i],
+                    "priority" => $priority_array[$i],
+                ];
+            }
+
+            usort($processes, function ($a, $b) {
+                return $a['arrival_time'] <=> $b['arrival_time'];
+            });
+
+            $j = 0;
+            $current_time = 0;
+            $finish_time = [];
+            $turaround_time = [];
+            $waiting_time = [];
+            $gantt_chart = [];
+            $is_process_complete = array_fill(0, count($processes), false);
+            $remaining_burst_time = array_column($processes, 'burst_time');
+            $remaining_priority = array_column($processes, 'priority');
+
+            while ($j < count($processes)) {
+                $index_process = -1;
+                $priority = PHP_INT_MAX;
+
+                if ($current_time >= $processes[count($processes) - 1]["arrival_time"]) {
+                    for ($i = 0; $i < count($processes); $i++) {
+                        if (!$is_process_complete[$i] && $remaining_priority[$i] < $priority) {
+                            $priority = $remaining_priority[$i];
+                            $index_process = $i;
+                        }
+                    }
+                } else {
+                    for ($i = 0; $i < count($processes); $i++) {
+                        if ($processes[$i]["arrival_time"] <= $current_time && !$is_process_complete[$i]) {
+                            $index_process = $i;
+                        }
+                    }
+                }
+
+                if ($index_process == -1) {
+                    $current_time++;
+                    $gantt_chart[] = [
+                        "process" => "gap",
+                        "start" => $current_time,
+                        "end" => $current_time + 1,
+                    ];
+                    continue;
+                }
+
+                $start = $current_time;
+                $current_time += $remaining_burst_time[$index_process];
+                $remaining_burst_time[$index_process] = 0;
+                $is_process_complete[$index_process] = true;
+                $finish_time[$index_process] = $current_time;
+                $turaround_time[$index_process] = $finish_time[$index_process] - $processes[$index_process]["arrival_time"];
+                $waiting_time[$index_process] = $turaround_time[$index_process] - $processes[$index_process]["burst_time"];
+                $gantt_chart[] = [
+                    "process" => $processes[$index_process]["process"],
+                    "start" => $start,
+                    "end" => $current_time,
+                ];
+                $j++;
+            }
+
+            for ($i = 0; $i < count($processes); $i++) {
+                array_push($processes[$i], [
+                    "finish_time" => $finish_time[$i],
+                    "turnaround_time" => $turaround_time[$i],
+                    "waiting_time" => $waiting_time[$i],
+                ]);
+                $processes[$i] = array_merge($processes[$i], $processes[$i][0]);
+                unset($processes[$i][0]);
+            }
+
+            $col_turnaround = collect($turaround_time);
+            $avg_turnaround = $col_turnaround->avg();
+
+            $col_waiting = collect($waiting_time);
+            $avg_waiting = $col_waiting->avg();
+
+            usort($processes, function ($a, $b) {
+                return $a['process'] <=> $b['process'];
+            });
+
+            return response()->json(
+                [
+                    "Process" => $processes,
+                    "avg_turnaround" => $avg_turnaround,
+                    "avg_waiting" => $avg_waiting,
+                    "chart" => $gantt_chart
+                ]
+            );
+        }
+    }
 }
