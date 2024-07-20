@@ -24,3 +24,4 @@ Route::post('/priority/preemptive', [CpuController::class, 'priority_preemptive'
 Route::post('/bestfit', [MemoryController::class,'best_fit']);
 Route::post('/firstfit', [MemoryController::class,'first_fit']);
 Route::post('/worstfit', [MemoryController::class,'worst_fit']);
+Route::post('/nextfit', [MemoryController::class,'next_fit']);
