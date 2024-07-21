@@ -224,4 +224,75 @@ class PageReplacementController extends Controller
             ]);
         }
     }
+
+    public function lifo(Request $request)
+    {
+        if ($request->input('Algorithm') == "LIFO") {
+            $frames = $request->get("Frames");
+            $refrences = explode(' ', $request->get("Refrences"));
+
+            $j = 0;
+            $frame = [];
+            $page_fault = 0;
+            $chart = [];
+
+            while ($j < count($refrences)) {
+
+                $is_process = 0;
+
+                if (count($frame) == $frames) {
+                    for ($i = 0; $i < $frames; $i++) {
+                        if ($refrences[$j] !== $frame[$i]) {
+                            $is_process = 1;
+                        } else {
+                            $is_process = 0;
+                            $chart[] = [
+                                'process' => $refrences[$j],
+                                'frame' => $frame,
+                                'page fault' => 'miss',
+                            ];
+                            break;
+                        }
+                    }
+
+                    if ($is_process) {
+                        $page_fault++;
+                        for ($i = $j - 1; $i >= 0; $i--) {
+                            if (count($frame) == $frames) {
+                                for ($k = 0; $k < $frames; $k++) {
+                                    if ($refrences[$i] == $frame[$k] && $chart[$i]["page fault"] == "hit") {
+                                        unset($frame[$k]);
+                                        break;
+                                    }
+                                }
+                            } else {
+                                break;
+                            }
+                        }
+                        array_push($frame, $refrences[$j]);
+                        $frame = array_values($frame);
+                        $chart[] = [
+                            'process' => $refrences[$j],
+                            'frame' => $frame,
+                            'page fault' => 'hit',
+                        ];
+                    }
+                } else {
+                    array_push($frame, $refrences[$j]);
+                    $page_fault++;
+                    $chart[] = [
+                        'process' => $refrences[$j],
+                        'frame' => $frame,
+                        'page fault' => 'hit',
+                    ];
+                }
+                $j++;
+            }
+
+            return response()->json([
+                'chart' => $chart,
+                'page_fault' => $page_fault,
+            ]);
+        }
+    }
 }
