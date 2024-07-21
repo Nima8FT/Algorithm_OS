@@ -102,30 +102,14 @@ class PageReplacementController extends Controller
 
                     if ($is_process) {
                         for ($i = $j - 1; $i >= 0; $i--) {
-                            switch ($refrences[$i]) {
-                                case $frame[0]:
-                                    if (!$is_frame[0]) {
+                            if (count($frame) == $frames) {
+                                for ($k = 0; $k < $frames; $k++) {
+                                    if ($refrences[$i] == $frame[$k] && !$is_frame[$k]) {
                                         $count++;
-                                        $id_frame = 0;
-                                        $is_frame[0] = true;
-                                        break;
+                                        $id_frame = $k;
+                                        $is_frame[$k] = true;
                                     }
-
-                                case $frame[1]:
-                                    if (!$is_frame[1]) {
-                                        $count++;
-                                        $id_frame = 1;
-                                        $is_frame[1] = true;
-                                        break;
-                                    }
-
-                                case $frame[2]:
-                                    if (!$is_frame[2]) {
-                                        $count++;
-                                        $id_frame = 2;
-                                        $is_frame[2] = true;
-                                        break;
-                                    }
+                                }
                             }
 
                             if ($count == 3) {
