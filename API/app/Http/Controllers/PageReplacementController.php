@@ -160,4 +160,68 @@ class PageReplacementController extends Controller
             ]);
         }
     }
+
+    public function mru(Request $request)
+    {
+        if ($request->input('Algorithm') == "MRU") {
+            $frames = $request->get("Frames");
+            $refrences = explode(' ', $request->get("Refrences"));
+
+            $j = 0;
+            $frame = [];
+            $page_fault = 0;
+            $chart = [];
+
+            while ($j < count($refrences)) {
+
+                $is_process = 0;
+
+                if (count($frame) == $frames) {
+                    for ($i = 0; $i < $frames; $i++) {
+                        if ($refrences[$j] !== $frame[$i]) {
+                            $is_process = 1;
+                        } else {
+                            $is_process = 0;
+                            $chart[] = [
+                                'process' => $refrences[$j],
+                                'frame' => $frame,
+                                'page fault' => 'miss',
+                            ];
+                            break;
+                        }
+                    }
+
+                    if ($is_process) {
+                        $page_fault++;
+                        for ($i = 0; $i < $frames; $i++) {
+                            if ($refrences[$j - 1] == $frame[$i]) {
+                                unset($frame[$i]);
+                            }
+                        }
+                        array_push($frame, $refrences[$j]);
+                        $frame = array_values($frame);
+                        $chart[] = [
+                            'process' => $refrences[$j],
+                            'frame' => $frame,
+                            'page fault' => 'hit',
+                        ];
+                    }
+                } else {
+                    array_push($frame, $refrences[$j]);
+                    $page_fault++;
+                    $chart[] = [
+                        'process' => $refrences[$j],
+                        'frame' => $frame,
+                        'page fault' => 'hit',
+                    ];
+                }
+                $j++;
+            }
+
+            return response()->json([
+                'chart' => $chart,
+                'page_fault' => $page_fault,
+            ]);
+        }
+    }
 }
