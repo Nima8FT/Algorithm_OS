@@ -1,9 +1,10 @@
 <?php
 
-use App\Http\Controllers\CpuController;
-use App\Http\Controllers\MemoryController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\CpuController;
+use App\Http\Controllers\MemoryController;
+use App\Http\Controllers\PageReplacementController;
 
 // Route::get('/user', function (Request $request) {
 //     return $request->user();
@@ -25,3 +26,6 @@ Route::post('/bestfit', [MemoryController::class,'best_fit']);
 Route::post('/firstfit', [MemoryController::class,'first_fit']);
 Route::post('/worstfit', [MemoryController::class,'worst_fit']);
 Route::post('/nextfit', [MemoryController::class,'next_fit']);
+
+//page replacement controller routes
+Route::post('/fifo', [PageReplacementController::class,'fifo']);
