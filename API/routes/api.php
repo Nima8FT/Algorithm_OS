@@ -29,3 +29,4 @@ Route::post('/nextfit', [MemoryController::class,'next_fit']);
 
 //page replacement controller routes
 Route::post('/fifo', [PageReplacementController::class,'fifo']);
+Route::post('/lru', [PageReplacementController::class,'lru']);
