@@ -451,4 +451,75 @@ class PageReplacementController extends Controller
             ]);
         }
     }
+
+    public function optimalPageReplacement(Request $request)
+    {
+        if ($request->input('Algorithm') == "Optimal Page Replacement") {
+            $frames = $request->get("Frames");
+            $refrences = explode(' ', $request->get("Refrences"));
+
+            $j = 0;
+            $frame = [];
+            $chart = [];
+            $page_fault = 0;
+
+            while ($j < count($refrences)) {
+                $current = $refrences[$j];
+
+                if (in_array($current, $frame)) {
+                    $chart[] = [
+                        "process" => $current,
+                        "frame" => $frame,
+                        "page fault" => "miss"
+                    ];
+                } else {
+                    if (count($frame) < $frames) {
+                        $frame[] = $current;
+                    } else {
+                        $farthest = -1;
+                        $index_to_replace = -1;
+
+                        foreach ($frame as $index => $page) {
+                            $found = false;
+                            for ($k = $j + 1; $k < count($refrences); $k++) {
+                                if ($page == $refrences[$k]) {
+                                    if ($k > $farthest) {
+                                        $farthest = $k;
+                                        $index_to_replace = $index;
+                                    }
+                                    $found = true;
+                                    break;
+                                }
+                            }
+                            if (!$found) {
+                                $index_to_replace = $index;
+                                break;
+                            }
+                        }
+
+                        if ($index_to_replace == -1) {
+                            $index_to_replace = 0;
+                        }
+
+                        unset($frame[$index_to_replace]);
+                        $frame[] = $current;
+                        $frame = array_values($frame);
+                    }
+                    $page_fault++;
+                    $chart[] = [
+                        "process" => $current,
+                        "frame" => $frame,
+                        "page fault" => "hit"
+                    ];
+                }
+                $j++;
+            }
+
+            return response()->json([
+                'chart' => $chart,
+                'page_fault' => $page_fault,
+            ]);
+
+        }
+    }
 }

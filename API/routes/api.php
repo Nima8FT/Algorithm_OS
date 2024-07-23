@@ -35,3 +35,4 @@ Route::post('/mru', [PageReplacementController::class, 'mru']);
 Route::post('/lfu', [PageReplacementController::class, 'lfu']);
 Route::post('/mfu', [PageReplacementController::class, 'mfu']);
 Route::post('/random_page_replacement', [PageReplacementController::class, 'rendomPageReplacement']);
+Route::post('/optimal_page_replacement', [PageReplacementController::class, 'optimalPageReplacement']);
