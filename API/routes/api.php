@@ -32,3 +32,4 @@ Route::post('/fifo', [PageReplacementController::class,'fifo']);
 Route::post('/lifo', [PageReplacementController::class,'lifo']);
 Route::post('/lru', [PageReplacementController::class,'lru']);
 Route::post('/mru', [PageReplacementController::class,'mru']);
+Route::post('/lfu', [PageReplacementController::class,'lfu']);

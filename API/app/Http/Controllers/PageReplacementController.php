@@ -112,7 +112,7 @@ class PageReplacementController extends Controller
                                 }
                             }
 
-                            if ($count == 3) {
+                            if ($count == $frames) {
                                 unset($frame[$id_frame]);
                                 array_push($frame, $refrences[$j]);
                                 $frame = array_values($frame);
@@ -273,6 +273,70 @@ class PageReplacementController extends Controller
                 $j++;
             }
 
+            return response()->json([
+                'chart' => $chart,
+                'page_fault' => $page_fault,
+            ]);
+        }
+    }
+
+    public function lfu(Request $request)
+    {
+        if ($request->input('Algorithm') == "LFU") {
+            $frames = $request->get("Frames");
+            $refrences = explode(' ', $request->get("Refrences"));
+            $refrences_unique = array_unique($refrences);
+            $refrences_unique = array_values($refrences_unique);
+            $refrences_frequence = array_fill(0, count($refrences_unique), 0);
+            $refrences_unique_array = array_combine($refrences_unique, $refrences_frequence);
+
+            $j = 0;
+            $frame = [];
+            $page_fault = 0;
+            $chart = [];
+
+            while ($j < count($refrences)) {
+                $current = $refrences[$j];
+
+                if (in_array($current, $frame)) {
+                    $refrences_unique_array[$current]++;
+                    $chart[] = [
+                        'process' => $current,
+                        'frame' => $frame,
+                        'page fault' => 'miss',
+                    ];
+                } else {
+                    if (count($frame) < $frames) {
+                        $frame[] = $current;
+                    } else {
+                        $lfu_page = null;
+                        $min_freq = PHP_INT_MAX;
+
+                        foreach ($frame as $page) {
+                            if ($refrences_unique_array[$page] < $min_freq) {
+                                $min_freq = $refrences_unique_array[$page];
+                                $lfu_page = $page;
+                            }
+                        }
+
+                        $key = array_search($lfu_page, $frame);
+                        $refrences_unique_array[$frame[$key]]--;
+                        unset($frame[$key]);
+                        $frame = array_values($frame);
+                        $frame[] = $current;
+                    }
+
+                    $refrences_unique_array[$current]++;
+                    $page_fault++;
+                    $chart[] = [
+                        'process' => $current,
+                        'frame' => $frame,
+                        'page fault' => 'hit',
+                    ];
+                }
+
+                $j++;
+            }
             return response()->json([
                 'chart' => $chart,
                 'page_fault' => $page_fault,
