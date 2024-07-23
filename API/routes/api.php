@@ -22,15 +22,16 @@ Route::post('/priority/none-preemptive', [CpuController::class, 'priority_none_p
 Route::post('/priority/preemptive', [CpuController::class, 'priority_preemptive']);
 
 //memory allocation controller routes
-Route::post('/bestfit', [MemoryController::class,'best_fit']);
-Route::post('/firstfit', [MemoryController::class,'first_fit']);
-Route::post('/worstfit', [MemoryController::class,'worst_fit']);
-Route::post('/nextfit', [MemoryController::class,'next_fit']);
+Route::post('/bestfit', [MemoryController::class, 'best_fit']);
+Route::post('/firstfit', [MemoryController::class, 'first_fit']);
+Route::post('/worstfit', [MemoryController::class, 'worst_fit']);
+Route::post('/nextfit', [MemoryController::class, 'next_fit']);
 
 //page replacement controller routes
-Route::post('/fifo', [PageReplacementController::class,'fifo']);
-Route::post('/lifo', [PageReplacementController::class,'lifo']);
-Route::post('/lru', [PageReplacementController::class,'lru']);
-Route::post('/mru', [PageReplacementController::class,'mru']);
-Route::post('/lfu', [PageReplacementController::class,'lfu']);
-Route::post('/mfu', [PageReplacementController::class,'mfu']);
+Route::post('/fifo', [PageReplacementController::class, 'fifo']);
+Route::post('/lifo', [PageReplacementController::class, 'lifo']);
+Route::post('/lru', [PageReplacementController::class, 'lru']);
+Route::post('/mru', [PageReplacementController::class, 'mru']);
+Route::post('/lfu', [PageReplacementController::class, 'lfu']);
+Route::post('/mfu', [PageReplacementController::class, 'mfu']);
+Route::post('/random_page_replacement', [PageReplacementController::class, 'rendomPageReplacement']);

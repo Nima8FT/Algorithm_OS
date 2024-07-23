@@ -407,4 +407,48 @@ class PageReplacementController extends Controller
             ]);
         }
     }
+
+    public function rendomPageReplacement(Request $request)
+    {
+        if ($request->input('Algorithm') == "Random Page Replacement") {
+            $frames = $request->get("Frames");
+            $refrences = explode(' ', $request->get("Refrences"));
+
+            $j = 0;
+            $frame = [];
+            $chart = [];
+            $page_fault = 0;
+
+            while ($j < count($refrences)) {
+                if (in_array($refrences[$j], $frame)) {
+                    $chart[] = [
+                        "process" => $refrences[$j],
+                        "frame" => $frame,
+                        "page fault" => "miss",
+                    ];
+                } else {
+                    if (count($frame) < $frames) {
+                        $frame[] = $refrences[$j];
+                    } else {
+                        $random = array_rand($frame);
+                        unset($frame[$random]);
+                        $frame[] = $refrences[$j];
+                        $frame = array_values($frame);
+                    }
+                    $page_fault++;
+                    $chart[] = [
+                        "process" => $refrences[$j],
+                        "frame" => $frame,
+                        "page fault" => "hit",
+                    ];
+                }
+                $j++;
+            }
+
+            return response()->json([
+                'chart' => $chart,
+                'page_fault' => $page_fault,
+            ]);
+        }
+    }
 }
