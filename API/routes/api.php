@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BankerController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CpuController;
@@ -36,3 +37,6 @@ Route::post('/lfu', [PageReplacementController::class, 'lfu']);
 Route::post('/mfu', [PageReplacementController::class, 'mfu']);
 Route::post('/random_page_replacement', [PageReplacementController::class, 'rendomPageReplacement']);
 Route::post('/optimal_page_replacement', [PageReplacementController::class, 'optimalPageReplacement']);
+
+//banker's controller routes
+Route::post('/banker', [BankerController::class, 'banker']);
