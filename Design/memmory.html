@@ -4,18 +4,21 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Algorithm OS</title>
+        <link rel="stylesheet" href="./assets/css/sweetalert2.min.css">
         <link rel="stylesheet" href="./assets/css/bootstrap.min.css">
         <link rel="stylesheet" href="./assets/css/style.css">
     </head>
     <body>
 
         <nav
-            class="navbar orange navbar-light d-flex flex-row justify-content-around shadow rounded">
-            <a class="nav-item h5 fw-bold">Algorithms for cpu
+            class="navbar bg-blue navbar-light d-flex flex-row justify-content-around shadow rounded">
+            <a href="cpu.html" class="nav-item h5 fw-bold">Algorithms for cpu
                 scheduling</a>
-            <a class="nav-item h5 fw-bold active">Algorithms for memory
+            <a href="memmory.html" class="nav-item h5 fw-bold active">Algorithms
+                for memory
                 allocation</a>
-            <a class="nav-item h5 fw-bold">The banker's algorithm</a>
+            <a href="banker.html" class="nav-item h5 fw-bold">The banker's
+                algorithm</a>
         </nav>
 
         <main class="container d-flex justify-content-around mt-5 mb-5">
@@ -30,98 +33,48 @@
                             <select class="form-control form-select"
                                 name="algorithm"
                                 id="algorithm">
-                                <option value="first">First Fit</option>
-                                <option value="best">Best Fit</option>
-                                <option value="next">Next Fit</option>
-                                <option value="worst">Worst Fit</option>
+                                <option value="firstfit">First Fit</option>
+                                <option value="bestfit">Best Fit</option>
+                                <option value="nextfit">Next Fit</option>
+                                <option value="worstfit">Worst Fit</option>
                             </select>
                         </div>
                         <div class="form-group mb-4">
                             <label class="mb-1 fw-bold blue"
                                 for="block">Block Size</label>
-                            <input type="text" class="form-control" id="block"
+                            <input type="text" class="form-control"
+                                id="block-size"
                                 placeholder="0 2 4 6 8">
                         </div>
 
                         <div class="form-group mb-5">
                             <label class="mb-1 fw-bold blue"
-                                for="process">Process Size</label>
+                                for="process-size">Process Size</label>
                             <input type="text" class="form-control"
-                                id="process"
+                                id="process-size"
                                 placeholder="2 4 6 8 10">
                         </div>
 
                         <div class="d-grid gap-2 mt-4">
-                            <button type="submit"
-                                class="btn orange text-light fw-bold">Solve</button>
+                            <button type="button" id="btn-submit"
+                                class="btn bg-blue text-light fw-bold">Solve</button>
                         </div>
                     </form>
                 </div>
             </article>
             <article class="w-75 bg-light card shadow rounded ms-5">
-                <div class="card-body">
+                <div class="card-body d-none" id="output">
                     <div class="card-body-top d-flex justify-content-between">
                         <h5 class="card-title h1 fw-bold">OutPut</h5>
                         <h5
-                            class="card-title h4 fw-bold border orange p-2 px-4 shadow rounded text-light">Best
-                            Fit</h5>
+                            class="card-title h4 fw-bold border bg-blue p-2 px-4 shadow rounded text-light"
+                            id="algorithm-name"></h5>
                     </div>
 
                     <div class="card-body-chart mt-3">
                         <h4 class="text-center">Gantt Chart</h4>
 
-                        <div
-                            class="d-flex justify-content-start align-items-center mt-3">
-                            <div class="fw-bold px-2 w-50">Process A</div>
-                            <div
-                                class="w-100 h-25 orange p-2 text-center border border-secondary text-white fw-bold">515</div>
-                            <div
-                                class="w-100 h-25 orange p-2 text-center border border-secondary text-white fw-bold">625</div>
-                            <div
-                                class="w-100 h-25 orange p-2 text-center border border-secondary text-white fw-bold">1018</div>
-                            <div
-                                class="w-100 h-25 orange p-2 text-center border border-secondary text-white fw-bold">20254</div>
-                        </div>
-
-                        <div
-                            class="d-flex justify-content-start align-items-center mt-3">
-                            <div class="fw-bold px-2 w-50">Process B</div>
-                            <div
-                                class="w-100 h-25 orange p-2 text-center border border-secondary text-white fw-bold">515</div>
-                            <div
-                                class="w-100 h-25 orange p-2 text-center border border-secondary text-white fw-bold">625</div>
-                            <div
-                                class="w-100 h-25 orange p-2 text-center border border-secondary text-white fw-bold">1018</div>
-                            <div
-                                class="w-100 h-25 orange p-2 text-center border border-secondary text-white fw-bold">20254</div>
-                        </div>
-
-                        <div
-                            class="d-flex justify-content-start align-items-center mt-3">
-                            <div class="fw-bold px-2 w-50">Process C</div>
-                            <div
-                                class="w-100 h-25 orange p-2 text-center border border-secondary text-white fw-bold">515</div>
-                            <div
-                                class="w-100 h-25 orange p-2 text-center border border-secondary text-white fw-bold">625</div>
-                            <div
-                                class="w-100 h-25 orange p-2 text-center border border-secondary text-white fw-bold">1018</div>
-                            <div
-                                class="w-100 h-25 orange p-2 text-center border border-secondary text-white fw-bold">20254</div>
-                        </div>
-
-                        <div
-                            class="d-flex justify-content-start align-items-center mt-3">
-                            <div class="fw-bold px-2 w-50">Process D</div>
-                            <div
-                                class="w-100 h-25 orange p-2 text-center border border-secondary text-white fw-bold">515</div>
-                            <div
-                                class="w-100 h-25 orange p-2 text-center border border-secondary text-white fw-bold">625</div>
-                            <div
-                                class="w-100 h-25 orange p-2 text-center border border-secondary text-white fw-bold">1018</div>
-                            <div
-                                class="w-100 h-25 orange p-2 text-center border border-secondary text-white fw-bold">20254</div>
-                        </div>
-
+                        <div id="chart-write"></div>
                     </div>
 
                     <table class="table table-bordered text-center mt-4">
@@ -133,34 +86,7 @@
                                 <th scope="col">Left Over</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            <tr scope="row">
-                                <td>A</td>
-                                <td>2</td>
-                                <td>2</td>
-                                <td>2</td>
-                            </tr>
-
-                            <tr scope="row">
-                                <td>A</td>
-                                <td>2</td>
-                                <td>2</td>
-                                <td>2</td>
-                            </tr>
-
-                            <tr scope="row">
-                                <td>A</td>
-                                <td>2</td>
-                                <td>2</td>
-                                <td>2</td>
-                            </tr>
-
-                            <tr scope="row">
-                                <td>A</td>
-                                <td>2</td>
-                                <td>2</td>
-                                <td>2</td>
-                            </tr>
+                        <tbody id="table-row">
 
                         </tbody>
                     </table>
@@ -170,7 +96,8 @@
             </article>
         </main>
 
+        <script src="./assets/js/sweetalert2.min.js"></script>
         <script src="./assets/js/bootstrap.min.js"></script>
-        <script src="./assets/js/main.js"></script>
+        <script src="./assets/js/memmory.js"></script>
     </body>
 </html>

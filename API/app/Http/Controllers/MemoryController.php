@@ -8,7 +8,7 @@ class MemoryController extends Controller
 {
     public function best_fit(Request $request)
     {
-        if ($request->input('Algorithm') == "BestFit") {
+        if ($request->input('Algorithm') == "bestfit") {
             $block_array = explode(' ', $request->get("Block"));
             $process_array = explode(' ', $request->get("Process"));
 
@@ -53,7 +53,7 @@ class MemoryController extends Controller
 
     public function first_fit(Request $request)
     {
-        if ($request->input('Algorithm') == "FirstFit") {
+        if ($request->input('Algorithm') == "firstfit") {
             $block_array = explode(' ', $request->get("Block"));
             $process_array = explode(' ', $request->get("Process"));
 
@@ -97,7 +97,7 @@ class MemoryController extends Controller
 
     public function worst_fit(Request $request)
     {
-        if ($request->input('Algorithm') == "WorstFit") {
+        if ($request->input('Algorithm') == "worstfit") {
             $block_array = explode(' ', $request->get("Block"));
             $process_array = explode(' ', $request->get("Process"));
 
@@ -144,7 +144,7 @@ class MemoryController extends Controller
 
     public function next_fit(Request $request)
     {
-        if ($request->input('Algorithm') == "NextFit") {
+        if ($request->input('Algorithm') == "nextfit") {
             $block_array = explode(' ', $request->get("Block"));
             $process_array = explode(' ', $request->get("Process"));
 
