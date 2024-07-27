@@ -35,8 +35,8 @@ Route::post('/lru', [PageReplacementController::class, 'lru']);
 Route::post('/mru', [PageReplacementController::class, 'mru']);
 Route::post('/lfu', [PageReplacementController::class, 'lfu']);
 Route::post('/mfu', [PageReplacementController::class, 'mfu']);
-Route::post('/random_page_replacement', [PageReplacementController::class, 'rendomPageReplacement']);
-Route::post('/optimal_page_replacement', [PageReplacementController::class, 'optimalPageReplacement']);
+Route::post('/randompagereplacement', [PageReplacementController::class, 'rendomPageReplacement']);
+Route::post('/optimalpagereplacement', [PageReplacementController::class, 'optimalPageReplacement']);
 
 //banker's controller routes
 Route::post('/banker', [BankerController::class, 'banker']);
