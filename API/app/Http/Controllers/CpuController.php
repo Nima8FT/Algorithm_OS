@@ -716,7 +716,7 @@ class CpuController extends Controller
 
     public function priority_none_preemptive(Request $request)
     {
-        if ($request->input("Algorithm") == "Priority" && $request->input("Mode") == "None-Preemptive") {
+        if ($request->input("Algorithm") == "NONPREEMPTIVE") {
             $arrival_array = explode(' ', $request->get("Arrival"));
             $burst_array = explode(' ', $request->get('Burst'));
             $priority_array = explode(' ', $request->get('Priority'));
@@ -821,7 +821,7 @@ class CpuController extends Controller
 
     public function priority_preemptive(Request $request)
     {
-        if ($request->input("Algorithm") == "Priority" && $request->input("Mode") == "Preemptive") {
+        if ($request->input("Algorithm") == "PREEMPTIVE") {
             $arrival_array = explode(' ', $request->get("Arrival"));
             $burst_array = explode(' ', $request->get('Burst'));
             $priority_array = explode(' ', $request->get('Priority'));

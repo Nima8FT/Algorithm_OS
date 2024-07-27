@@ -4,13 +4,14 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Algorithm OS</title>
+        <link rel="stylesheet" href="./assets/css/sweetalert2.min.css">
         <link rel="stylesheet" href="./assets/css/bootstrap.min.css">
         <link rel="stylesheet" href="./assets/css/style.css">
     </head>
     <body>
 
         <nav
-            class="navbar orange navbar-light d-flex flex-row justify-content-around shadow rounded">
+            class="navbar bg-blue navbar-light d-flex flex-row justify-content-around shadow rounded">
             <a class="nav-item h5 fw-bold active">Algorithms for cpu
                 scheduling</a>
             <a class="nav-item h5 fw-bold">Algorithms for memory allocation</a>
@@ -18,8 +19,7 @@
         </nav>
 
         <main class="container d-flex justify-content-around mt-5 mb-5">
-            <article class="w-25 bg-light card shadow rounded"
-                style="height: 550px;">
+            <article class="w-25 bg-light card shadow rounded">
                 <div class="card-body">
                     <h5 class="card-title h1 fw-bold">Input</h5>
                     <form class="mt-4">
@@ -29,16 +29,30 @@
                             <select class="form-control form-select"
                                 name="algorithm"
                                 id="algorithm">
-                                <option value="fcfs">FCFS</option>
-                                <option value="sjf">SJF</option>
-                                <option value="rr">Round Roubin</option>
-                                <option value="srt">SRTF</option>
+                                <option value="fcfs">First Come First Serve
+                                    (FCFS)</option>
+                                <option value="sjf">Shortest Job First
+                                    (SJF)</option>
+                                <option value="ljf">Longest Job First
+                                    (LJF)</option>
+                                <option value="rr">Round Roubin (RR)</option>
+                                <option value="srtf">Shortest Remaining Time
+                                    First (SRTF)</option>
+                                <option value="lrtf">Longest Remaining Time
+                                    First (LRTF)</option>
+                                <option value="hrrn">Highest Response Ratio
+                                    Next (HRRN)</option>
+                                <option
+                                    value="nonpreemptive">Priority(Non-Preemptive)</option>
+                                <option
+                                    value="preemptive">Priority(Preemptive)</option>
                             </select>
                         </div>
                         <div class="form-group mb-4">
                             <label class="mb-1 fw-bold blue"
                                 for="arrival">Arrival Times</label>
-                            <input type="text" class="form-control" id="arrival"
+                            <input type="text" class="form-control"
+                                id="arrival"
                                 placeholder="0 2 4 6 8">
                         </div>
 
@@ -49,16 +63,26 @@
                                 placeholder="2 4 6 8 10">
                         </div>
 
-                        <div class="form-group mb-5">
+                        <div class="form-group mb-5 d-none"
+                            id="txt-quantom-time">
                             <label class="mb-1 fw-bold blue"
                                 for="quantom">Time Quantom</label>
                             <input type="text" class="form-control" id="quantom"
                                 placeholder="3">
                         </div>
 
-                        <div class="d-grid gap-2 mt-3">
-                            <button type="submit"
-                                class="btn orange text-light fw-bold">Solve</button>
+                        <div class="form-group mb-5 txt-priority d-none"
+                            id="txt-priority">
+                            <label class="mb-1 fw-bold blue"
+                                for="quantom">Priorities</label>
+                            <input type="text" class="form-control"
+                                id="priority"
+                                placeholder="Lower # = higher priority">
+                        </div>
+
+                        <div class="d-grid gap-2 mt-3" id="btn-cpu">
+                            <button type="button"
+                                class="btn bg-blue text-light fw-bold">Solve</button>
                         </div>
                     </form>
                 </div>
@@ -68,7 +92,7 @@
                     <div class="card-body-top d-flex justify-content-between">
                         <h5 class="card-title h1 fw-bold">OutPut</h5>
                         <h5
-                            class="card-title h4 fw-bold border orange p-2 px-4 shadow rounded text-light">FCFS</h5>
+                            class="card-title h4 fw-bold border bg-blue p-2 px-4 shadow rounded text-light">FCFS</h5>
                     </div>
 
                     <div class="card-body-chart mt-3">
@@ -77,15 +101,15 @@
                         <div
                             class="d-flex justify-content-center align-items-center mt-2 flex-wrap">
                             <div
-                                class="w-box h-25 orange p-2 text-center border border-secondary text-white fw-bold">A</div>
+                                class="w-box h-25 bg-blue p-2 text-center border border-secondary text-white fw-bold">A</div>
                             <div
-                                class="w-box h-25 orange p-2 text-center border border-secondary text-white fw-bold">B</div>
+                                class="w-box h-25 bg-blue p-2 text-center border border-secondary text-white fw-bold">B</div>
                             <div
-                                class="w-box h-25 orange p-2 text-center border border-secondary text-white fw-bold">C</div>
+                                class="w-box h-25 bg-blue p-2 text-center border border-secondary text-white fw-bold">C</div>
                             <div
-                                class="w-box h-25 orange p-2 text-center border border-secondary text-white fw-bold">D</div>
+                                class="w-box h-25 bg-blue p-2 text-center border border-secondary text-white fw-bold">D</div>
                             <div
-                                class="w-box h-25 orange p-2 text-center border border-secondary text-white fw-bold">E</div>
+                                class="w-box h-25 bg-blue p-2 text-center border border-secondary text-white fw-bold">E</div>
                         </div>
 
                         <div
@@ -170,7 +194,8 @@
             </article>
         </main>
 
+        <script src="./assets/js/sweetalert2.min.js"></script>
         <script src="./assets/js/bootstrap.min.js"></script>
-        <script src="./assets/js/main.js"></script>
+        <script src="./assets/js/index.js"></script>
     </body>
 </html>

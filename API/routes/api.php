@@ -19,8 +19,8 @@ Route::post('/rr', [CpuController::class, 'rr']);
 Route::post('/srtf', [CpuController::class, 'srtf']);
 Route::post('/lrtf', [CpuController::class, 'lrtf']);
 Route::post('/hrrn', [CpuController::class, 'hrrn']);
-Route::post('/priority/none-preemptive', [CpuController::class, 'priority_none_preemptive']);
-Route::post('/priority/preemptive', [CpuController::class, 'priority_preemptive']);
+Route::post('/nonpreemptive', [CpuController::class, 'priority_none_preemptive']);
+Route::post('/preemptive', [CpuController::class, 'priority_preemptive']);
 
 //memory allocation controller routes
 Route::post('/bestfit', [MemoryController::class, 'best_fit']);

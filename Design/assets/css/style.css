@@ -20,11 +20,13 @@ a {
     text-decoration: none;
     cursor: pointer;
     transition: all ease-in-out 0.2s;
+    opacity: 0.8;
 }
 
 a:hover,
 .active {
-    color: #201D52;
+    opacity: 1;
+    color: #ffffff;
 }
 
 .navbar {
@@ -41,6 +43,10 @@ a:hover,
 
 .blue {
     color: #201D52 !important;
+}
+
+.bg-blue {
+    background: #201D52 !important;
 }
 
 .w-box {
