@@ -12,10 +12,13 @@
 
         <nav
             class="navbar bg-blue navbar-light d-flex flex-row justify-content-around shadow rounded">
-            <a class="nav-item h5 fw-bold active">Algorithms for cpu
+            <a href="cpu.html" class="nav-item h5 fw-bold active">Algorithms for
+                cpu
                 scheduling</a>
-            <a class="nav-item h5 fw-bold">Algorithms for memory allocation</a>
-            <a class="nav-item h5 fw-bold">The banker's algorithm</a>
+            <a href="memmory.html" class="nav-item h5 fw-bold">Algorithms for
+                memory allocation</a>
+            <a href="banker.html" class="nav-item h5 fw-bold">The banker's
+                algorithm</a>
         </nav>
 
         <main class="container d-flex justify-content-around mt-5 mb-5">
@@ -88,38 +91,25 @@
                 </div>
             </article>
             <article class="w-75 bg-light card shadow rounded ms-5">
-                <div class="card-body">
+                <div class="card-body d-none" id="output">
                     <div class="card-body-top d-flex justify-content-between">
                         <h5 class="card-title h1 fw-bold">OutPut</h5>
                         <h5
-                            class="card-title h4 fw-bold border bg-blue p-2 px-4 shadow rounded text-light">FCFS</h5>
+                            class="card-title h4 fw-bold border bg-blue p-2 px-4 shadow rounded text-light"
+                            id="show-algorithm"></h5>
                     </div>
 
                     <div class="card-body-chart mt-3">
                         <h4 class="text-center">Gantt Chart</h4>
 
                         <div
-                            class="d-flex justify-content-center align-items-center mt-2 flex-wrap">
-                            <div
-                                class="w-box h-25 bg-blue p-2 text-center border border-secondary text-white fw-bold">A</div>
-                            <div
-                                class="w-box h-25 bg-blue p-2 text-center border border-secondary text-white fw-bold">B</div>
-                            <div
-                                class="w-box h-25 bg-blue p-2 text-center border border-secondary text-white fw-bold">C</div>
-                            <div
-                                class="w-box h-25 bg-blue p-2 text-center border border-secondary text-white fw-bold">D</div>
-                            <div
-                                class="w-box h-25 bg-blue p-2 text-center border border-secondary text-white fw-bold">E</div>
+                            class="d-flex justify-content-center align-items-center mt-2 flex-wrap"
+                            id="ganttchart-name">
                         </div>
 
                         <div
-                            class="d-flex justify-content-center align-items-center ms-4">
-                            <span class="w-number p-2">0</span>
-                            <span class="w-number p-2">2</span>
-                            <span class="w-number p-2">5</span>
-                            <span class="w-number p-2">7</span>
-                            <span class="w-number p-2">10</span>
-                            <span class="w-number p-2">20</span>
+                            class="d-flex justify-content-center align-items-center ms-4"
+                            id="ganttchart-number">
                         </div>
 
                     </div>
@@ -135,53 +125,8 @@
                                 <th scope="col">Waiting Time</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            <tr scope="row">
-                                <td>A</td>
-                                <td>2</td>
-                                <td>2</td>
-                                <td>2</td>
-                                <td>2</td>
-                                <td>2</td>
-                            </tr>
-
-                            <tr scope="row">
-                                <td>A</td>
-                                <td>2</td>
-                                <td>2</td>
-                                <td>2</td>
-                                <td>2</td>
-                                <td>2</td>
-                            </tr>
-
-                            <tr scope="row">
-                                <td>A</td>
-                                <td>2</td>
-                                <td>2</td>
-                                <td>2</td>
-                                <td>2</td>
-                                <td>2</td>
-                            </tr>
-
-                            <tr scope="row">
-                                <td>A</td>
-                                <td>2</td>
-                                <td>2</td>
-                                <td>2</td>
-                                <td>2</td>
-                                <td>2</td>
-                            </tr>
-
-                            <tr scope="row">
-                                <td>A</td>
-                                <td>2</td>
-                                <td>2</td>
-                                <td>2</td>
-                                <td>2</td>
-                                <td>2</td>
-                            </tr>
-
-                            <tr scope="row">
+                        <tbody id="table-row">
+                            <tr scope="row" id="avg-table">
                                 <td colspan="4" class="text-end">Average</td>
                                 <td>2</td>
                                 <td>2</td>

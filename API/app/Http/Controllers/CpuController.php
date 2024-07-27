@@ -37,7 +37,7 @@ class CpuController extends Controller
                 $burst = $processes[$i]['burst_time'];
                 if ($current_time < $arrival) {
                     $gantt_chart[] = [
-                        "process" => "gap",
+                        "process" => "-",
                         "start" => $current_time,
                         "end" => $arrival,
                     ];
@@ -125,7 +125,7 @@ class CpuController extends Controller
 
                 if ($shortest_process_index == -1) {
                     $gantt_chart[] = [
-                        'process' => 'gap',
+                        'process' => '-',
                         'start' => $current_time,
                         'end' => $current_time + 1,
                     ];
@@ -218,7 +218,7 @@ class CpuController extends Controller
 
                 if ($longest_process_index == -1) {
                     $gantt_chart[] = [
-                        "process" => "gap",
+                        "process" => "-",
                         "start" => $current_time,
                         "end" => $current_time + 1,
                     ];
@@ -353,7 +353,7 @@ class CpuController extends Controller
 
                 if (!$is_process) {
                     $gantt_chart[] = [
-                        "process" => "gap",
+                        "process" => "-",
                         "start" => $current_time,
                         "end" => $current_time + 1,
                     ];
@@ -456,7 +456,7 @@ class CpuController extends Controller
 
                 if ($index_process == -1) {
                     $gantt_chart[] = [
-                        "process" => "gap",
+                        "process" => "-",
                         "start" => $current_time,
                         "end" => $current_time + 1,
                     ];
@@ -561,7 +561,7 @@ class CpuController extends Controller
 
                 if ($index_process == -1) {
                     $gantt_chart[] = [
-                        "process" => "gap",
+                        "process" => "-",
                         "start" => $current_time,
                         "end" => $current_time + 1,
                     ];
@@ -660,7 +660,7 @@ class CpuController extends Controller
 
                 if ($index_process == -1) {
                     $gantt_chart[] = [
-                        "process" => "gap",
+                        "process" => "-",
                         "start" => $current_time,
                         "end" => $current_time + 1,
                     ];
@@ -766,7 +766,7 @@ class CpuController extends Controller
                 if ($index_process == -1) {
                     $current_time++;
                     $gantt_chart[] = [
-                        "process" => "gap",
+                        "process" => "-",
                         "start" => $current_time,
                         "end" => $current_time + 1,
                     ];
@@ -880,7 +880,7 @@ class CpuController extends Controller
 
                 if ($index_process == -1) {
                     $gantt_chart[] = [
-                        "process" => "gap",
+                        "process" => "-",
                         "start" => $current_time,
                         "end" => $current_time + 1,
                     ];
