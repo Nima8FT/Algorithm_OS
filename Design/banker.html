@@ -4,27 +4,35 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Algorithm OS</title>
+        <link rel="stylesheet" href="./assets/css/sweetalert2.min.css">
         <link rel="stylesheet" href="./assets/css/bootstrap.min.css">
         <link rel="stylesheet" href="./assets/css/style.css">
     </head>
     <body>
 
         <nav
-            class="navbar orange navbar-light d-flex flex-row justify-content-around shadow rounded">
-            <a class="nav-item h5 fw-bold">Algorithms for cpu
+            class="navbar bg-blue navbar-light d-flex flex-row justify-content-around shadow rounded">
+            <a href="cpu.html" class="nav-item h5 fw-bold">Algorithms for
+                cpu
                 scheduling</a>
-            <a class="nav-item h5 fw-bold">Algorithms for memory
-                allocation</a>
-            <a class="nav-item h5 fw-bold active">The banker's algorithm</a>
+            <a href="memmory.html" class="nav-item h5 fw-bold">Algorithms for
+                memory allocation</a>
+            <a href="pagereplacement.html"
+                class="nav-item h5 fw-bold">Algorithms for
+                Page Replacement</a>
+            <a href="banker.html" class="nav-item h5 fw-bold active">The
+                banker's
+                algorithm</a>
         </nav>
 
         <main class="container d-flex justify-content-around mt-5 mb-5">
+
             <article class="w-25 bg-light card shadow rounded"
-                style="height: 350px;">
+                style="max-height: 500px;">
                 <div class="card-body">
                     <h5 class="card-title h1 fw-bold">Input</h5>
                     <form class="mt-4">
-                        <div class="form-group mb-4">
+                        <div class="form-group py-2">
                             <label class="mb-1 fw-bold blue"
                                 for="algorithm">Algorithm</label>
                             <select class="form-control form-select"
@@ -33,86 +41,58 @@
                                 <option value="banker">Banker's</option>
                             </select>
                         </div>
-                        <div class="form-group mb-5">
+                        <div class="form-group py-2">
                             <label class="mb-1 fw-bold blue"
-                                for="block">Instances Of</label>
-                            <input type="text" class="form-control" id="block"
-                                placeholder="0 2 4 6 8">
+                                for="instance">Instances Of</label>
+                            <input type="text" class="form-control"
+                                id="instance"
+                                placeholder="10 5 7">
                         </div>
 
-                        <div class="d-grid gap-2 mt-3">
-                            <button type="submit"
-                                class="btn orange text-light fw-bold">Solve</button>
+                        <div class="form-group py-2">
+                            <label class="mb-1 fw-bold blue"
+                                for="process">Process</label>
+                            <input type="number" class="form-control"
+                                id="process"
+                                placeholder="5">
+                        </div>
+
+                        <div class="form-group py-2">
+                            <label class="mb-1 fw-bold blue"
+                                for="column">Column</label>
+                            <input type="number" class="form-control"
+                                id="column"
+                                placeholder="3">
+                        </div>
+
+                        <div class="d-grid gap-2 mt-3 py-2">
+                            <button type="button"
+                                class="btn bg-blue text-light fw-bold"
+                                id="btn-submit">Solve</button>
                         </div>
                     </form>
                 </div>
             </article>
+
             <article
                 class="w-75 d-flex flex-wrap">
                 <section
-                    class="w-100 bg-light card shadow rounded ms-5 mb-5">
-                    <div class="card-body d-flex">
+                    class="w-100 bg-light card shadow rounded ms-5 mb-5 py-3"
+                    style="max-height:400px;">
+                    <div class="card-body d-flex d-none"
+                        id="table-allocation-max">
+
                         <table class="table table-bordered text-center w-50">
                             <thead>
                                 <tr>
                                     <th colspan="5">Allocation</th>
                                 </tr>
-                                <tr>
-                                    <th></th>
-                                    <th>A</th>
-                                    <th>B</th>
-                                    <th>C</th>
-                                    <th>D</th>
+                                <tr id="allocation-column">
                                 </tr>
                             </thead>
 
-                            <tr>
-                                <td>P1</td>
-                                <td><input type="text"
-                                        class="w-100 text-center border-0"></td>
-                                <td><input type="text"
-                                        class="w-100 text-center border-0"></td>
-                                <td><input type="text"
-                                        class="w-100 text-center border-0"></td>
-                                <td><input type="text"
-                                        class="w-100 text-center border-0"></td>
-                            </tr>
-
-                            <tr>
-                                <td>P2</td>
-                                <td><input type="text"
-                                        class="w-100 text-center border-0"></td>
-                                <td><input type="text"
-                                        class="w-100 text-center border-0"></td>
-                                <td><input type="text"
-                                        class="w-100 text-center border-0"></td>
-                                <td><input type="text"
-                                        class="w-100 text-center border-0"></td>
-                            </tr>
-
-                            <tr>
-                                <td>P3</td>
-                                <td><input type="text"
-                                        class="w-100 text-center border-0"></td>
-                                <td><input type="text"
-                                        class="w-100 text-center border-0"></td>
-                                <td><input type="text"
-                                        class="w-100 text-center border-0"></td>
-                                <td><input type="text"
-                                        class="w-100 text-center border-0"></td>
-                            </tr>
-
-                            <tr>
-                                <td>P4</td>
-                                <td><input type="text"
-                                        class="w-100 text-center border-0"></td>
-                                <td><input type="text"
-                                        class="w-100 text-center border-0"></td>
-                                <td><input type="text"
-                                        class="w-100 text-center border-0"></td>
-                                <td><input type="text"
-                                        class="w-100 text-center border-0"></td>
-                            </tr>
+                            <tbody id="allocation-process">
+                            </tbody>
                         </table>
 
                         <table
@@ -121,180 +101,74 @@
                                 <tr>
                                     <th colspan="5">Max</th>
                                 </tr>
-                                <tr>
-                                    <th></th>
-                                    <th>A</th>
-                                    <th>B</th>
-                                    <th>C</th>
-                                    <th>D</th>
+                                <tr id="max-column">
                                 </tr>
                             </thead>
 
-                            <tr>
-                                <td>P1</td>
-                                <td><input type="text"
-                                        class="w-100 text-center border-0"></td>
-                                <td><input type="text"
-                                        class="w-100 text-center border-0"></td>
-                                <td><input type="text"
-                                        class="w-100 text-center border-0"></td>
-                                <td><input type="text"
-                                        class="w-100 text-center border-0"></td>
-                            </tr>
-
-                            <tr>
-                                <td>P2</td>
-                                <td><input type="text"
-                                        class="w-100 text-center border-0"></td>
-                                <td><input type="text"
-                                        class="w-100 text-center border-0"></td>
-                                <td><input type="text"
-                                        class="w-100 text-center border-0"></td>
-                                <td><input type="text"
-                                        class="w-100 text-center border-0"></td>
-                            </tr>
-
-                            <tr>
-                                <td>P3</td>
-                                <td><input type="text"
-                                        class="w-100 text-center border-0"></td>
-                                <td><input type="text"
-                                        class="w-100 text-center border-0"></td>
-                                <td><input type="text"
-                                        class="w-100 text-center border-0"></td>
-                                <td><input type="text"
-                                        class="w-100 text-center border-0"></td>
-                            </tr>
-
-                            <tr>
-                                <td>P4</td>
-                                <td><input type="text"
-                                        class="w-100 text-center border-0"></td>
-                                <td><input type="text"
-                                        class="w-100 text-center border-0"></td>
-                                <td><input type="text"
-                                        class="w-100 text-center border-0"></td>
-                                <td><input type="text"
-                                        class="w-100 text-center border-0"></td>
-                            </tr>
+                            <tbody id="max-process">
+                            </tbody>
                         </table>
 
                     </div>
                     <div
-                        class="card-body-button mb-3 d-flex justify-content-around align-items-center">
+                        class="card-body-button mb-3 d-flex justify-content-around align-items-center d-none"
+                        id="btn-find">
                         <button type="button"
-                            class="btn orange text-light fw-bold">Find
-                            Available</button>
-
-                        <button type="button"
-                            class="btn orange text-light fw-bold">Find
-                            Need</button>
-
-                        <button type="button"
-                            class="btn orange text-light fw-bold">Find
-                            Procces Sequence</button>
-
-                        <button type="button"
-                            class="btn orange text-light fw-bold">Find
-                            Reset</button>
+                            class="btn bg-blue text-light fw-bold">Find</button>
                     </div>
                 </section>
 
-                <section class="w-100 bg-light card shadow rounded ms-5">
-                    <div class="card-body d-flex">
+                <section class="w-100 bg-light card shadow rounded ms-5 d-none"
+                    id="table-need-available">
+                    <div class="card-body d-flex mt-3">
                         <table
-                            class="table table-bordered text-center w-50 ms-5">
+                            class="table table-bordered text-center w-50">
                             <thead>
                                 <tr>
                                     <th colspan="5">Need</th>
                                 </tr>
-                                <tr>
-                                    <th></th>
-                                    <th>A</th>
-                                    <th>B</th>
-                                    <th>C</th>
-                                    <th>D</th>
+                                <tr id="need-head">
                                 </tr>
                             </thead>
 
-                            <tr>
-                                <td>P1</td>
-                                <td><span>2</span></td>
-                                <td><span>2</span></td>
-                                <td><span>2</span></td>
-                                <td><span>2</span></td>
-                            </tr>
-
-                            <tr>
-                                <td>P2</td>
-                                <td><span>2</span></td>
-                                <td><span>2</span></td>
-                                <td><span>2</span></td>
-                                <td><span>2</span></td>
-                            </tr>
-
-                            <tr>
-                                <td>P3</td>
-                                <td><span>2</span></td>
-                                <td><span>2</span></td>
-                                <td><span>2</span></td>
-                                <td><span>2</span></td>
-                            </tr>
-
-                            <tr>
-                                <td>P4</td>
-                                <td><span>2</span></td>
-                                <td><span>2</span></td>
-                                <td><span>2</span></td>
-                                <td><span>2</span></td>
-                            </tr>
+                            <tbody id="need-row">
+                            </tbody>
                         </table>
 
-                        <div class="card-body-left w-50">
-
-                            <table
-                                class="table table-bordered w-75 text-center ms-5">
-                                <thead>
-                                    <tr>
-                                        <th colspan="5">Available</th>
-                                    </tr>
-                                    <tr>
-                                        <th>A</th>
-                                        <th>B</th>
-                                        <th>C</th>
-                                        <th>D</th>
-                                    </tr>
-                                </thead>
-
+                        <table
+                            class="table table-bordered text-center w-50 ms-5">
+                            <thead>
                                 <tr>
-                                    <td><span>2</span></td>
-                                    <td><span>2</span></td>
-                                    <td><span>2</span></td>
-                                    <td><span>2</span></td>
+                                    <th colspan="5">Available</th>
                                 </tr>
-                            </table>
+                                <tr id="available-head">
+                                </tr>
+                            </thead>
+                            <tbody id="available-row">
 
-                            <table
-                                class="table table-bordered w-75 text-center ms-5 mt-5">
-                                <thead>
-                                    <tr>
-                                        <th colspan="5">Process Sequence</th>
-                                    </tr>
-                                    <tr>
-                                        <th>A</th>
-                                        <th>B</th>
-                                        <th>C</th>
-                                        <th>D</th>
-                                    </tr>
-                                </thead>
-                            </table>
-                        </div>
+                            </tbody>
+                        </table>
                     </div>
+
+                    <div class="mx-3">
+                        <table
+                            class="table table-bordered text-center">
+                            <thead>
+                                <tr>
+                                    <th colspan="5">Process Sequence</th>
+                                </tr>
+                                <tr id="process-sequence">
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+
                 </section>
             </article>
-        </main>
 
+        </main>
+        <script src="./assets/js/sweetalert2.min.js"></script>
         <script src="./assets/js/bootstrap.min.js"></script>
-        <script src="./assets/js/main.js"></script>
+        <script src="./assets/js/banker.js"></script>
     </body>
 </html>

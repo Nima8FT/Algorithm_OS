@@ -8,13 +8,14 @@ class BankerController extends Controller
 {
     public function banker(Request $request)
     {
-        if ($request->input("Algorithm") == "Banker's") {
+        if ($request->input("Algorithm") == "banker") {
 
             $allocation = explode('#', $request->get('Allocation'));
             $allocation_matrices = [];
             foreach ($allocation as $key => $value) {
                 $allocation_matrices["P" . $key + 1] = explode(',', $value);
             }
+
 
             $max = explode('#', $request->get('Max'));
             $max_matrices = [];
