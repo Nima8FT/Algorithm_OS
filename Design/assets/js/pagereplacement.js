@@ -7,6 +7,8 @@ var output = document.getElementById('output');
 var tableHead = document.getElementById('table-head');
 var tableBody = document.getElementById('table-row');
 var numPageFault = document.getElementById('num-page-fault');
+var menuResponsive = document.getElementById('menu-list');
+var menuResponsiveBtn = document.getElementById('hamburger-menu');
 var algorithm = 'fifo';
 var apiUrl = 'http://127.0.0.1:8000/api/fifo';
 
@@ -43,6 +45,10 @@ btnSubmit.addEventListener('click', function () {
             text: "Please enter values",
         });
     }
+});
+
+menuResponsiveBtn.addEventListener('click', function () {
+    menuResponsive.classList.toggle('d-none');
 });
 
 function isNumber(value) {

@@ -13,6 +13,8 @@ var ganttChartName = document.getElementById('ganttchart-name');
 var ganttChartNum = document.getElementById('ganttchart-number');
 var tableRowProcess = document.getElementById('table-row');
 var avgTable = document.getElementById('avg-table');
+var menuResponsive = document.getElementById('menu-list');
+var menuResponsiveBtn = document.getElementById('hamburger-menu');
 var apiUrl = 'http://127.0.0.1:8000/api/fcfs';
 var algorithm = 'FCFS';
 var apiData;
@@ -95,6 +97,10 @@ btnCpuSubmit.addEventListener('click', function () {
             text: "Please enter values",
         });
     }
+});
+
+menuResponsiveBtn.addEventListener('click', function () {
+    menuResponsive.classList.toggle('d-none');
 });
 
 function isNumber(value) {

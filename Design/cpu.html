@@ -12,20 +12,60 @@
 
         <nav
             class="navbar bg-blue navbar-light d-flex flex-row justify-content-around shadow rounded">
-            <a href="cpu.html" class="nav-item h5 fw-bold active">Algorithms for
+            <a href="cpu.html"
+                class="nav-item h6 fw-bold active d-none d-md-inline">Algorithms
+                for
                 cpu
                 scheduling</a>
-            <a href="memmory.html" class="nav-item h5 fw-bold">Algorithms for
+            <a href="memmory.html"
+                class="nav-item h6 fw-bold d-none d-md-inline">Algorithms
+                for
                 memory allocation</a>
             <a href="pagereplacement.html"
-                class="nav-item h5 fw-bold">Algorithms for
+                class="nav-item h6 fw-bold d-none d-md-inline">Algorithms for
                 Page Replacement</a>
-            <a href="banker.html" class="nav-item h5 fw-bold">The banker's
+            <a href="banker.html"
+                class="nav-item h6 fw-bold d-none d-md-inline">The banker's
                 algorithm</a>
+            <div class="menu d-md-none">
+                <div class="menu-show w-100">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20"
+                        height="20" fill="currentColor"
+                        class="bi bi-list text-white mx-3"
+                        viewBox="0 0 16 16" id="hamburger-menu">
+                        <path fill-rule="evenodd"
+                            d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5" />
+                    </svg>
+                    <a href="cpu.html"
+                        class="nav-item h6 fw-bold active mx-4">Algorithms
+                        for
+                        cpu
+                        scheduling</a>
+                </div>
+                <div
+                    class="menu-list position-absolute bg-blue start-0 mt-3 p-2 d-flex flex-wrap d-none" id="menu-list">
+                    <a href="cpu.html"
+                        class="nav-item h6 fw-bold active">Algorithms
+                        for cpu scheduling</a>
+                    <a href="memmory.html"
+                        class="nav-item h6 fw-bold d-md-none">Algorithms
+                        for
+                        memory allocation</a>
+                    <a href="pagereplacement.html"
+                        class="nav-item h6 fw-bold d-md-none">Algorithms
+                        for
+                        Page Replacement</a>
+                    <a href="banker.html"
+                        class="nav-item h6 fw-bold d-md-none">The
+                        banker's
+                        algorithm</a>
+                </div>
+            </div>
         </nav>
 
-        <main class="container d-flex justify-content-around mt-5 mb-5">
-            <article class="w-25 bg-light card shadow rounded">
+        <main class="container d-md-flex justify-content-around mt-5 mb-5">
+            <article
+                class="w-md-25 bg-light card shadow rounded col-12 col-md-3">
                 <div class="card-body">
                     <h5 class="card-title h1 fw-bold">Input</h5>
                     <form class="mt-4">
@@ -93,7 +133,8 @@
                     </form>
                 </div>
             </article>
-            <article class="w-75 bg-light card shadow rounded ms-5">
+            <article
+                class="w-md-75 bg-light card shadow rounded ms-md-5 mt-3 col-12 col-md-9">
                 <div class="card-body d-none" id="output">
                     <div class="card-body-top d-flex justify-content-between">
                         <h5 class="card-title h1 fw-bold">OutPut</h5>
@@ -117,20 +158,23 @@
 
                     </div>
 
-                    <table class="table table-bordered text-center mt-4">
-                        <thead>
-                            <tr>
-                                <th scope="col">Process</th>
-                                <th scope="col">Arrival Time</th>
-                                <th scope="col">Burst Time</th>
-                                <th scope="col">Finish Time</th>
-                                <th scope="col">Turnaround Time</th>
-                                <th scope="col">Waiting Time</th>
-                            </tr>
-                        </thead>
-                        <tbody id="table-row">
-                        </tbody>
-                    </table>
+                    <div class="table-responsive-sm">
+                        <table
+                            class="table table-bordered text-center mt-4">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Process</th>
+                                    <th scope="col">Arrival Time</th>
+                                    <th scope="col">Burst Time</th>
+                                    <th scope="col">Finish Time</th>
+                                    <th scope="col">Turnaround Time</th>
+                                    <th scope="col">Waiting Time</th>
+                                </tr>
+                            </thead>
+                            <tbody id="table-row">
+                            </tbody>
+                        </table>
+                    </div>
 
                 </div>
 

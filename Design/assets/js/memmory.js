@@ -6,6 +6,8 @@ var algorithmName = document.getElementById('algorithm-name');
 var output = document.getElementById('output');
 var chartWrite = document.getElementById('chart-write');
 var tableRowProcess = document.getElementById('table-row');
+var menuResponsive = document.getElementById('menu-list');
+var menuResponsiveBtn = document.getElementById('hamburger-menu');
 var algorithm = "firstfit";
 var apiUrl = 'http://127.0.0.1:8000/api/firstfit';
 
@@ -35,6 +37,10 @@ btnSubmit.addEventListener('click', function (e) {
             text: "Please enter values",
         });
     }
+});
+
+menuResponsiveBtn.addEventListener('click', function () {
+    menuResponsive.classList.toggle('d-none');
 });
 
 function isNumber(value) {

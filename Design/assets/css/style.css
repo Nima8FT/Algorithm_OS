@@ -64,3 +64,9 @@ a:hover,
 input:focus {
     outline: none;
 }
+
+.menu-list {
+    width: 300px;
+    height: 300px;
+    z-index: 100;
+}

@@ -12,22 +12,62 @@
 
         <nav
             class="navbar bg-blue navbar-light d-flex flex-row justify-content-around shadow rounded">
-            <a href="cpu.html" class="nav-item h5 fw-bold">Algorithms for
+            <a href="cpu.html"
+                class="nav-item h6 fw-bold d-none d-md-inline">Algorithms
+                for
                 cpu
                 scheduling</a>
-            <a href="memmory.html" class="nav-item h5 fw-bold">Algorithms for
+            <a href="memmory.html"
+                class="nav-item h6 fw-bold d-none d-md-inline">Algorithms
+                for
                 memory allocation</a>
             <a href="pagereplacement.html"
-                class="nav-item h5 fw-bold">Algorithms for
+                class="nav-item h6 fw-bold d-none d-md-inline">Algorithms for
                 Page Replacement</a>
-            <a href="banker.html" class="nav-item h5 fw-bold active">The
+            <a href="banker.html"
+                class="nav-item h6 fw-bold d-none d-md-inline active">The
                 banker's
                 algorithm</a>
+            <div class="menu d-md-none">
+                <div class="menu-show w-100">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20"
+                        height="20" fill="currentColor"
+                        class="bi bi-list text-white mx-3"
+                        viewBox="0 0 16 16" id="hamburger-menu">
+                        <path fill-rule="evenodd"
+                            d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5" />
+                    </svg>
+                    <a href="banker.html"
+                        class="nav-item h6 fw-bold d-md-none active">The
+                        banker's
+                        algorithm</a>
+                </div>
+                <div
+                    class="menu-list position-absolute bg-blue start-0 mt-3 p-2 d-flex flex-wrap d-none"
+                    id="menu-list">
+                    <a href="cpu.html"
+                        class="nav-item h6 fw-bold d-md-none">Algorithms
+                        for cpu scheduling</a>
+                    <a href="memmory.html"
+                        class="nav-item h6 fw-bold d-md-none">Algorithms
+                        for
+                        memory allocation</a>
+                    <a href="pagereplacement.html"
+                        class="nav-item h6 fw-bold d-md-none">Algorithms
+                        for
+                        Page Replacement</a>
+                    <a href="banker.html"
+                        class="nav-item h6 fw-bold d-md-none active">The
+                        banker's
+                        algorithm</a>
+                </div>
+            </div>
         </nav>
 
-        <main class="container d-flex justify-content-around mt-5 mb-5">
+        <main class="container d-md-flex justify-content-around mt-5 mb-5">
 
-            <article class="w-25 bg-light card shadow rounded"
+            <article
+                class="w-md-25 bg-light card shadow rounded col-12 col-md-3"
                 style="max-height: 500px;">
                 <div class="card-body">
                     <h5 class="card-title h1 fw-bold">Input</h5>
@@ -75,9 +115,9 @@
             </article>
 
             <article
-                class="w-75 d-flex flex-wrap">
+                class="w-md-75 d-flex flex-wrap mt-md-0 mt-5 col-md-9 col-12">
                 <section
-                    class="w-100 bg-light card shadow rounded ms-5 mb-5 py-3"
+                    class="w-100 bg-light card shadow rounded ms-md-5 mb-5 py-3"
                     style="max-height:400px;">
                     <div class="card-body d-flex d-none"
                         id="table-allocation-max">
@@ -118,9 +158,10 @@
                     </div>
                 </section>
 
-                <section class="w-100 bg-light card shadow rounded ms-5 d-none"
+                <section
+                    class="w-100 bg-light card shadow rounded ms-md-5 d-none"
                     id="table-need-available">
-                    <div class="card-body d-flex mt-3">
+                    <div class="card-body d-flex mt-3 table-responsive">
                         <table
                             class="table table-bordered text-center w-50">
                             <thead>

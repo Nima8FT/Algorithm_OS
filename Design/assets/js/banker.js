@@ -14,6 +14,8 @@ var needRow = document.getElementById('need-row');
 var availableHead = document.getElementById('available-head');
 var availableRow = document.getElementById('available-row');
 var processSequence = document.getElementById('process-sequence');
+var menuResponsive = document.getElementById('menu-list');
+var menuResponsiveBtn = document.getElementById('hamburger-menu');
 var arrayLetters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
 var algorithm = 'banker';
 var apiUrl = 'http://127.0.0.1:8000/api/banker';
@@ -86,6 +88,10 @@ btnFind.addEventListener('click', function () {
     }
     tableNeedAvailable.classList.remove('d-none');
     connectApi(algorithm, arrayAllocation, arrayMax, txtInstance);
+});
+
+menuResponsiveBtn.addEventListener('click', function () {
+    menuResponsive.classList.toggle('d-none');
 });
 
 function isNumber(value) {
