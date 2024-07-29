@@ -18,6 +18,7 @@ selectAlgorithm.addEventListener('change', function () {
 });
 
 btnSubmit.addEventListener('click', function () {
+    txtRefrences.value = deleteSpace(txtRefrences.value);
     if (txtRefrences.value.length > 0 && txtFrames.value.length > 0) {
         if (isNumber(txtRefrences.value)) {
             output.classList.remove('d-none');
@@ -54,6 +55,12 @@ menuResponsiveBtn.addEventListener('click', function () {
 function isNumber(value) {
     var valueSpace = value.replace(/\s+/g, '');
     return !isNaN(valueSpace);
+}
+
+function deleteSpace(value) {
+    value = value.replace(/^ /, '');
+    value = value.replace(/ $/, '');
+    return value;
 }
 
 function connectApi(algorithm, txtRefrences, txtFrames) {

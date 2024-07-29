@@ -21,6 +21,7 @@ var algorithm = 'banker';
 var apiUrl = 'http://127.0.0.1:8000/api/banker';
 
 btnSubmit.addEventListener('click', function () {
+    txtInstance.value = deleteSpace(txtInstance.value);
     if (txtInstance.value.length > 0 && txtProcess.value.length > 0 && txtColumn.value.length > 0) {
         if (isNumber(txtInstance.value)) {
             tableAllocationMax.classList.remove('d-none');
@@ -97,6 +98,12 @@ menuResponsiveBtn.addEventListener('click', function () {
 function isNumber(value) {
     var valueSpace = value.replace(/\s+/g, '');
     return !isNaN(valueSpace);
+}
+
+function deleteSpace(value) {
+    value = value.replace(/^ /, '');
+    value = value.replace(/ $/, '');
+    return value;
 }
 
 function connectApi(algorithm, arrayAllocation, arrayMax, txtInstance) {

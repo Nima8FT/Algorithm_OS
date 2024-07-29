@@ -18,6 +18,8 @@ selectAlgorithm.addEventListener('change', function (e) {
 });
 
 btnSubmit.addEventListener('click', function (e) {
+    blockSize.value = deleteSpace(blockSize.value);
+    processSize.value = deleteSpace(processSize.value);
     if (blockSize.value.length > 0 && processSize.value.length > 0) {
         if (isNumber(blockSize.value) && isNumber(processSize.value)) {
             connectApi(algorithm, blockSize, processSize);
@@ -46,6 +48,12 @@ menuResponsiveBtn.addEventListener('click', function () {
 function isNumber(value) {
     var valueSpace = value.replace(/\s+/g, '');
     return !isNaN(valueSpace);
+}
+
+function deleteSpace(value) {
+    value = value.replace(/^ /, '');
+    value = value.replace(/ $/, '');
+    return value;
 }
 
 function connectApi(algorithm, blockSize, processSize) {
