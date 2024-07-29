@@ -143,24 +143,36 @@ function getDataApi(data, algorithm) {
     var processHtml = '';
     divOutput.classList.remove('d-none');
     showAlgorithm.innerHTML = algorithm;
+    var pageWidth = window.innerWidth;
     var ganttChart = data.chart;
     for (let i = 1; i <= ganttChart.length; i++) {
         if (i == 1) {
-            ganttChartNameHtml += '<div class="d-flex justify-content-center align-items-center mt-2 flex-wrap" id="ganttchart-name">';
-            ganttChartNumHtml += '<div class="d-flex justify-content-center align-items-center ms-4" id="ganttchart-number">';
+            ganttChartNameHtml += '<div class="d-flex justify-content-center align-items-center mt-2 flex-wrap col-12" id="ganttchart-name">';
+            ganttChartNumHtml += '<div class="d-flex justify-content-center align-items-center ms-4 col-12" id="ganttchart-number">';
         }
         ganttChartNameHtml += '<div class="w-box h-25 bg-blue p-2 text-center border border-secondary text-white fw-bold">' + ganttChart[i - 1]["process"] + '</div>';
         ganttChartNumHtml += '<span class="w-number py-2">' + ganttChart[i - 1]['start'] + '</span>';
-        if (i == ganttChart.length || i % 10 == 0 && i != 1) {
+        if (i == ganttChart.length || (i % 7 == 0 && i != 1 && pageWidth < 700)) {
             ganttChartNumHtml += '<span class="w-number py-2">' + ganttChart[i - 1]['end'] + '</span>';
         }
-        if (ganttChart.length >= 10) {
-            if (i % 10 == 0 && i != 1) {
-                ganttChartNameHtml += '</div>';
-                ganttChartNumHtml += '</div>';
-                ganttChartContainerHtml += ganttChartNameHtml + ganttChartNumHtml;
-                ganttChartNameHtml = '<div class="d-flex justify-content-center align-items-center mt-2 flex-wrap" id="ganttchart-name">';
-                ganttChartNumHtml = '<div class="d-flex justify-content-center align-items-center ms-4" id="ganttchart-number">';
+        if (ganttChart.length >= 7) {
+            if (pageWidth < 700) {
+                if ((i % 7 == 0 && i != 1) || i == ganttChart.length) {
+                    ganttChartNameHtml += '</div>';
+                    ganttChartNumHtml += '</div>';
+                    ganttChartContainerHtml += ganttChartNameHtml + ganttChartNumHtml;
+                    ganttChartNameHtml = '<div class="d-flex justify-content-center align-items-center mt-2 flex-wrap col-12" id="ganttchart-name">';
+                    ganttChartNumHtml = '<div class="d-flex justify-content-center align-items-center ms-4 col-12" id="ganttchart-number">';
+                }
+            }
+            else {
+                if ((i % 15 == 0 && i != 1) || i == ganttChart.length) {
+                    ganttChartNameHtml += '</div>';
+                    ganttChartNumHtml += '</div>';
+                    ganttChartContainerHtml += ganttChartNameHtml + ganttChartNumHtml;
+                    ganttChartNameHtml = '<div class="d-flex justify-content-center align-items-center mt-2 flex-wrap col-12" id="ganttchart-name">';
+                    ganttChartNumHtml = '<div class="d-flex justify-content-center align-items-center ms-4 col-12" id="ganttchart-number">';
+                }
             }
         }
         else {
