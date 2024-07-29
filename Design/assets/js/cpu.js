@@ -9,8 +9,7 @@ var txtQuantomTime = document.getElementById('quantom');
 var txtPriority = document.getElementById('priority');
 var showAlgorithm = document.getElementById('show-algorithm');
 var divOutput = document.getElementById('output');
-var ganttChartName = document.getElementById('ganttchart-name');
-var ganttChartNum = document.getElementById('ganttchart-number');
+var ganttChartContainer = document.getElementById('ganttchart-container');
 var tableRowProcess = document.getElementById('table-row');
 var avgTable = document.getElementById('avg-table');
 var menuResponsive = document.getElementById('menu-list');
@@ -140,21 +139,35 @@ function connectApi(algorithm, txtArrival, txtBurst, txtQuantomTime, txtPriority
 function getDataApi(data, algorithm) {
     var ganttChartNameHtml = '';
     var ganttChartNumHtml = '';
+    var ganttChartContainerHtml = '';
     var processHtml = '';
     divOutput.classList.remove('d-none');
     showAlgorithm.innerHTML = algorithm;
     var ganttChart = data.chart;
-    for (let i = 0; i < ganttChart.length; i++) {
-        ganttChartNameHtml += '<div class="w-box h-25 bg-blue p-2 text-center border border-secondary text-white fw-bold">' + ganttChart[i]["process"] + '</div>';
-    }
-    ganttChartName.innerHTML = ganttChartNameHtml;
-    for (let i = 0; i < ganttChart.length; i++) {
-        ganttChartNumHtml += '<span class="w-number p-2">' + ganttChart[i]['start'] + '</span>';
-        if (i == ganttChart.length - 1) {
-            ganttChartNumHtml += '<span class="w-number p-2">' + ganttChart[i]['end'] + '</span>';
+    for (let i = 1; i <= ganttChart.length; i++) {
+        if (i == 1) {
+            ganttChartNameHtml += '<div class="d-flex justify-content-center align-items-center mt-2 flex-wrap" id="ganttchart-name">';
+            ganttChartNumHtml += '<div class="d-flex justify-content-center align-items-center ms-4" id="ganttchart-number">';
+        }
+        ganttChartNameHtml += '<div class="w-box h-25 bg-blue p-2 text-center border border-secondary text-white fw-bold">' + ganttChart[i - 1]["process"] + '</div>';
+        ganttChartNumHtml += '<span class="w-number py-2">' + ganttChart[i - 1]['start'] + '</span>';
+        if (i == ganttChart.length || i % 10 == 0 && i != 1) {
+            ganttChartNumHtml += '<span class="w-number py-2">' + ganttChart[i - 1]['end'] + '</span>';
+        }
+        if (ganttChart.length >= 10) {
+            if (i % 10 == 0 && i != 1) {
+                ganttChartNameHtml += '</div>';
+                ganttChartNumHtml += '</div>';
+                ganttChartContainerHtml += ganttChartNameHtml + ganttChartNumHtml;
+                ganttChartNameHtml = '<div class="d-flex justify-content-center align-items-center mt-2 flex-wrap" id="ganttchart-name">';
+                ganttChartNumHtml = '<div class="d-flex justify-content-center align-items-center ms-4" id="ganttchart-number">';
+            }
+        }
+        else {
+            ganttChartContainerHtml = ganttChartNameHtml + ganttChartNumHtml;
         }
     }
-    ganttChartNum.innerHTML = ganttChartNumHtml;
+    ganttChartContainer.innerHTML = ganttChartContainerHtml;
     var process = data.Process;
     for (let i = 0; i < process.length; i++) {
         processHtml += '<tr scope="row"><td>' + process[i]["process"] + '</td><td>' + process[i]["arrival_time"] + '</td><td>' + process[i]["burst_time"] + '</td><td>' + process[i]["finish_time"] + '</td><td>' + process[i]["turnaround_time"] + '</td><td>' + process[i]["waiting_time"] + '</td>';
