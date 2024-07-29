@@ -42,10 +42,13 @@ selectAlgorithm.addEventListener('change', function () {
 
 
 btnCpuSubmit.addEventListener('click', function () {
+    txtArrival.value = deleteSpace(txtArrival.value);
+    txtBurst.value = deleteSpace(txtBurst.value);
     if (txtArrival.value.length > 0 && txtBurst.value.length > 0) {
         if (txtArrival.value.length === txtBurst.value.length) {
             if (isNumber(txtArrival.value) && isNumber(txtBurst.value)) {
                 if (algorithm == "NONPREEMPTIVE" || algorithm == "PREEMPTIVE") {
+                    txtPriority.value = deleteSpace(txtPriority.value);
                     if ((txtPriority.value.length > 0) && (txtPriority.value.length === txtArrival.value.length) && isNumber(txtPriority.value)) {
                         connectApi(algorithm, txtArrival, txtBurst, txtQuantomTime, txtPriority);
                     }
@@ -105,6 +108,12 @@ menuResponsiveBtn.addEventListener('click', function () {
 function isNumber(value) {
     var valueSpace = value.replace(/\s+/g, '');
     return !isNaN(valueSpace);
+}
+
+function deleteSpace(value) {
+    value = value.replace(/^ /, '');
+    value = value.replace(/ $/, '');
+    return value;
 }
 
 function connectApi(algorithm, txtArrival, txtBurst, txtQuantomTime, txtPriority) {
