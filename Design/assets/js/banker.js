@@ -135,6 +135,7 @@ function connectApi(algorithm, arrayAllocation, arrayMax, txtInstance) {
 }
 
 function getDataApi(data) {
+    console.log(data);
     var need = data.Need;
     var needHeadHtml = '<th></th>';
     var availableHeadHtml = '<th></th>';
@@ -153,18 +154,39 @@ function getDataApi(data) {
         needRowHtml += '</tr>';
     }
     needRow.innerHTML = needRowHtml;
+
     var available = data.Available;
     var availableRowHtml = '<tr><td>Resource</td>';
     for (let i = 0; i < available["Resource"].length; i++) {
         availableRowHtml += '<td><span>' + available['Resource'][i] + '</span></td>';
     }
     availableRowHtml += '</tr>';
+    let j = 1;
+    let isProcessCompelete = Array.from({ length: txtProcess.value }, () => false);
+    let arraySumAvailable = Array.from({ length: txtProcess.value }, () => 0);
     for (let i = 0; i < txtProcess.value; i++) {
-        availableRowHtml += '<tr><td>P' + (i + 1) + '</td>';
         for (let j = 0; j < txtColumn.value; j++) {
-            availableRowHtml += '<td><span>' + available['P' + (i + 1)][j] + '</span></td>';
+            arraySumAvailable[i] += available['P' + (i + 1)][j];
         }
-        availableRowHtml += '</tr>';
+    }
+    while (j <= txtProcess.value) {
+        let shortAvailable = Number.MAX_SAFE_INTEGER;
+        let index = -1;
+        for (let i = 0; i < txtProcess.value; i++) {
+            if (!isProcessCompelete[i] && arraySumAvailable[i] < shortAvailable) {
+                shortAvailable = arraySumAvailable[i];
+                index = i;
+            }
+        }
+        if (index !== -1) {
+            isProcessCompelete[index] = true
+            availableRowHtml += '<tr><td>P' + (index + 1) + '</td>';
+            for (let i = 0; i < txtColumn.value; i++) {
+                availableRowHtml += '<td><span>' + available['P' + (index + 1)][i] + '</span></td>';
+            }
+            availableRowHtml += '</tr>';
+        }
+        j++;
     }
     availableRow.innerHTML = availableRowHtml;
     var processSequenceHtml = '';
