@@ -87,8 +87,18 @@ btnFind.addEventListener('click', function () {
             arrayMax += '#';
         }
     }
-    tableNeedAvailable.classList.remove('d-none');
-    connectApi(algorithm, arrayAllocation, arrayMax, txtInstance);
+
+    if (arrayAllocation.length >= 29 && arrayMax.length >= 29) {
+        tableNeedAvailable.classList.remove('d-none');
+        connectApi(algorithm, arrayAllocation, arrayMax, txtInstance);
+    }
+    else {
+        Swal.fire({
+            icon: "error",
+            title: "Invalid Input",
+            text: "Please enter currect values",
+        });
+    }
 });
 
 menuResponsiveBtn.addEventListener('click', function () {
@@ -127,15 +137,26 @@ function connectApi(algorithm, arrayAllocation, arrayMax, txtInstance) {
             return response.json(); // Parse the response as JSON
         })
         .then(data => {
-            getDataApi(data);
+            if (data.status) {
+                console.log(data);
+                getDataApi(data);
+            }
+            else {
+                tableNeedAvailable.classList.add('d-none');
+                Swal.fire({
+                    icon: "error",
+                    title: "Deadlock",
+                    text: "System is not in safe state",
+                });
+            }
         })
         .catch(error => {
+            console.log(data);
             console.error('Error:', error);
         });
 }
 
 function getDataApi(data) {
-    console.log(data);
     var need = data.Need;
     var needHeadHtml = '<th></th>';
     var availableHeadHtml = '<th></th>';
@@ -155,6 +176,7 @@ function getDataApi(data) {
     }
     needRow.innerHTML = needRowHtml;
 
+    console.log(data);
     var available = data.Available;
     var availableRowHtml = '<tr><td>Resource</td>';
     for (let i = 0; i < available["Resource"].length; i++) {
