@@ -334,6 +334,13 @@ class CpuController extends Controller
                     "start" => $start_time,
                     "end" => $current_time,
                 ];
+                if (count($gantt_chart) > 1) {
+                    if ($gantt_chart[count($gantt_chart) - 1]["process"] == $gantt_chart[count($gantt_chart) - 2]["process"]) {
+                        $gantt_chart[count($gantt_chart) - 1]["start"] = $gantt_chart[count($gantt_chart) - 2]["start"];
+                        unset($gantt_chart[count($gantt_chart) - 2]);
+                        $gantt_chart = array_values($gantt_chart);
+                    }
+                }
             }
 
             while ($j < count($processes)) {
@@ -441,6 +448,13 @@ class CpuController extends Controller
                     "start" => $start,
                     "end" => $current_time,
                 ];
+                if (count($gantt_chart) > 1) {
+                    if ($gantt_chart[count($gantt_chart) - 1]["process"] == $gantt_chart[count($gantt_chart) - 2]["process"]) {
+                        $gantt_chart[count($gantt_chart) - 1]["start"] = $gantt_chart[count($gantt_chart) - 2]["start"];
+                        unset($gantt_chart[count($gantt_chart) - 2]);
+                        $gantt_chart = array_values($gantt_chart);
+                    }
+                }
             }
 
             while ($j < count($processes)) {
@@ -480,6 +494,7 @@ class CpuController extends Controller
                             "start" => $current_time,
                             "end" => $arrival_time,
                         ];
+                        $gantt_chart = $this->removeDuplicateGanttChart($gantt_chart);
                         $diffrent = $arrival_time - $current_time;
                         $remaining_burst_time[$index_process] -= $diffrent;
                         $current_time += $diffrent;
@@ -574,6 +589,7 @@ class CpuController extends Controller
                     "start" => $current_time,
                     "end" => $current_time + 1,
                 ];
+                $gantt_chart = $this->removeDuplicateGanttChart($gantt_chart);
                 $current_time++;
                 $remaining_burst_time[$index_process] -= 1;
                 if ($remaining_burst_time[$index_process] == 0) {
@@ -583,7 +599,6 @@ class CpuController extends Controller
                     $turnaround_time[$index_process] = $finish_time[$index_process] - $processes[$index_process]["arrival_time"];
                     $waiting_time[$index_process] = $turnaround_time[$index_process] - $processes[$index_process]["burst_time"];
                 }
-
             }
         }
 
@@ -865,6 +880,13 @@ class CpuController extends Controller
                     "start" => $start,
                     "end" => $current_time,
                 ];
+                if (count($gantt_chart) > 1) {
+                    if ($gantt_chart[count($gantt_chart) - 1]["process"] == $gantt_chart[count($gantt_chart) - 2]["process"]) {
+                        $gantt_chart[count($gantt_chart) - 1]["start"] = $gantt_chart[count($gantt_chart) - 2]["start"];
+                        unset($gantt_chart[count($gantt_chart) - 2]);
+                        $gantt_chart = array_values($gantt_chart);
+                    }
+                }
             }
 
             while ($j < count($processes)) {
@@ -904,6 +926,7 @@ class CpuController extends Controller
                             "start" => $current_time,
                             "end" => $arrival_time,
                         ];
+                        $gantt_chart = $this->removeDuplicateGanttChart($gantt_chart);
                         $diffrent = $arrival_time - $current_time;
                         $remaining_burst_time[$index_process] -= $diffrent;
                         $current_time += $diffrent;
@@ -942,5 +965,17 @@ class CpuController extends Controller
                 ]
             );
         }
+    }
+
+    private function removeDuplicateGanttChart($gantt_chart)
+    {
+        if (count($gantt_chart) > 1) {
+            if ($gantt_chart[count($gantt_chart) - 1]["process"] == $gantt_chart[count($gantt_chart) - 2]["process"]) {
+                $gantt_chart[count($gantt_chart) - 1]["start"] = $gantt_chart[count($gantt_chart) - 2]["start"];
+                unset($gantt_chart[count($gantt_chart) - 2]);
+                $gantt_chart = array_values($gantt_chart);
+            }
+        }
+        return $gantt_chart;
     }
 }
