@@ -16,6 +16,7 @@ class PageReplacementController extends Controller
             $frame = [];
             $page_fault = 0;
             $chart = [];
+            $counter = 0;
 
             while ($j < count($refrences)) {
 
@@ -30,21 +31,23 @@ class PageReplacementController extends Controller
                             $chart[] = [
                                 'process' => $refrences[$j],
                                 'frame' => $frame,
-                                'page fault' => 'miss',
+                                'page fault' => 'hit',
                             ];
                             break;
                         }
                     }
 
                     if ($is_process == 1) {
-                        array_push($frame, $refrences[$j]);
-                        unset($frame[0]);
-                        $frame = array_values($frame);
+                        if ($counter >= $frames) {
+                            $counter = 0;
+                        }
+                        $frame[$counter] = $refrences[$j];
+                        $counter++;
                         $page_fault++;
                         $chart[] = [
                             'process' => $refrences[$j],
                             'frame' => $frame,
-                            'page fault' => 'hit',
+                            'page fault' => '*',
                         ];
                     }
                 } else {
@@ -53,7 +56,7 @@ class PageReplacementController extends Controller
                     $chart[] = [
                         'process' => $refrences[$j],
                         'frame' => $frame,
-                        'page fault' => 'hit',
+                        'page fault' => '*',
                     ];
                 }
 
@@ -94,7 +97,7 @@ class PageReplacementController extends Controller
                             $chart[] = [
                                 'process' => $refrences[$j],
                                 'frame' => $frame,
-                                'page fault' => 'miss',
+                                'page fault' => 'hit',
                             ];
                             break;
                         }
@@ -113,14 +116,12 @@ class PageReplacementController extends Controller
                             }
 
                             if ($count == $frames) {
-                                unset($frame[$id_frame]);
-                                array_push($frame, $refrences[$j]);
-                                $frame = array_values($frame);
+                                $frame[$id_frame] = $refrences[$j];
                                 $page_fault++;
                                 $chart[] = [
                                     'process' => $refrences[$j],
                                     'frame' => $frame,
-                                    'page fault' => 'hit',
+                                    'page fault' => '*',
                                 ];
                                 break;
                             }
@@ -132,7 +133,7 @@ class PageReplacementController extends Controller
                     $chart[] = [
                         'process' => $refrences[$j],
                         'frame' => $frame,
-                        'page fault' => 'hit',
+                        'page fault' => '*',
                     ];
                 }
                 $j++;
@@ -169,7 +170,7 @@ class PageReplacementController extends Controller
                             $chart[] = [
                                 'process' => $refrences[$j],
                                 'frame' => $frame,
-                                'page fault' => 'miss',
+                                'page fault' => 'hit',
                             ];
                             break;
                         }
@@ -179,15 +180,13 @@ class PageReplacementController extends Controller
                         $page_fault++;
                         for ($i = 0; $i < $frames; $i++) {
                             if ($refrences[$j - 1] == $frame[$i]) {
-                                unset($frame[$i]);
+                                $frame[$i] = $refrences[$j];
                             }
                         }
-                        array_push($frame, $refrences[$j]);
-                        $frame = array_values($frame);
                         $chart[] = [
                             'process' => $refrences[$j],
                             'frame' => $frame,
-                            'page fault' => 'hit',
+                            'page fault' => '*',
                         ];
                     }
                 } else {
@@ -196,7 +195,7 @@ class PageReplacementController extends Controller
                     $chart[] = [
                         'process' => $refrences[$j],
                         'frame' => $frame,
-                        'page fault' => 'hit',
+                        'page fault' => '*',
                     ];
                 }
                 $j++;
@@ -219,6 +218,7 @@ class PageReplacementController extends Controller
             $frame = [];
             $page_fault = 0;
             $chart = [];
+            // $counter = 0;
 
             while ($j < count($refrences)) {
 
@@ -233,7 +233,7 @@ class PageReplacementController extends Controller
                             $chart[] = [
                                 'process' => $refrences[$j],
                                 'frame' => $frame,
-                                'page fault' => 'miss',
+                                'page fault' => 'hit',
                             ];
                             break;
                         }
@@ -244,7 +244,7 @@ class PageReplacementController extends Controller
                         for ($i = $j - 1; $i >= 0; $i--) {
                             if (count($frame) == $frames) {
                                 for ($k = 0; $k < $frames; $k++) {
-                                    if ($refrences[$i] == $frame[$k] && $chart[$i]["page fault"] == "hit") {
+                                    if ($refrences[$i] == $frame[$k] && $chart[$i]["page fault"] == "*") {
                                         unset($frame[$k]);
                                         break;
                                     }
@@ -258,7 +258,7 @@ class PageReplacementController extends Controller
                         $chart[] = [
                             'process' => $refrences[$j],
                             'frame' => $frame,
-                            'page fault' => 'hit',
+                            'page fault' => '*',
                         ];
                     }
                 } else {
@@ -267,7 +267,7 @@ class PageReplacementController extends Controller
                     $chart[] = [
                         'process' => $refrences[$j],
                         'frame' => $frame,
-                        'page fault' => 'hit',
+                        'page fault' => '*',
                     ];
                 }
                 $j++;
@@ -292,6 +292,7 @@ class PageReplacementController extends Controller
 
             $j = 0;
             $frame = [];
+            $show_frame = [];
             $page_fault = 0;
             $chart = [];
 
@@ -302,12 +303,13 @@ class PageReplacementController extends Controller
                     $refrences_unique_array[$current]++;
                     $chart[] = [
                         'process' => $current,
-                        'frame' => $frame,
-                        'page fault' => 'miss',
+                        'frame' => $show_frame,
+                        'page fault' => 'hit',
                     ];
                 } else {
                     if (count($frame) < $frames) {
                         $frame[] = $current;
+                        $show_frame = $frame;
                     } else {
                         $lfu_page = null;
                         $min_freq = PHP_INT_MAX;
@@ -320,18 +322,20 @@ class PageReplacementController extends Controller
                         }
 
                         $key = array_search($lfu_page, $frame);
+                        $key_show_frame = array_search($frame[$key], $show_frame);
                         $refrences_unique_array[$frame[$key]]--;
                         unset($frame[$key]);
                         $frame = array_values($frame);
                         $frame[] = $current;
+                        $show_frame[$key_show_frame] = $current;
                     }
 
                     $refrences_unique_array[$current]++;
                     $page_fault++;
                     $chart[] = [
                         'process' => $current,
-                        'frame' => $frame,
-                        'page fault' => 'hit',
+                        'frame' => $show_frame,
+                        'page fault' => '*',
                     ];
                 }
 
@@ -356,6 +360,7 @@ class PageReplacementController extends Controller
 
             $j = 0;
             $frame = [];
+            $show_frame = [];
             $page_fault = 0;
             $chart = [];
 
@@ -366,12 +371,13 @@ class PageReplacementController extends Controller
                     $refrences_unique_array[$current]++;
                     $chart[] = [
                         'process' => $current,
-                        'frame' => $frame,
-                        'page fault' => 'miss',
+                        'frame' => $show_frame,
+                        'page fault' => 'hit',
                     ];
                 } else {
                     if (count($frame) < $frames) {
                         $frame[] = $current;
+                        $show_frame = $frame;
                     } else {
                         $lfu_page = null;
                         $high_freq = -1;
@@ -384,18 +390,20 @@ class PageReplacementController extends Controller
                         }
 
                         $key = array_search($lfu_page, $frame);
+                        $key_show_frame = array_search($frame[$key], $show_frame);
                         $refrences_unique_array[$frame[$key]] = 0;
                         unset($frame[$key]);
                         $frame = array_values($frame);
                         $frame[] = $current;
+                        $show_frame[$key_show_frame] = $current;
                     }
 
                     $refrences_unique_array[$current]++;
                     $page_fault++;
                     $chart[] = [
                         'process' => $current,
-                        'frame' => $frame,
-                        'page fault' => 'hit',
+                        'frame' => $show_frame,
+                        'page fault' => '*',
                     ];
                 }
 
@@ -424,7 +432,7 @@ class PageReplacementController extends Controller
                     $chart[] = [
                         "process" => $refrences[$j],
                         "frame" => $frame,
-                        "page fault" => "miss",
+                        "page fault" => "hit",
                     ];
                 } else {
                     if (count($frame) < $frames) {
@@ -439,7 +447,7 @@ class PageReplacementController extends Controller
                     $chart[] = [
                         "process" => $refrences[$j],
                         "frame" => $frame,
-                        "page fault" => "hit",
+                        "page fault" => "*",
                     ];
                 }
                 $j++;
@@ -460,6 +468,7 @@ class PageReplacementController extends Controller
 
             $j = 0;
             $frame = [];
+            $show_frame = [];
             $chart = [];
             $page_fault = 0;
 
@@ -469,12 +478,13 @@ class PageReplacementController extends Controller
                 if (in_array($current, $frame)) {
                     $chart[] = [
                         "process" => $current,
-                        "frame" => $frame,
-                        "page fault" => "miss"
+                        "frame" => $show_frame,
+                        "page fault" => "hit"
                     ];
                 } else {
                     if (count($frame) < $frames) {
                         $frame[] = $current;
+                        $show_frame = $frame;
                     } else {
                         $farthest = -1;
                         $index_to_replace = -1;
@@ -501,15 +511,17 @@ class PageReplacementController extends Controller
                             $index_to_replace = 0;
                         }
 
+                        $key = array_search($frame[$index_to_replace], $show_frame);
                         unset($frame[$index_to_replace]);
                         $frame[] = $current;
                         $frame = array_values($frame);
+                        $show_frame[$key] = $current;
                     }
                     $page_fault++;
                     $chart[] = [
                         "process" => $current,
-                        "frame" => $frame,
-                        "page fault" => "hit"
+                        "frame" => $show_frame,
+                        "page fault" => "*"
                     ];
                 }
                 $j++;

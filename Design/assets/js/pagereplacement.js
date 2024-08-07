@@ -7,6 +7,7 @@ var output = document.getElementById('output');
 var tableHead = document.getElementById('table-head');
 var tableBody = document.getElementById('table-row');
 var numPageFault = document.getElementById('num-page-fault');
+var numPageHit = document.getElementById('num-page-hit');
 var menuResponsive = document.getElementById('menu-list');
 var menuResponsiveBtn = document.getElementById('hamburger-menu');
 var algorithm = 'fifo';
@@ -117,4 +118,7 @@ function getDataApi(data) {
     pageFaultHtml += '</tr>';
     tableBody.innerHTML = tableRowHtml + pageFaultHtml;
     numPageFault.innerHTML = "The Page Fault has: " + data["page_fault"];
+    let length = data.chart.length;
+    let pageHit = length - data["page_fault"];
+    numPageHit.innerHTML = "The Page Hit has: " + pageHit;
 }

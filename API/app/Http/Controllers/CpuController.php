@@ -29,6 +29,7 @@ class CpuController extends Controller
             $finish_time = [];
             $wating_time = [];
             $turnaround_time = [];
+            $response_time = [];
             $gantt_chart = [];
 
 
@@ -51,6 +52,7 @@ class CpuController extends Controller
                     "start" => $current_time,
                     "end" => $finish_time[$i],
                 ];
+                $response_time[$i] = $current_time - $arrival;
                 $current_time = $finish_time[$i];
             }
 
@@ -59,6 +61,7 @@ class CpuController extends Controller
                     "finish_time" => $finish_time[$i],
                     "turnaround_time" => $turnaround_time[$i],
                     "waiting_time" => $wating_time[$i],
+                    "response_time" => $response_time[$i],
                 ]);
                 $processes[$i] = array_merge($processes[$i], $processes[$i][0]);
                 unset($processes[$i][0]);
@@ -70,6 +73,9 @@ class CpuController extends Controller
             $col_waiting = collect($wating_time);
             $avg_waiting = $col_waiting->avg();
 
+            $col_response = collect($response_time);
+            $avg_response = $col_response->avg();
+
             usort($processes, function ($a, $b) {
                 return $a['process'] <=> $b['process'];
             });
@@ -77,8 +83,9 @@ class CpuController extends Controller
             return response()->json(
                 [
                     "Process" => $processes,
-                    "avg_turnaround" => $avg_turnaround,
-                    "avg_waiting" => $avg_waiting,
+                    "avg_turnaround" => substr($avg_turnaround, 0, 5),
+                    "avg_waiting" => substr($avg_waiting, 0, 5),
+                    "avg_response" => substr($avg_response, 0, 5),
                     "chart" => $gantt_chart
                 ]
             );
@@ -108,6 +115,7 @@ class CpuController extends Controller
             $finish_time = [];
             $turnaround_time = [];
             $waiting_time = [];
+            $response_time = [];
             $gantt_chart = [];
             $is_process_complete = array_fill(0, count($processes), false);
             $remaining_burst_time = array_column($processes, 'burst_time');
@@ -137,6 +145,7 @@ class CpuController extends Controller
                         'end' => $current_time + $remaining_burst_time[$shortest_process_index],
                     ];
 
+                    $response_time[$shortest_process_index] = $current_time - $processes[$shortest_process_index]['arrival_time'];
                     $current_time += $remaining_burst_time[$shortest_process_index];
                     $remaining_burst_time[$shortest_process_index] = 0;
                     $is_process_complete[$shortest_process_index] = true;
@@ -152,6 +161,7 @@ class CpuController extends Controller
                     "finish_time" => $finish_time[$i],
                     "turnaround_time" => $turnaround_time[$i],
                     "waiting_time" => $waiting_time[$i],
+                    "response_time" => $response_time[$i],
                 ]);
                 $processes[$i] = array_merge($processes[$i], $processes[$i][0]);
                 unset($processes[$i][0]);
@@ -163,6 +173,9 @@ class CpuController extends Controller
             $col_waiting = collect($waiting_time);
             $avg_waiting = $col_waiting->avg();
 
+            $col_response = collect($response_time);
+            $avg_response = $col_response->avg();
+
             usort($processes, function ($a, $b) {
                 return $a['process'] <=> $b['process'];
             });
@@ -170,8 +183,9 @@ class CpuController extends Controller
             return response()->json(
                 [
                     "Process" => $processes,
-                    "avg_turnaround" => $avg_turnaround,
-                    "avg_waiting" => $avg_waiting,
+                    "avg_turnaround" => substr($avg_turnaround, 0, 5),
+                    "avg_waiting" => substr($avg_waiting, 0, 5),
+                    "avg_response" => substr($avg_response, 0, 5),
                     "chart" => $gantt_chart
                 ]
             );
@@ -201,6 +215,7 @@ class CpuController extends Controller
             $finish_time = [];
             $turnaround_time = [];
             $waiting_time = [];
+            $response_time = [];
             $gantt_chart = [];
             $remaining_burst_time = array_column($processes, 'burst_time');
             $is_process_complete = array_fill(0, count($processes), false);
@@ -231,6 +246,7 @@ class CpuController extends Controller
                         "end" => $current_time + $remaining_burst_time[$longest_process_index],
                     ];
 
+                    $response_time[$longest_process_index] = $current_time - $processes[$longest_process_index]["arrival_time"];
                     $current_time += $remaining_burst_time[$longest_process_index];
                     $remaining_burst_time[$longest_process_index] = 0;
                     $is_process_complete[$longest_process_index] = true;
@@ -246,6 +262,7 @@ class CpuController extends Controller
                     "finish_time" => $finish_time[$i],
                     "turnaround_time" => $turnaround_time[$i],
                     "waiting_time" => $waiting_time[$i],
+                    "response_time" => $response_time[$i],
                 ]);
                 $processes[$i] = array_merge($processes[$i], $processes[$i][0]);
                 unset($processes[$i][0]);
@@ -257,6 +274,10 @@ class CpuController extends Controller
             $col_waiting = collect($waiting_time);
             $avg_waiting = $col_waiting->avg();
 
+            $col_response = collect($response_time);
+            $avg_response = $col_response->avg();
+
+
             usort($processes, function ($a, $b) {
                 return $a['process'] <=> $b['process'];
             });
@@ -264,8 +285,9 @@ class CpuController extends Controller
             return response()->json(
                 [
                     "Process" => $processes,
-                    "avg_turnaround" => $avg_turnaround,
-                    "avg_waiting" => $avg_waiting,
+                    "avg_turnaround" => substr($avg_turnaround, 0, 5),
+                    "avg_waiting" => substr($avg_waiting, 0, 5),
+                    "avg_response" => substr($avg_response, 0, 5),
                     "chart" => $gantt_chart
                 ]
             );
@@ -296,14 +318,22 @@ class CpuController extends Controller
             $finish_time = [];
             $turnaround_time = [];
             $waitng_time = [];
+            $response_time = array_fill(0, count($processes), 0);
             $request_queue = [$processes[0]['process']];
             $remaining_burst_time = array_column($processes, 'burst_time');
             $is_process_complete = array_fill(0, count($processes), false);
+            $is_process_start = array_fill(0, count($processes), false);
             $gantt_chart = [];
 
-            function process_request(&$i, &$j, &$processes, $quantom_time, &$current_time, &$remaining_burst_time, &$is_process_complete, &$finish_time, &$request_queue, &$turnaround_time, &$waitng_time, &$gantt_chart)
+            function process_request(&$i, &$j, &$processes, $quantom_time, &$current_time, &$remaining_burst_time, &$is_process_complete, &$is_process_start, &$finish_time, &$request_queue, &$turnaround_time, &$waitng_time, &$gantt_chart, &$response_time)
             {
                 $start_time = $current_time;
+
+                if (!$is_process_start[$i]) {
+                    $response_time[$i] = $start_time - $processes[$i]["arrival_time"];
+                    $is_process_start[$i] = true;
+                }
+
                 if ($remaining_burst_time[$i] <= $quantom_time) {
                     $current_time += $remaining_burst_time[$i];
                     $remaining_burst_time[$i] = 0;
@@ -350,10 +380,10 @@ class CpuController extends Controller
                         $is_process = true;
                         if (!empty($request_queue[0]) && $request_queue[0] == $processes[$i]["process"]) {
                             unset($request_queue[0]);
-                            process_request($i, $j, $processes, $quantom_time, $current_time, $remaining_burst_time, $is_process_complete, $finish_time, $request_queue, $turnaround_time, $waitng_time, $gantt_chart);
+                            process_request($i, $j, $processes, $quantom_time, $current_time, $remaining_burst_time, $is_process_complete, $is_process_start, $finish_time, $request_queue, $turnaround_time, $waitng_time, $gantt_chart, $response_time);
                             $request_queue = array_values($request_queue);
                         } else if (empty($request_queue[0])) {
-                            process_request($i, $j, $processes, $quantom_time, $current_time, $remaining_burst_time, $is_process_complete, $finish_time, $request_queue, $turnaround_time, $waitng_time, $gantt_chart);
+                            process_request($i, $j, $processes, $quantom_time, $current_time, $remaining_burst_time, $is_process_complete, $is_process_start, $finish_time, $request_queue, $turnaround_time, $waitng_time, $gantt_chart, $response_time);
                         }
                     }
                 }
@@ -372,12 +402,14 @@ class CpuController extends Controller
             ksort($finish_time);
             ksort($turnaround_time);
             ksort($waitng_time);
+            ksort($response_time);
 
             for ($i = 0; $i < count($processes); $i++) {
                 array_push($processes[$i], [
                     "finish_time" => $finish_time[$i],
                     "turnaround_time" => $turnaround_time[$i],
                     "waiting_time" => $waitng_time[$i],
+                    "response_time" => $response_time[$i],
                 ]);
                 $processes[$i] = array_merge($processes[$i], $processes[$i][0]);
                 unset($processes[$i][0]);
@@ -389,6 +421,9 @@ class CpuController extends Controller
             $col_waiting = collect($waitng_time);
             $avg_waiting = $col_waiting->avg();
 
+            $col_response = collect($response_time);
+            $avg_response = $col_response->avg();
+
             usort($processes, function ($a, $b) {
                 return $a['process'] <=> $b['process'];
             });
@@ -396,8 +431,9 @@ class CpuController extends Controller
             return response()->json(
                 [
                     "Process" => $processes,
-                    "avg_turnaround" => $avg_turnaround,
-                    "avg_waiting" => $avg_waiting,
+                    "avg_turnaround" => substr($avg_turnaround, 0, 5),
+                    "avg_waiting" => substr($avg_waiting, 0, 5),
+                    "avg_response" => substr($avg_response, 0, 5),
                     "chart" => $gantt_chart
                 ]
             );
@@ -428,9 +464,11 @@ class CpuController extends Controller
             $finish_time = [];
             $turnaround_time = [];
             $waiting_time = [];
+            $response_time = array_fill(0, count($processes), 0);
             $remaining_burst_time = array_column($processes, 'burst_time');
             $remaining_arrival_time = array_column($processes, 'arrival_time');
             $is_process_complete = array_fill(0, count($processes), false);
+            $is_process_start = array_fill(0, count($processes), false);
             $gantt_chart = [];
 
             function finish_process(&$current_time, &$remaining_burst_time, &$index_process, &$is_process_complete, &$finish_time, &$j, &$turnaround_time, &$waiting_time, &$processes, &$gantt_chart)
@@ -478,6 +516,10 @@ class CpuController extends Controller
                     continue;
                 }
 
+                if (!$is_process_start[$index_process]) {
+                    $is_process_start[$index_process] = true;
+                    $response_time[$index_process] = $current_time - $processes[$index_process]["arrival_time"];
+                }
 
                 if ($current_time >= $remaining_arrival_time[count($remaining_arrival_time) - 1]) {
                     finish_process($current_time, $remaining_burst_time, $index_process, $is_process_complete, $finish_time, $j, $turnaround_time, $waiting_time, $processes, $gantt_chart);
@@ -509,6 +551,7 @@ class CpuController extends Controller
                     "finish_time" => $finish_time[$i],
                     "turnaround_time" => $turnaround_time[$i],
                     "waiting_time" => $waiting_time[$i],
+                    "response_time" => $response_time[$i],
                 ]);
                 $processes[$i] = array_merge($processes[$i], $processes[$i][0]);
                 unset($processes[$i][0]);
@@ -520,6 +563,9 @@ class CpuController extends Controller
             $col_waiting = collect($waiting_time);
             $avg_waiting = $col_waiting->avg();
 
+            $col_response = collect($response_time);
+            $avg_response = $col_response->avg();
+
             usort($processes, function ($a, $b) {
                 return $a['process'] <=> $b['process'];
             });
@@ -527,8 +573,9 @@ class CpuController extends Controller
             return response()->json(
                 [
                     "Process" => $processes,
-                    "avg_turnaround" => $avg_turnaround,
-                    "avg_waiting" => $avg_waiting,
+                    "avg_turnaround" => substr($avg_turnaround, 0, 5),
+                    "avg_waiting" => substr($avg_waiting, 0, 5),
+                    "avg_response" => substr($avg_response, 0, 5),
                     "chart" => $gantt_chart
                 ]
             );
@@ -559,8 +606,10 @@ class CpuController extends Controller
             $finish_time = [];
             $turnaround_time = [];
             $waiting_time = [];
+            $response_time = [];
             $remaining_burst_time = array_column($processes, 'burst_time');
             $is_process_complete = array_fill(0, count($processes), false);
+            $is_process_start = array_fill(0, count($processes), false);
             $gantt_chart = [];
 
             while ($j < count($processes)) {
@@ -584,6 +633,10 @@ class CpuController extends Controller
                     continue;
                 }
 
+                if (!$is_process_start[$index_process]) {
+                    $response_time[$index_process] = $current_time - $processes[$index_process]["arrival_time"];
+                    $is_process_start[$index_process] = true;
+                }
                 $gantt_chart[] = [
                     "process" => $processes[$index_process]["process"],
                     "start" => $current_time,
@@ -607,6 +660,7 @@ class CpuController extends Controller
                 "finish_time" => $finish_time[$i],
                 "turnaround_time" => $turnaround_time[$i],
                 "waiting_time" => $waiting_time[$i],
+                "response_time" => $response_time[$i],
             ]);
             $processes[$i] = array_merge($processes[$i], $processes[$i][0]);
             unset($processes[$i][0]);
@@ -618,6 +672,9 @@ class CpuController extends Controller
         $col_waiting = collect($waiting_time);
         $avg_waiting = $col_waiting->avg();
 
+        $col_response = collect($response_time);
+        $avg_response = $col_response->avg();
+
         usort($processes, function ($a, $b) {
             return $a['process'] <=> $b['process'];
         });
@@ -625,8 +682,9 @@ class CpuController extends Controller
         return response()->json(
             [
                 "Process" => $processes,
-                "avg_turnaround" => $avg_turnaround,
-                "avg_waiting" => $avg_waiting,
+                "avg_turnaround" => substr($avg_turnaround, 0, 5),
+                "avg_waiting" => substr($avg_waiting, 0, 5),
+                "avg_response" => substr($avg_response, 0, 5),
                 "chart" => $gantt_chart
             ]
         );
@@ -655,6 +713,7 @@ class CpuController extends Controller
             $finish_time = [];
             $turnaround_time = [];
             $waiting_time = [];
+            $response_time = [];
             $remaining_burst_time = array_column($processes, 'burst_time');
             $is_process_complete = array_fill(0, count($processes), false);
             $gantt_chart = [];
@@ -684,6 +743,7 @@ class CpuController extends Controller
                 }
 
                 $start = $current_time;
+                $response_time[$index_process] = $start - $processes[$index_process]['arrival_time'];
                 $current_time += $remaining_burst_time[$index_process];
                 $remaining_burst_time[$index_process] = 0;
                 $is_process_complete[$index_process] = true;
@@ -703,6 +763,7 @@ class CpuController extends Controller
                     "finish_time" => $finish_time[$i],
                     "turnaround_time" => $turnaround_time[$i],
                     "waiting_time" => $waiting_time[$i],
+                    "response_time" => $response_time[$i],
                 ]);
                 $processes[$i] = array_merge($processes[$i], $processes[$i][0]);
                 unset($processes[$i][0]);
@@ -714,6 +775,9 @@ class CpuController extends Controller
             $col_waiting = collect($waiting_time);
             $avg_waiting = $col_waiting->avg();
 
+            $col_response = collect($response_time);
+            $avg_response = $col_response->avg();
+
             usort($processes, function ($a, $b) {
                 return $a['process'] <=> $b['process'];
             });
@@ -721,8 +785,9 @@ class CpuController extends Controller
             return response()->json(
                 [
                     "Process" => $processes,
-                    "avg_turnaround" => $avg_turnaround,
-                    "avg_waiting" => $avg_waiting,
+                    "avg_turnaround" => substr($avg_turnaround, 0, 5),
+                    "avg_waiting" => substr($avg_waiting, 0, 5),
+                    "avg_response" => substr($avg_response, 0, 5),
                     "chart" => $gantt_chart
                 ]
             );
@@ -754,6 +819,7 @@ class CpuController extends Controller
             $finish_time = [];
             $turaround_time = [];
             $waiting_time = [];
+            $response_time = [];
             $gantt_chart = [];
             $is_process_complete = array_fill(0, count($processes), false);
             $remaining_burst_time = array_column($processes, 'burst_time');
@@ -789,6 +855,7 @@ class CpuController extends Controller
                 }
 
                 $start = $current_time;
+                $response_time[$index_process] = $start - $processes[$index_process]["arrival_time"];
                 $current_time += $remaining_burst_time[$index_process];
                 $remaining_burst_time[$index_process] = 0;
                 $is_process_complete[$index_process] = true;
@@ -808,6 +875,7 @@ class CpuController extends Controller
                     "finish_time" => $finish_time[$i],
                     "turnaround_time" => $turaround_time[$i],
                     "waiting_time" => $waiting_time[$i],
+                    "response_time" => $response_time[$i],
                 ]);
                 $processes[$i] = array_merge($processes[$i], $processes[$i][0]);
                 unset($processes[$i][0]);
@@ -819,6 +887,9 @@ class CpuController extends Controller
             $col_waiting = collect($waiting_time);
             $avg_waiting = $col_waiting->avg();
 
+            $col_response = collect($response_time);
+            $avg_response = $col_response->avg();
+
             usort($processes, function ($a, $b) {
                 return $a['process'] <=> $b['process'];
             });
@@ -826,8 +897,9 @@ class CpuController extends Controller
             return response()->json(
                 [
                     "Process" => $processes,
-                    "avg_turnaround" => $avg_turnaround,
-                    "avg_waiting" => $avg_waiting,
+                    "avg_turnaround" => substr($avg_turnaround, 0, 5),
+                    "avg_waiting" => substr($avg_waiting, 0, 5),
+                    "avg_response" => substr($avg_response, 0, 5),
                     "chart" => $gantt_chart
                 ]
             );
@@ -860,9 +932,11 @@ class CpuController extends Controller
             $finish_time = [];
             $turnaround_time = [];
             $waiting_time = [];
+            $response_time = [];
             $remaining_burst_time = array_column($processes, 'burst_time');
             $remaining_priority_time = array_column($processes, 'priority');
             $is_process_complete = array_fill(0, count($processes), false);
+            $is_process_start = array_fill(0, count($processes), false);
             $gantt_chart = [];
 
             function finish_process(&$current_time, &$remaining_burst_time, &$index_process, &$is_process_complete, &$finish_time, &$j, &$turnaround_time, &$waiting_time, &$processes, &$gantt_chart)
@@ -910,6 +984,11 @@ class CpuController extends Controller
                     continue;
                 }
 
+                if (!$is_process_start[$index_process]) {
+                    $response_time[$index_process] = $current_time - $processes[$index_process]["arrival_time"];
+                    $is_process_start[$index_process] = true;
+                }
+
 
                 if ($current_time >= $processes[count($processes) - 1]["arrival_time"]) {
                     finish_process($current_time, $remaining_burst_time, $index_process, $is_process_complete, $finish_time, $j, $turnaround_time, $waiting_time, $processes, $gantt_chart);
@@ -941,6 +1020,7 @@ class CpuController extends Controller
                     "finish_time" => $finish_time[$i],
                     "turnaround_time" => $turnaround_time[$i],
                     "waiting_time" => $waiting_time[$i],
+                    "response_time" => $response_time[$i],
                 ]);
                 $processes[$i] = array_merge($processes[$i], $processes[$i][0]);
                 unset($processes[$i][0]);
@@ -952,6 +1032,9 @@ class CpuController extends Controller
             $col_waiting = collect($waiting_time);
             $avg_waiting = $col_waiting->avg();
 
+            $col_response = collect($response_time);
+            $avg_response = $col_response->avg();
+
             usort($processes, function ($a, $b) {
                 return $a['process'] <=> $b['process'];
             });
@@ -959,8 +1042,9 @@ class CpuController extends Controller
             return response()->json(
                 [
                     "Process" => $processes,
-                    "avg_turnaround" => $avg_turnaround,
-                    "avg_waiting" => $avg_waiting,
+                    "avg_turnaround" => substr($avg_turnaround, 0, 5),
+                    "avg_waiting" => substr($avg_waiting, 0, 5),
+                    "avg_response" => substr($avg_response, 0, 5),
                     "chart" => $gantt_chart
                 ]
             );

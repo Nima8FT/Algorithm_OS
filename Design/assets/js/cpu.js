@@ -14,6 +14,7 @@ var tableRowProcess = document.getElementById('table-row');
 var avgTable = document.getElementById('avg-table');
 var menuResponsive = document.getElementById('menu-list');
 var menuResponsiveBtn = document.getElementById('hamburger-menu');
+var priorityColumn = document.getElementById('priority-column');
 var apiUrl = 'http://127.0.0.1:8000/api/fcfs';
 var algorithm = 'FCFS';
 var apiData;
@@ -34,9 +35,11 @@ selectAlgorithm.addEventListener('change', function () {
 
     if (algorithmValue == "nonpreemptive" || algorithmValue == "preemptive") {
         divPriority.classList.remove('d-none');
+        priorityColumn.classList.remove('d-none');
     }
     else {
         divPriority.classList.add('d-none');
+        priorityColumn.classList.add('d-none');
     }
 });
 
@@ -45,50 +48,41 @@ btnCpuSubmit.addEventListener('click', function () {
     txtArrival.value = deleteSpace(txtArrival.value);
     txtBurst.value = deleteSpace(txtBurst.value);
     if (txtArrival.value.length > 0 && txtBurst.value.length > 0) {
-        if (txtArrival.value.length === txtBurst.value.length) {
-            if (isNumber(txtArrival.value) && isNumber(txtBurst.value)) {
-                if (algorithm == "NONPREEMPTIVE" || algorithm == "PREEMPTIVE") {
-                    txtPriority.value = deleteSpace(txtPriority.value);
-                    if ((txtPriority.value.length > 0) && (txtPriority.value.length === txtArrival.value.length) && isNumber(txtPriority.value)) {
-                        connectApi(algorithm, txtArrival, txtBurst, txtQuantomTime, txtPriority);
-                    }
-                    else {
-                        Swal.fire({
-                            icon: "error",
-                            title: "Invalid Input",
-                            text: "Please enter current values",
-                        });
-                    }
-                }
-                else if (algorithm == "RR") {
-                    if ((txtQuantomTime.value.length == 1) && isNumber(txtQuantomTime.value)) {
-                        connectApi(algorithm, txtArrival, txtBurst, txtQuantomTime, txtPriority);
-                    }
-                    else {
-                        Swal.fire({
-                            icon: "error",
-                            title: "Invalid Input",
-                            text: "Please enter current values",
-                        });
-                    }
+        if (isNumber(txtArrival.value) && isNumber(txtBurst.value)) {
+            if (algorithm == "NONPREEMPTIVE" || algorithm == "PREEMPTIVE") {
+                txtPriority.value = deleteSpace(txtPriority.value);
+                if ((txtPriority.value.length > 0) && isNumber(txtPriority.value)) {
+                    connectApi(algorithm, txtArrival, txtBurst, txtQuantomTime, txtPriority);
                 }
                 else {
+                    Swal.fire({
+                        icon: "error",
+                        title: "Invalid Input",
+                        text: "Please enter current values",
+                    });
+                }
+            }
+            else if (algorithm == "RR") {
+                if ((txtQuantomTime.value.length == 1) && isNumber(txtQuantomTime.value)) {
                     connectApi(algorithm, txtArrival, txtBurst, txtQuantomTime, txtPriority);
+                }
+                else {
+                    Swal.fire({
+                        icon: "error",
+                        title: "Invalid Input",
+                        text: "Please enter current values",
+                    });
                 }
             }
             else {
-                Swal.fire({
-                    icon: "error",
-                    title: "Invalid Input",
-                    text: "Please enter integer values",
-                });
+                connectApi(algorithm, txtArrival, txtBurst, txtQuantomTime, txtPriority);
             }
         }
         else {
             Swal.fire({
                 icon: "error",
                 title: "Invalid Input",
-                text: "Please enter correct values",
+                text: "Please enter integer values",
             });
         }
     }
@@ -190,9 +184,20 @@ function getDataApi(data, algorithm) {
     }
     ganttChartContainer.innerHTML = ganttChartContainerHtml;
     var process = data.Process;
+    console.log(algorithm);
     for (let i = 0; i < process.length; i++) {
-        processHtml += '<tr scope="row"><td>' + process[i]["process"] + '</td><td>' + process[i]["arrival_time"] + '</td><td>' + process[i]["burst_time"] + '</td><td>' + process[i]["finish_time"] + '</td><td>' + process[i]["turnaround_time"] + '</td><td>' + process[i]["waiting_time"] + '</td>';
+        if (algorithm == "PREEMPTIVE" || algorithm == "NONPREEMPTIVE") {
+            processHtml += '<tr scope="row"><td>' + process[i]["process"] + '</td><td>' + process[i]["arrival_time"] + '</td><td>' + process[i]["burst_time"] + '</td><td>' + process[i]["priority"] + '</td><td>' + process[i]["finish_time"] + '</td><td>' + process[i]["turnaround_time"] + '</td><td>' + process[i]["waiting_time"] + '</td><td>' + process[i]["response_time"] + '</td>';
+        }
+        else {
+            processHtml += '<tr scope="row"><td>' + process[i]["process"] + '</td><td>' + process[i]["arrival_time"] + '</td><td>' + process[i]["burst_time"] + '</td><td>' + process[i]["finish_time"] + '</td><td>' + process[i]["turnaround_time"] + '</td><td>' + process[i]["waiting_time"] + '</td><td>' + process[i]["response_time"] + '</td>';
+        }
     }
-    var avgProcess = '<tr scope="row" id="avg-table"><td colspan="4" class="text-end">Average</td><td>' + data.avg_turnaround + '</td><td>' + data.avg_waiting + '</td></tr>';
+    if (algorithm == "PREEMPTIVE" || algorithm == "NONPREEMPTIVE") {
+        var avgProcess = '<tr scope="row" id="avg-table"><td colspan="5" class="text-end">Average</td><td>' + data.avg_turnaround + '</td><td>' + data.avg_waiting + '</td><td>' + data.avg_response + '</td></tr>';
+    }
+    else {
+        var avgProcess = '<tr scope="row" id="avg-table"><td colspan="4" class="text-end">Average</td><td>' + data.avg_turnaround + '</td><td>' + data.avg_waiting + '</td><td>' + data.avg_response + '</td></tr>';
+    }
     tableRowProcess.innerHTML = processHtml + avgProcess;
 }
