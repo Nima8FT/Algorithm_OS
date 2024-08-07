@@ -838,8 +838,9 @@ class CpuController extends Controller
                     }
                 } else {
                     for ($i = 0; $i < count($processes); $i++) {
-                        if ($processes[$i]["arrival_time"] <= $current_time && !$is_process_complete[$i]) {
+                        if ($processes[$i]["arrival_time"] <= $current_time && !$is_process_complete[$i] && $remaining_priority[$i] < $priority) {
                             $index_process = $i;
+                            $priority = $remaining_priority[$i];
                         }
                     }
                 }
