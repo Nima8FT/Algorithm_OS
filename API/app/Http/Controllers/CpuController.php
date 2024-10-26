@@ -7,7 +7,50 @@ use Illuminate\Http\Request;
 
 class CpuController extends Controller
 {
-
+    /**
+     * @OA\Post(
+     *     path="/api/fcfs",
+     *     summary="Simulate FCFS Scheduling Algorithm",
+     *     description="This API simulates the FCFS (First-Come, First-Served) scheduling algorithm by accepting arrival and burst times of processes.",
+     *     tags={"CPU Scheduling"},
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\MediaType(
+     *             mediaType="application/x-www-form-urlencoded",
+     *             @OA\Schema(
+     *                 type="object",
+     *                 required={"Algorithm", "Arrival", "Burst"},
+     *                 @OA\Property(
+     *                     property="Algorithm",
+     *                     type="string",
+     *                     description="Type of algorithm (e.g., FCFS)",
+     *                     example="FCFS"
+     *                 ),
+     *                 @OA\Property(
+     *                     property="Arrival",
+     *                     type="string",
+     *                     description="Arrival times of processes (space-separated)",
+     *                     example="0 2 4 6 8"
+     *                 ),
+     *                 @OA\Property(
+     *                     property="Burst",
+     *                     type="string",
+     *                     description="Burst times of processes (space-separated)",
+     *                     example="1 5 1 6 3"
+     *                 )
+     *             )
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Successful operation"
+     *     ),
+     *     @OA\Response(
+     *         response=400,
+     *         description="Invalid request"
+     *     )
+     * )
+     */
     public function fcfs(Request $request)
     {
         if ($request->input('Algorithm') == "FCFS") {
@@ -92,6 +135,50 @@ class CpuController extends Controller
         }
     }
 
+    /**
+     * @OA\Post(
+     *     path="/api/sjf",
+     *     summary="Simulate SJF Scheduling Algorithm",
+     *     description="This API simulates the SJF (Short Job First) scheduling algorithm by accepting arrival and burst times of processes.",
+     *     tags={"CPU Scheduling"},
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\MediaType(
+     *             mediaType="application/x-www-form-urlencoded",
+     *             @OA\Schema(
+     *                 type="object",
+     *                 required={"Algorithm", "Arrival", "Burst"},
+     *                 @OA\Property(
+     *                     property="Algorithm",
+     *                     type="string",
+     *                     description="Type of algorithm (e.g., SJF)",
+     *                     example="SJF"
+     *                 ),
+     *                 @OA\Property(
+     *                     property="Arrival",
+     *                     type="string",
+     *                     description="Arrival times of processes (space-separated)",
+     *                     example="0 2 4 6 8"
+     *                 ),
+     *                 @OA\Property(
+     *                     property="Burst",
+     *                     type="string",
+     *                     description="Burst times of processes (space-separated)",
+     *                     example="1 5 1 6 3"
+     *                 )
+     *             )
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Successful operation"
+     *     ),
+     *     @OA\Response(
+     *         response=400,
+     *         description="Invalid request"
+     *     )
+     * )
+     */
     public function sjf(Request $request)
     {
         if ($request->input('Algorithm') == "SJF") {
@@ -192,6 +279,50 @@ class CpuController extends Controller
         }
     }
 
+    /**
+     * @OA\Post(
+     *     path="/api/ljf",
+     *     summary="Simulate LJF Scheduling Algorithm",
+     *     description="This API simulates the LJF (Long Job First) scheduling algorithm by accepting arrival and burst times of processes.",
+     *     tags={"CPU Scheduling"},
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\MediaType(
+     *             mediaType="application/x-www-form-urlencoded",
+     *             @OA\Schema(
+     *                 type="object",
+     *                 required={"Algorithm", "Arrival", "Burst"},
+     *                 @OA\Property(
+     *                     property="Algorithm",
+     *                     type="string",
+     *                     description="Type of algorithm (e.g., LJF)",
+     *                     example="LJF"
+     *                 ),
+     *                 @OA\Property(
+     *                     property="Arrival",
+     *                     type="string",
+     *                     description="Arrival times of processes (space-separated)",
+     *                     example="0 2 4 6 8"
+     *                 ),
+     *                 @OA\Property(
+     *                     property="Burst",
+     *                     type="string",
+     *                     description="Burst times of processes (space-separated)",
+     *                     example="1 5 1 6 3"
+     *                 )
+     *             )
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Successful operation"
+     *     ),
+     *     @OA\Response(
+     *         response=400,
+     *         description="Invalid request"
+     *     )
+     * )
+     */
     public function ljf(Request $request)
     {
         if ($request->input('Algorithm') == "LJF") {
@@ -294,6 +425,56 @@ class CpuController extends Controller
         }
     }
 
+    /**
+     * @OA\Post(
+     *     path="/api/rr",
+     *     summary="Simulate Round Robin Scheduling Algorithm",
+     *     description="This API simulates the RR (Round Robin) scheduling algorithm by accepting arrival and burst times of processes.",
+     *     tags={"CPU Scheduling"},
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\MediaType(
+     *             mediaType="application/x-www-form-urlencoded",
+     *             @OA\Schema(
+     *                 type="object",
+     *                 required={"Algorithm", "Arrival", "Burst", "Quantom"},
+     *                 @OA\Property(
+     *                     property="Algorithm",
+     *                     type="string",
+     *                     description="Type of algorithm (e.g., RR)",
+     *                     example="RR"
+     *                 ),
+     *                 @OA\Property(
+     *                     property="Arrival",
+     *                     type="string",
+     *                     description="Arrival times of processes (space-separated)",
+     *                     example="0 2 4 6 8"
+     *                 ),
+     *                 @OA\Property(
+     *                     property="Burst",
+     *                     type="string",
+     *                     description="Burst times of processes (space-separated)",
+     *                     example="1 5 1 6 3"
+     *                 ),
+     *                 @OA\Property(
+     *                     property="Quantom",
+     *                     type="integer",
+     *                     description="Quantom times of process",
+     *                     example="3"
+     *                 )
+     *             )
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Successful operation"
+     *     ),
+     *     @OA\Response(
+     *         response=400,
+     *         description="Invalid request"
+     *     )
+     * )
+     */
     public function rr(Request $request)
     {
         if ($request->input("Algorithm") == "RR") {
@@ -382,7 +563,7 @@ class CpuController extends Controller
                             unset($request_queue[0]);
                             process_request($i, $j, $processes, $quantom_time, $current_time, $remaining_burst_time, $is_process_complete, $is_process_start, $finish_time, $request_queue, $turnaround_time, $waitng_time, $gantt_chart, $response_time);
                             $request_queue = array_values($request_queue);
-                        } else if (empty($request_queue[0])) {
+                        } elseif (empty($request_queue[0])) {
                             process_request($i, $j, $processes, $quantom_time, $current_time, $remaining_burst_time, $is_process_complete, $is_process_start, $finish_time, $request_queue, $turnaround_time, $waitng_time, $gantt_chart, $response_time);
                         }
                     }
@@ -440,6 +621,50 @@ class CpuController extends Controller
         }
     }
 
+    /**
+     * @OA\Post(
+     *     path="/api/srtf",
+     *     summary="Simulate SRTF Scheduling Algorithm",
+     *     description="This API simulates the SRTF (Shortest Remaining Time First) scheduling algorithm by accepting arrival and burst times of processes.",
+     *     tags={"CPU Scheduling"},
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\MediaType(
+     *             mediaType="application/x-www-form-urlencoded",
+     *             @OA\Schema(
+     *                 type="object",
+     *                 required={"Algorithm", "Arrival", "Burst"},
+     *                 @OA\Property(
+     *                     property="Algorithm",
+     *                     type="string",
+     *                     description="Type of algorithm (e.g., SRTF)",
+     *                     example="SRTF"
+     *                 ),
+     *                 @OA\Property(
+     *                     property="Arrival",
+     *                     type="string",
+     *                     description="Arrival times of processes (space-separated)",
+     *                     example="0 2 4 6 8"
+     *                 ),
+     *                 @OA\Property(
+     *                     property="Burst",
+     *                     type="string",
+     *                     description="Burst times of processes (space-separated)",
+     *                     example="1 5 1 6 3"
+     *                 )
+     *             )
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Successful operation"
+     *     ),
+     *     @OA\Response(
+     *         response=400,
+     *         description="Invalid request"
+     *     )
+     * )
+     */
     public function srtf(Request $request)
     {
         if ($request->input("Algorithm") == "SRTF") {
@@ -582,6 +807,50 @@ class CpuController extends Controller
         }
     }
 
+    /**
+     * @OA\Post(
+     *     path="/api/lrtf",
+     *     summary="Simulate LRTF Scheduling Algorithm",
+     *     description="This API simulates the LRTF (Longest Remaining Time First) scheduling algorithm by accepting arrival and burst times of processes.",
+     *     tags={"CPU Scheduling"},
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\MediaType(
+     *             mediaType="application/x-www-form-urlencoded",
+     *             @OA\Schema(
+     *                 type="object",
+     *                 required={"Algorithm", "Arrival", "Burst"},
+     *                 @OA\Property(
+     *                     property="Algorithm",
+     *                     type="string",
+     *                     description="Type of algorithm (e.g., LRTF)",
+     *                     example="LRTF"
+     *                 ),
+     *                 @OA\Property(
+     *                     property="Arrival",
+     *                     type="string",
+     *                     description="Arrival times of processes (space-separated)",
+     *                     example="0 2 4 6 8"
+     *                 ),
+     *                 @OA\Property(
+     *                     property="Burst",
+     *                     type="string",
+     *                     description="Burst times of processes (space-separated)",
+     *                     example="1 5 1 6 3"
+     *                 )
+     *             )
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Successful operation"
+     *     ),
+     *     @OA\Response(
+     *         response=400,
+     *         description="Invalid request"
+     *     )
+     * )
+     */
     public function lrtf(Request $request)
     {
         if ($request->input("Algorithm") == "LRTF") {
@@ -690,6 +959,50 @@ class CpuController extends Controller
         );
     }
 
+    /**
+     * @OA\Post(
+     *     path="/api/hrrn",
+     *     summary="Simulate HRRN Scheduling Algorithm",
+     *     description="This API simulates the HRRN (Highest Response Ratio Next) scheduling algorithm by accepting arrival and burst times of processes.",
+     *     tags={"CPU Scheduling"},
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\MediaType(
+     *             mediaType="application/x-www-form-urlencoded",
+     *             @OA\Schema(
+     *                 type="object",
+     *                 required={"Algorithm", "Arrival", "Burst"},
+     *                 @OA\Property(
+     *                     property="Algorithm",
+     *                     type="string",
+     *                     description="Type of algorithm (e.g., HRRN)",
+     *                     example="HRRN"
+     *                 ),
+     *                 @OA\Property(
+     *                     property="Arrival",
+     *                     type="string",
+     *                     description="Arrival times of processes (space-separated)",
+     *                     example="0 2 4 6 8"
+     *                 ),
+     *                 @OA\Property(
+     *                     property="Burst",
+     *                     type="string",
+     *                     description="Burst times of processes (space-separated)",
+     *                     example="1 5 1 6 3"
+     *                 )
+     *             )
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Successful operation"
+     *     ),
+     *     @OA\Response(
+     *         response=400,
+     *         description="Invalid request"
+     *     )
+     * )
+     */
     public function hrrn(Request $request)
     {
         if ($request->input("Algorithm") == "HRRN") {
@@ -794,6 +1107,56 @@ class CpuController extends Controller
         }
     }
 
+    /**
+     * @OA\Post(
+     *     path="/api/nonpreemptive",
+     *     summary="Simulate Priority(Non-Preemptive) Scheduling Algorithm",
+     *     description="This API simulates the RR Priority(Non-Preemptive) scheduling algorithm by accepting arrival and burst times of processes.",
+     *     tags={"CPU Scheduling"},
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\MediaType(
+     *             mediaType="application/x-www-form-urlencoded",
+     *             @OA\Schema(
+     *                 type="object",
+     *                 required={"Algorithm", "Arrival", "Burst", "Priority"},
+     *                 @OA\Property(
+     *                     property="Algorithm",
+     *                     type="string",
+     *                     description="Type of algorithm (e.g., Priority(Non-Preemptive))",
+     *                     example="NONPREEMPTIVE"
+     *                 ),
+     *                 @OA\Property(
+     *                     property="Arrival",
+     *                     type="string",
+     *                     description="Arrival times of processes (space-separated)",
+     *                     example="0 2 4 6 8"
+     *                 ),
+     *                 @OA\Property(
+     *                     property="Burst",
+     *                     type="string",
+     *                     description="Burst times of processes (space-separated)",
+     *                     example="1 5 1 6 3"
+     *                 ),
+     *                 @OA\Property(
+     *                     property="Priority",
+     *                     type="integer",
+     *                     description="Priority times of process",
+     *                     example="1 2 3 4 5"
+     *                 )
+     *             )
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Successful operation"
+     *     ),
+     *     @OA\Response(
+     *         response=400,
+     *         description="Invalid request"
+     *     )
+     * )
+     */
     public function priority_none_preemptive(Request $request)
     {
         if ($request->input("Algorithm") == "NONPREEMPTIVE") {
@@ -907,6 +1270,56 @@ class CpuController extends Controller
         }
     }
 
+    /**
+     * @OA\Post(
+     *     path="/api/preemptive",
+     *     summary="Simulate Priority(Preemptive) Scheduling Algorithm",
+     *     description="This API simulates the RR Priority(Preemptive) scheduling algorithm by accepting arrival and burst times of processes.",
+     *     tags={"CPU Scheduling"},
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\MediaType(
+     *             mediaType="application/x-www-form-urlencoded",
+     *             @OA\Schema(
+     *                 type="object",
+     *                 required={"Algorithm", "Arrival", "Burst", "Priority"},
+     *                 @OA\Property(
+     *                     property="Algorithm",
+     *                     type="string",
+     *                     description="Type of algorithm (e.g., Priority(Preemptive))",
+     *                     example="PREEMPTIVE"
+     *                 ),
+     *                 @OA\Property(
+     *                     property="Arrival",
+     *                     type="string",
+     *                     description="Arrival times of processes (space-separated)",
+     *                     example="0 2 4 6 8"
+     *                 ),
+     *                 @OA\Property(
+     *                     property="Burst",
+     *                     type="string",
+     *                     description="Burst times of processes (space-separated)",
+     *                     example="1 5 1 6 3"
+     *                 ),
+     *                 @OA\Property(
+     *                     property="Priority",
+     *                     type="integer",
+     *                     description="Priority times of process",
+     *                     example="1 2 3 4 5"
+     *                 )
+     *             )
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Successful operation"
+     *     ),
+     *     @OA\Response(
+     *         response=400,
+     *         description="Invalid request"
+     *     )
+     * )
+     */
     public function priority_preemptive(Request $request)
     {
         if ($request->input("Algorithm") == "PREEMPTIVE") {

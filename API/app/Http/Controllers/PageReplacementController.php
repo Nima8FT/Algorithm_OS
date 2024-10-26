@@ -6,6 +6,75 @@ use Illuminate\Http\Request;
 
 class PageReplacementController extends Controller
 {
+    /**
+     * @OA\Post(
+     *     path="/api/fifo",
+     *     summary="Simulate FIFO Page Replacement Algorithm",
+     *     description="This API simulates the FIFO (First-In-First-Out) page replacement algorithm by accepting a sequence of page references and the number of frames.",
+     *     tags={"Page Replacement"},
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\MediaType(
+     *             mediaType="application/x-www-form-urlencoded",
+     *             @OA\Schema(
+     *                 type="object",
+     *                 required={"Algorithm", "Refrences", "Frames"},
+     *                 @OA\Property(
+     *                     property="Algorithm",
+     *                     type="string",
+     *                     description="Type of page replacement algorithm (e.g., FIFO)",
+     *                     example="FIFO"
+     *                 ),
+     *                 @OA\Property(
+     *                     property="Refrences",
+     *                     type="string",
+     *                     description="A sequence of page references (space-separated integers)",
+     *                     example="1 3 0 3 5 6 3 5 6 7 3 0"
+     *                 ),
+     *                 @OA\Property(
+     *                     property="Frames",
+     *                     type="integer",
+     *                     description="The number of frames available in memory",
+     *                     example=3
+     *                 )
+     *             )
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Successful operation",
+     *         @OA\JsonContent(
+     *             type="object",
+     *             @OA\Property(
+     *                 property="pageFaults",
+     *                 type="integer",
+     *                 description="The number of page faults occurred during the algorithm"
+     *             ),
+     *             @OA\Property(
+     *                 property="pageFaultRate",
+     *                 type="number",
+     *                 format="float",
+     *                 description="The page fault rate calculated as a percentage"
+     *             ),
+     *             @OA\Property(
+     *                 property="frameHistory",
+     *                 type="array",
+     *                 @OA\Items(
+     *                     type="object",
+     *                     @OA\Property(property="frameState", type="array", @OA\Items(type="integer", nullable=true)),
+     *                     @OA\Property(property="page", type="integer", description="Page referenced in this step"),
+     *                     @OA\Property(property="fault", type="boolean", description="Whether a page fault occurred at this step")
+     *                 ),
+     *                 description="The state of frames after each page reference"
+     *             )
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=400,
+     *         description="Invalid request data"
+     *     )
+     * )
+     */
     public function fifo(Request $request)
     {
         if ($request->input('Algorithm') == "FIFO") {
@@ -70,6 +139,75 @@ class PageReplacementController extends Controller
         }
     }
 
+    /**
+     * @OA\Post(
+     *     path="/api/lru",
+     *     summary="Simulate LRU Page Replacement Algorithm",
+     *     description="This API simulates the LRU (Last Recently Used) page replacement algorithm by accepting a sequence of page references and the number of frames.",
+     *     tags={"Page Replacement"},
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\MediaType(
+     *             mediaType="application/x-www-form-urlencoded",
+     *             @OA\Schema(
+     *                 type="object",
+     *                 required={"Algorithm", "Refrences", "Frames"},
+     *                 @OA\Property(
+     *                     property="Algorithm",
+     *                     type="string",
+     *                     description="Type of page replacement algorithm (e.g., LRU)",
+     *                     example="LRU"
+     *                 ),
+     *                 @OA\Property(
+     *                     property="Refrences",
+     *                     type="string",
+     *                     description="A sequence of page references (space-separated integers)",
+     *                     example="1 3 0 3 5 6 3 5 6 7 3 0"
+     *                 ),
+     *                 @OA\Property(
+     *                     property="Frames",
+     *                     type="integer",
+     *                     description="The number of frames available in memory",
+     *                     example=3
+     *                 )
+     *             )
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Successful operation",
+     *         @OA\JsonContent(
+     *             type="object",
+     *             @OA\Property(
+     *                 property="pageFaults",
+     *                 type="integer",
+     *                 description="The number of page faults occurred during the algorithm"
+     *             ),
+     *             @OA\Property(
+     *                 property="pageFaultRate",
+     *                 type="number",
+     *                 format="float",
+     *                 description="The page fault rate calculated as a percentage"
+     *             ),
+     *             @OA\Property(
+     *                 property="frameHistory",
+     *                 type="array",
+     *                 @OA\Items(
+     *                     type="object",
+     *                     @OA\Property(property="frameState", type="array", @OA\Items(type="integer", nullable=true)),
+     *                     @OA\Property(property="page", type="integer", description="Page referenced in this step"),
+     *                     @OA\Property(property="fault", type="boolean", description="Whether a page fault occurred at this step")
+     *                 ),
+     *                 description="The state of frames after each page reference"
+     *             )
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=400,
+     *         description="Invalid request data"
+     *     )
+     * )
+     */
     public function lru(Request $request)
     {
         if ($request->input('Algorithm') == "LRU") {
@@ -146,6 +284,75 @@ class PageReplacementController extends Controller
         }
     }
 
+    /**
+     * @OA\Post(
+     *     path="/api/mru",
+     *     summary="Simulate MRU Page Replacement Algorithm",
+     *     description="This API simulates the MRU (Most Recently Used) page replacement algorithm by accepting a sequence of page references and the number of frames.",
+     *     tags={"Page Replacement"},
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\MediaType(
+     *             mediaType="application/x-www-form-urlencoded",
+     *             @OA\Schema(
+     *                 type="object",
+     *                 required={"Algorithm", "Refrences", "Frames"},
+     *                 @OA\Property(
+     *                     property="Algorithm",
+     *                     type="string",
+     *                     description="Type of page replacement algorithm (e.g., MRU)",
+     *                     example="MRU"
+     *                 ),
+     *                 @OA\Property(
+     *                     property="Refrences",
+     *                     type="string",
+     *                     description="A sequence of page references (space-separated integers)",
+     *                     example="1 3 0 3 5 6 3 5 6 7 3 0"
+     *                 ),
+     *                 @OA\Property(
+     *                     property="Frames",
+     *                     type="integer",
+     *                     description="The number of frames available in memory",
+     *                     example=3
+     *                 )
+     *             )
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Successful operation",
+     *         @OA\JsonContent(
+     *             type="object",
+     *             @OA\Property(
+     *                 property="pageFaults",
+     *                 type="integer",
+     *                 description="The number of page faults occurred during the algorithm"
+     *             ),
+     *             @OA\Property(
+     *                 property="pageFaultRate",
+     *                 type="number",
+     *                 format="float",
+     *                 description="The page fault rate calculated as a percentage"
+     *             ),
+     *             @OA\Property(
+     *                 property="frameHistory",
+     *                 type="array",
+     *                 @OA\Items(
+     *                     type="object",
+     *                     @OA\Property(property="frameState", type="array", @OA\Items(type="integer", nullable=true)),
+     *                     @OA\Property(property="page", type="integer", description="Page referenced in this step"),
+     *                     @OA\Property(property="fault", type="boolean", description="Whether a page fault occurred at this step")
+     *                 ),
+     *                 description="The state of frames after each page reference"
+     *             )
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=400,
+     *         description="Invalid request data"
+     *     )
+     * )
+     */
     public function mru(Request $request)
     {
         if ($request->input('Algorithm') == "MRU") {
@@ -208,6 +415,75 @@ class PageReplacementController extends Controller
         }
     }
 
+    /**
+     * @OA\Post(
+     *     path="/api/lifo",
+     *     summary="Simulate LIFO Page Replacement Algorithm",
+     *     description="This API simulates the LIFO (Last In First Out) page replacement algorithm by accepting a sequence of page references and the number of frames.",
+     *     tags={"Page Replacement"},
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\MediaType(
+     *             mediaType="application/x-www-form-urlencoded",
+     *             @OA\Schema(
+     *                 type="object",
+     *                 required={"Algorithm", "Refrences", "Frames"},
+     *                 @OA\Property(
+     *                     property="Algorithm",
+     *                     type="string",
+     *                     description="Type of page replacement algorithm (e.g., LIFO)",
+     *                     example="LIFO"
+     *                 ),
+     *                 @OA\Property(
+     *                     property="Refrences",
+     *                     type="string",
+     *                     description="A sequence of page references (space-separated integers)",
+     *                     example="1 3 0 3 5 6 3 5 6 7 3 0"
+     *                 ),
+     *                 @OA\Property(
+     *                     property="Frames",
+     *                     type="integer",
+     *                     description="The number of frames available in memory",
+     *                     example=3
+     *                 )
+     *             )
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Successful operation",
+     *         @OA\JsonContent(
+     *             type="object",
+     *             @OA\Property(
+     *                 property="pageFaults",
+     *                 type="integer",
+     *                 description="The number of page faults occurred during the algorithm"
+     *             ),
+     *             @OA\Property(
+     *                 property="pageFaultRate",
+     *                 type="number",
+     *                 format="float",
+     *                 description="The page fault rate calculated as a percentage"
+     *             ),
+     *             @OA\Property(
+     *                 property="frameHistory",
+     *                 type="array",
+     *                 @OA\Items(
+     *                     type="object",
+     *                     @OA\Property(property="frameState", type="array", @OA\Items(type="integer", nullable=true)),
+     *                     @OA\Property(property="page", type="integer", description="Page referenced in this step"),
+     *                     @OA\Property(property="fault", type="boolean", description="Whether a page fault occurred at this step")
+     *                 ),
+     *                 description="The state of frames after each page reference"
+     *             )
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=400,
+     *         description="Invalid request data"
+     *     )
+     * )
+     */
     public function lifo(Request $request)
     {
         if ($request->input('Algorithm') == "LIFO") {
@@ -280,6 +556,75 @@ class PageReplacementController extends Controller
         }
     }
 
+    /**
+     * @OA\Post(
+     *     path="/api/lfu",
+     *     summary="Simulate LFU Page Replacement Algorithm",
+     *     description="This API simulates the LFU (Least Frequently Used) page replacement algorithm by accepting a sequence of page references and the number of frames.",
+     *     tags={"Page Replacement"},
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\MediaType(
+     *             mediaType="application/x-www-form-urlencoded",
+     *             @OA\Schema(
+     *                 type="object",
+     *                 required={"Algorithm", "Refrences", "Frames"},
+     *                 @OA\Property(
+     *                     property="Algorithm",
+     *                     type="string",
+     *                     description="Type of page replacement algorithm (e.g., LFU)",
+     *                     example="LFU"
+     *                 ),
+     *                 @OA\Property(
+     *                     property="Refrences",
+     *                     type="string",
+     *                     description="A sequence of page references (space-separated integers)",
+     *                     example="1 3 0 3 5 6 3 5 6 7 3 0"
+     *                 ),
+     *                 @OA\Property(
+     *                     property="Frames",
+     *                     type="integer",
+     *                     description="The number of frames available in memory",
+     *                     example=3
+     *                 )
+     *             )
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Successful operation",
+     *         @OA\JsonContent(
+     *             type="object",
+     *             @OA\Property(
+     *                 property="pageFaults",
+     *                 type="integer",
+     *                 description="The number of page faults occurred during the algorithm"
+     *             ),
+     *             @OA\Property(
+     *                 property="pageFaultRate",
+     *                 type="number",
+     *                 format="float",
+     *                 description="The page fault rate calculated as a percentage"
+     *             ),
+     *             @OA\Property(
+     *                 property="frameHistory",
+     *                 type="array",
+     *                 @OA\Items(
+     *                     type="object",
+     *                     @OA\Property(property="frameState", type="array", @OA\Items(type="integer", nullable=true)),
+     *                     @OA\Property(property="page", type="integer", description="Page referenced in this step"),
+     *                     @OA\Property(property="fault", type="boolean", description="Whether a page fault occurred at this step")
+     *                 ),
+     *                 description="The state of frames after each page reference"
+     *             )
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=400,
+     *         description="Invalid request data"
+     *     )
+     * )
+     */
     public function lfu(Request $request)
     {
         if ($request->input('Algorithm') == "LFU") {
@@ -348,6 +693,75 @@ class PageReplacementController extends Controller
         }
     }
 
+    /**
+     * @OA\Post(
+     *     path="/api/mfu",
+     *     summary="Simulate MFU Page Replacement Algorithm",
+     *     description="This API simulates the MFU (Most Frequently Used) page replacement algorithm by accepting a sequence of page references and the number of frames.",
+     *     tags={"Page Replacement"},
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\MediaType(
+     *             mediaType="application/x-www-form-urlencoded",
+     *             @OA\Schema(
+     *                 type="object",
+     *                 required={"Algorithm", "Refrences", "Frames"},
+     *                 @OA\Property(
+     *                     property="Algorithm",
+     *                     type="string",
+     *                     description="Type of page replacement algorithm (e.g., MFU)",
+     *                     example="MFU"
+     *                 ),
+     *                 @OA\Property(
+     *                     property="Refrences",
+     *                     type="string",
+     *                     description="A sequence of page references (space-separated integers)",
+     *                     example="1 3 0 3 5 6 3 5 6 7 3 0"
+     *                 ),
+     *                 @OA\Property(
+     *                     property="Frames",
+     *                     type="integer",
+     *                     description="The number of frames available in memory",
+     *                     example=3
+     *                 )
+     *             )
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Successful operation",
+     *         @OA\JsonContent(
+     *             type="object",
+     *             @OA\Property(
+     *                 property="pageFaults",
+     *                 type="integer",
+     *                 description="The number of page faults occurred during the algorithm"
+     *             ),
+     *             @OA\Property(
+     *                 property="pageFaultRate",
+     *                 type="number",
+     *                 format="float",
+     *                 description="The page fault rate calculated as a percentage"
+     *             ),
+     *             @OA\Property(
+     *                 property="frameHistory",
+     *                 type="array",
+     *                 @OA\Items(
+     *                     type="object",
+     *                     @OA\Property(property="frameState", type="array", @OA\Items(type="integer", nullable=true)),
+     *                     @OA\Property(property="page", type="integer", description="Page referenced in this step"),
+     *                     @OA\Property(property="fault", type="boolean", description="Whether a page fault occurred at this step")
+     *                 ),
+     *                 description="The state of frames after each page reference"
+     *             )
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=400,
+     *         description="Invalid request data"
+     *     )
+     * )
+     */
     public function mfu(Request $request)
     {
         if ($request->input('Algorithm') == "MFU") {
@@ -416,6 +830,75 @@ class PageReplacementController extends Controller
         }
     }
 
+    /**
+     * @OA\Post(
+     *     path="/api/randompagereplacement",
+     *     summary="Simulate Random Page Replacement Page Replacement Algorithm",
+     *     description="This API simulates the Random Page Replacement page replacement algorithm by accepting a sequence of page references and the number of frames.",
+     *     tags={"Page Replacement"},
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\MediaType(
+     *             mediaType="application/x-www-form-urlencoded",
+     *             @OA\Schema(
+     *                 type="object",
+     *                 required={"Algorithm", "Refrences", "Frames"},
+     *                 @OA\Property(
+     *                     property="Algorithm",
+     *                     type="string",
+     *                     description="Type of page replacement algorithm (e.g., Random Page Replacement)",
+     *                     example="Random Page Replacement"
+     *                 ),
+     *                 @OA\Property(
+     *                     property="Refrences",
+     *                     type="string",
+     *                     description="A sequence of page references (space-separated integers)",
+     *                     example="1 3 0 3 5 6 3 5 6 7 3 0"
+     *                 ),
+     *                 @OA\Property(
+     *                     property="Frames",
+     *                     type="integer",
+     *                     description="The number of frames available in memory",
+     *                     example=3
+     *                 )
+     *             )
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Successful operation",
+     *         @OA\JsonContent(
+     *             type="object",
+     *             @OA\Property(
+     *                 property="pageFaults",
+     *                 type="integer",
+     *                 description="The number of page faults occurred during the algorithm"
+     *             ),
+     *             @OA\Property(
+     *                 property="pageFaultRate",
+     *                 type="number",
+     *                 format="float",
+     *                 description="The page fault rate calculated as a percentage"
+     *             ),
+     *             @OA\Property(
+     *                 property="frameHistory",
+     *                 type="array",
+     *                 @OA\Items(
+     *                     type="object",
+     *                     @OA\Property(property="frameState", type="array", @OA\Items(type="integer", nullable=true)),
+     *                     @OA\Property(property="page", type="integer", description="Page referenced in this step"),
+     *                     @OA\Property(property="fault", type="boolean", description="Whether a page fault occurred at this step")
+     *                 ),
+     *                 description="The state of frames after each page reference"
+     *             )
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=400,
+     *         description="Invalid request data"
+     *     )
+     * )
+     */
     public function rendomPageReplacement(Request $request)
     {
         if ($request->input('Algorithm') == "Random Page Replacement") {
@@ -460,6 +943,75 @@ class PageReplacementController extends Controller
         }
     }
 
+    /**
+     * @OA\Post(
+     *     path="/api/optimalpagereplacement",
+     *     summary="Simulate Optimal Page Replacement Page Replacement Algorithm",
+     *     description="This API simulates the Optimal Page Replacement page replacement algorithm by accepting a sequence of page references and the number of frames.",
+     *     tags={"Page Replacement"},
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\MediaType(
+     *             mediaType="application/x-www-form-urlencoded",
+     *             @OA\Schema(
+     *                 type="object",
+     *                 required={"Algorithm", "Refrences", "Frames"},
+     *                 @OA\Property(
+     *                     property="Algorithm",
+     *                     type="string",
+     *                     description="Type of page replacement algorithm (e.g., Optimal Page Replacement)",
+     *                     example="Optimal Page Replacement"
+     *                 ),
+     *                 @OA\Property(
+     *                     property="Refrences",
+     *                     type="string",
+     *                     description="A sequence of page references (space-separated integers)",
+     *                     example="1 3 0 3 5 6 3 5 6 7 3 0"
+     *                 ),
+     *                 @OA\Property(
+     *                     property="Frames",
+     *                     type="integer",
+     *                     description="The number of frames available in memory",
+     *                     example=3
+     *                 )
+     *             )
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Successful operation",
+     *         @OA\JsonContent(
+     *             type="object",
+     *             @OA\Property(
+     *                 property="pageFaults",
+     *                 type="integer",
+     *                 description="The number of page faults occurred during the algorithm"
+     *             ),
+     *             @OA\Property(
+     *                 property="pageFaultRate",
+     *                 type="number",
+     *                 format="float",
+     *                 description="The page fault rate calculated as a percentage"
+     *             ),
+     *             @OA\Property(
+     *                 property="frameHistory",
+     *                 type="array",
+     *                 @OA\Items(
+     *                     type="object",
+     *                     @OA\Property(property="frameState", type="array", @OA\Items(type="integer", nullable=true)),
+     *                     @OA\Property(property="page", type="integer", description="Page referenced in this step"),
+     *                     @OA\Property(property="fault", type="boolean", description="Whether a page fault occurred at this step")
+     *                 ),
+     *                 description="The state of frames after each page reference"
+     *             )
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=400,
+     *         description="Invalid request data"
+     *     )
+     * )
+     */
     public function optimalPageReplacement(Request $request)
     {
         if ($request->input('Algorithm') == "Optimal Page Replacement") {

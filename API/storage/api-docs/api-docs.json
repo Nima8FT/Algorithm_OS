@@ -1,0 +1,1423 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "API Documentation",
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/api/fcfs": {
+            "post": {
+                "tags": [
+                    "CPU Scheduling"
+                ],
+                "summary": "Simulate FCFS Scheduling Algorithm",
+                "description": "This API simulates the FCFS (First-Come, First-Served) scheduling algorithm by accepting arrival and burst times of processes.",
+                "operationId": "4e9337ecf858acb2183ad8b1c0142485",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "required": [
+                                    "Algorithm",
+                                    "Arrival",
+                                    "Burst"
+                                ],
+                                "properties": {
+                                    "Algorithm": {
+                                        "description": "Type of algorithm (e.g., FCFS)",
+                                        "type": "string",
+                                        "example": "FCFS"
+                                    },
+                                    "Arrival": {
+                                        "description": "Arrival times of processes (space-separated)",
+                                        "type": "string",
+                                        "example": "0 2 4 6 8"
+                                    },
+                                    "Burst": {
+                                        "description": "Burst times of processes (space-separated)",
+                                        "type": "string",
+                                        "example": "1 5 1 6 3"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Invalid request"
+                    }
+                }
+            }
+        },
+        "/api/sjf": {
+            "post": {
+                "tags": [
+                    "CPU Scheduling"
+                ],
+                "summary": "Simulate SJF Scheduling Algorithm",
+                "description": "This API simulates the SJF (Short Job First) scheduling algorithm by accepting arrival and burst times of processes.",
+                "operationId": "f11173fdb387f7dad725f63b6852d19b",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "required": [
+                                    "Algorithm",
+                                    "Arrival",
+                                    "Burst"
+                                ],
+                                "properties": {
+                                    "Algorithm": {
+                                        "description": "Type of algorithm (e.g., SJF)",
+                                        "type": "string",
+                                        "example": "SJF"
+                                    },
+                                    "Arrival": {
+                                        "description": "Arrival times of processes (space-separated)",
+                                        "type": "string",
+                                        "example": "0 2 4 6 8"
+                                    },
+                                    "Burst": {
+                                        "description": "Burst times of processes (space-separated)",
+                                        "type": "string",
+                                        "example": "1 5 1 6 3"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Invalid request"
+                    }
+                }
+            }
+        },
+        "/api/ljf": {
+            "post": {
+                "tags": [
+                    "CPU Scheduling"
+                ],
+                "summary": "Simulate LJF Scheduling Algorithm",
+                "description": "This API simulates the LJF (Long Job First) scheduling algorithm by accepting arrival and burst times of processes.",
+                "operationId": "d6f012ef767bfbf3aafc373d5742e73a",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "required": [
+                                    "Algorithm",
+                                    "Arrival",
+                                    "Burst"
+                                ],
+                                "properties": {
+                                    "Algorithm": {
+                                        "description": "Type of algorithm (e.g., LJF)",
+                                        "type": "string",
+                                        "example": "LJF"
+                                    },
+                                    "Arrival": {
+                                        "description": "Arrival times of processes (space-separated)",
+                                        "type": "string",
+                                        "example": "0 2 4 6 8"
+                                    },
+                                    "Burst": {
+                                        "description": "Burst times of processes (space-separated)",
+                                        "type": "string",
+                                        "example": "1 5 1 6 3"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Invalid request"
+                    }
+                }
+            }
+        },
+        "/api/rr": {
+            "post": {
+                "tags": [
+                    "CPU Scheduling"
+                ],
+                "summary": "Simulate Round Robin Scheduling Algorithm",
+                "description": "This API simulates the RR (Round Robin) scheduling algorithm by accepting arrival and burst times of processes.",
+                "operationId": "5e9a7320a5b68f315774856dc099849d",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "required": [
+                                    "Algorithm",
+                                    "Arrival",
+                                    "Burst",
+                                    "Quantom"
+                                ],
+                                "properties": {
+                                    "Algorithm": {
+                                        "description": "Type of algorithm (e.g., RR)",
+                                        "type": "string",
+                                        "example": "RR"
+                                    },
+                                    "Arrival": {
+                                        "description": "Arrival times of processes (space-separated)",
+                                        "type": "string",
+                                        "example": "0 2 4 6 8"
+                                    },
+                                    "Burst": {
+                                        "description": "Burst times of processes (space-separated)",
+                                        "type": "string",
+                                        "example": "1 5 1 6 3"
+                                    },
+                                    "Quantom": {
+                                        "description": "Quantom times of process",
+                                        "type": "integer",
+                                        "example": "3"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Invalid request"
+                    }
+                }
+            }
+        },
+        "/api/srtf": {
+            "post": {
+                "tags": [
+                    "CPU Scheduling"
+                ],
+                "summary": "Simulate SRTF Scheduling Algorithm",
+                "description": "This API simulates the SRTF (Shortest Remaining Time First) scheduling algorithm by accepting arrival and burst times of processes.",
+                "operationId": "677efdd5de116445abad0fe50ffec950",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "required": [
+                                    "Algorithm",
+                                    "Arrival",
+                                    "Burst"
+                                ],
+                                "properties": {
+                                    "Algorithm": {
+                                        "description": "Type of algorithm (e.g., SRTF)",
+                                        "type": "string",
+                                        "example": "SRTF"
+                                    },
+                                    "Arrival": {
+                                        "description": "Arrival times of processes (space-separated)",
+                                        "type": "string",
+                                        "example": "0 2 4 6 8"
+                                    },
+                                    "Burst": {
+                                        "description": "Burst times of processes (space-separated)",
+                                        "type": "string",
+                                        "example": "1 5 1 6 3"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Invalid request"
+                    }
+                }
+            }
+        },
+        "/api/lrtf": {
+            "post": {
+                "tags": [
+                    "CPU Scheduling"
+                ],
+                "summary": "Simulate LRTF Scheduling Algorithm",
+                "description": "This API simulates the LRTF (Longest Remaining Time First) scheduling algorithm by accepting arrival and burst times of processes.",
+                "operationId": "dd58d5956268bb81e75d41823cced4c7",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "required": [
+                                    "Algorithm",
+                                    "Arrival",
+                                    "Burst"
+                                ],
+                                "properties": {
+                                    "Algorithm": {
+                                        "description": "Type of algorithm (e.g., LRTF)",
+                                        "type": "string",
+                                        "example": "LRTF"
+                                    },
+                                    "Arrival": {
+                                        "description": "Arrival times of processes (space-separated)",
+                                        "type": "string",
+                                        "example": "0 2 4 6 8"
+                                    },
+                                    "Burst": {
+                                        "description": "Burst times of processes (space-separated)",
+                                        "type": "string",
+                                        "example": "1 5 1 6 3"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Invalid request"
+                    }
+                }
+            }
+        },
+        "/api/hrrn": {
+            "post": {
+                "tags": [
+                    "CPU Scheduling"
+                ],
+                "summary": "Simulate HRRN Scheduling Algorithm",
+                "description": "This API simulates the HRRN (Highest Response Ratio Next) scheduling algorithm by accepting arrival and burst times of processes.",
+                "operationId": "2520029c591294408c62de693c95c8d2",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "required": [
+                                    "Algorithm",
+                                    "Arrival",
+                                    "Burst"
+                                ],
+                                "properties": {
+                                    "Algorithm": {
+                                        "description": "Type of algorithm (e.g., HRRN)",
+                                        "type": "string",
+                                        "example": "HRRN"
+                                    },
+                                    "Arrival": {
+                                        "description": "Arrival times of processes (space-separated)",
+                                        "type": "string",
+                                        "example": "0 2 4 6 8"
+                                    },
+                                    "Burst": {
+                                        "description": "Burst times of processes (space-separated)",
+                                        "type": "string",
+                                        "example": "1 5 1 6 3"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Invalid request"
+                    }
+                }
+            }
+        },
+        "/api/nonpreemptive": {
+            "post": {
+                "tags": [
+                    "CPU Scheduling"
+                ],
+                "summary": "Simulate Priority(Non-Preemptive) Scheduling Algorithm",
+                "description": "This API simulates the RR Priority(Non-Preemptive) scheduling algorithm by accepting arrival and burst times of processes.",
+                "operationId": "da6289cfcd056612d7cfa8a8857e85d6",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "required": [
+                                    "Algorithm",
+                                    "Arrival",
+                                    "Burst",
+                                    "Priority"
+                                ],
+                                "properties": {
+                                    "Algorithm": {
+                                        "description": "Type of algorithm (e.g., Priority(Non-Preemptive))",
+                                        "type": "string",
+                                        "example": "NONPREEMPTIVE"
+                                    },
+                                    "Arrival": {
+                                        "description": "Arrival times of processes (space-separated)",
+                                        "type": "string",
+                                        "example": "0 2 4 6 8"
+                                    },
+                                    "Burst": {
+                                        "description": "Burst times of processes (space-separated)",
+                                        "type": "string",
+                                        "example": "1 5 1 6 3"
+                                    },
+                                    "Priority": {
+                                        "description": "Priority times of process",
+                                        "type": "integer",
+                                        "example": "1 2 3 4 5"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Invalid request"
+                    }
+                }
+            }
+        },
+        "/api/preemptive": {
+            "post": {
+                "tags": [
+                    "CPU Scheduling"
+                ],
+                "summary": "Simulate Priority(Preemptive) Scheduling Algorithm",
+                "description": "This API simulates the RR Priority(Preemptive) scheduling algorithm by accepting arrival and burst times of processes.",
+                "operationId": "d8dbb20fb79de07785b4f1f416e13a66",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "required": [
+                                    "Algorithm",
+                                    "Arrival",
+                                    "Burst",
+                                    "Priority"
+                                ],
+                                "properties": {
+                                    "Algorithm": {
+                                        "description": "Type of algorithm (e.g., Priority(Preemptive))",
+                                        "type": "string",
+                                        "example": "PREEMPTIVE"
+                                    },
+                                    "Arrival": {
+                                        "description": "Arrival times of processes (space-separated)",
+                                        "type": "string",
+                                        "example": "0 2 4 6 8"
+                                    },
+                                    "Burst": {
+                                        "description": "Burst times of processes (space-separated)",
+                                        "type": "string",
+                                        "example": "1 5 1 6 3"
+                                    },
+                                    "Priority": {
+                                        "description": "Priority times of process",
+                                        "type": "integer",
+                                        "example": "1 2 3 4 5"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Invalid request"
+                    }
+                }
+            }
+        },
+        "/api/bestfit": {
+            "post": {
+                "tags": [
+                    "Memory Allocation"
+                ],
+                "summary": "Simulate Best Fit Memory Allocation Algorithm",
+                "description": "This API simulates the Best Fit memory allocation algorithm by accepting block sizes and process sizes to allocate memory efficiently.",
+                "operationId": "33f796d5ed22955cdbe86203c36919a5",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "required": [
+                                    "Block",
+                                    "Process"
+                                ],
+                                "properties": {
+                                    "Algorithm": {
+                                        "description": "Type of algorithm (e.g., bestfit)",
+                                        "type": "string",
+                                        "example": "bestfit"
+                                    },
+                                    "Block": {
+                                        "description": "Sizes of memory blocks (space-separated)",
+                                        "type": "string",
+                                        "example": "100 500 200 300 600"
+                                    },
+                                    "Process": {
+                                        "description": "Sizes of processes (space-separated)",
+                                        "type": "string",
+                                        "example": "212 417 112 426"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation with memory allocation results"
+                    },
+                    "400": {
+                        "description": "Invalid request due to incorrect input"
+                    }
+                }
+            }
+        },
+        "/api/firstfit": {
+            "post": {
+                "tags": [
+                    "Memory Allocation"
+                ],
+                "summary": "Simulate First Fit Memory Allocation Algorithm",
+                "description": "This API simulates the First Fit memory allocation algorithm by accepting block sizes and process sizes to allocate memory efficiently.",
+                "operationId": "ce506d84623b5f0c7408f089828dd626",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "required": [
+                                    "Block",
+                                    "Process"
+                                ],
+                                "properties": {
+                                    "Algorithm": {
+                                        "description": "Type of algorithm (e.g., firstfit)",
+                                        "type": "string",
+                                        "example": "firstfit"
+                                    },
+                                    "Block": {
+                                        "description": "Sizes of memory blocks (space-separated)",
+                                        "type": "string",
+                                        "example": "100 500 200 300 600"
+                                    },
+                                    "Process": {
+                                        "description": "Sizes of processes (space-separated)",
+                                        "type": "string",
+                                        "example": "212 417 112 426"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation with memory allocation results"
+                    },
+                    "400": {
+                        "description": "Invalid request due to incorrect input"
+                    }
+                }
+            }
+        },
+        "/api/worstfit": {
+            "post": {
+                "tags": [
+                    "Memory Allocation"
+                ],
+                "summary": "Simulate First Fit Memory Allocation Algorithm",
+                "description": "This API simulates the Worst Fit memory allocation algorithm by accepting block sizes and process sizes to allocate memory efficiently.",
+                "operationId": "c8d4f736dab8575b4e8316f4272de71e",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "required": [
+                                    "Block",
+                                    "Process"
+                                ],
+                                "properties": {
+                                    "Algorithm": {
+                                        "description": "Type of algorithm (e.g., worstfit)",
+                                        "type": "string",
+                                        "example": "worstfit"
+                                    },
+                                    "Block": {
+                                        "description": "Sizes of memory blocks (space-separated)",
+                                        "type": "string",
+                                        "example": "100 500 200 300 600"
+                                    },
+                                    "Process": {
+                                        "description": "Sizes of processes (space-separated)",
+                                        "type": "string",
+                                        "example": "212 417 112 426"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation with memory allocation results"
+                    },
+                    "400": {
+                        "description": "Invalid request due to incorrect input"
+                    }
+                }
+            }
+        },
+        "/api/nextfit": {
+            "post": {
+                "tags": [
+                    "Memory Allocation"
+                ],
+                "summary": "Simulate Next Fit Memory Allocation Algorithm",
+                "description": "This API simulates the Next Fit memory allocation algorithm by accepting block sizes and process sizes to allocate memory efficiently.",
+                "operationId": "ff4dc1546e04720cd66d034405b07eb9",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "required": [
+                                    "Block",
+                                    "Process"
+                                ],
+                                "properties": {
+                                    "Algorithm": {
+                                        "description": "Type of algorithm (e.g., nextfit)",
+                                        "type": "string",
+                                        "example": "nextfit"
+                                    },
+                                    "Block": {
+                                        "description": "Sizes of memory blocks (space-separated)",
+                                        "type": "string",
+                                        "example": "100 500 200 300 600"
+                                    },
+                                    "Process": {
+                                        "description": "Sizes of processes (space-separated)",
+                                        "type": "string",
+                                        "example": "212 417 112 426"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation with memory allocation results"
+                    },
+                    "400": {
+                        "description": "Invalid request due to incorrect input"
+                    }
+                }
+            }
+        },
+        "/api/fifo": {
+            "post": {
+                "tags": [
+                    "Page Replacement"
+                ],
+                "summary": "Simulate FIFO Page Replacement Algorithm",
+                "description": "This API simulates the FIFO (First-In-First-Out) page replacement algorithm by accepting a sequence of page references and the number of frames.",
+                "operationId": "d15adef04817267542f7927bfc4fc10a",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "required": [
+                                    "Algorithm",
+                                    "Refrences",
+                                    "Frames"
+                                ],
+                                "properties": {
+                                    "Algorithm": {
+                                        "description": "Type of page replacement algorithm (e.g., FIFO)",
+                                        "type": "string",
+                                        "example": "FIFO"
+                                    },
+                                    "Refrences": {
+                                        "description": "A sequence of page references (space-separated integers)",
+                                        "type": "string",
+                                        "example": "1 3 0 3 5 6 3 5 6 7 3 0"
+                                    },
+                                    "Frames": {
+                                        "description": "The number of frames available in memory",
+                                        "type": "integer",
+                                        "example": 3
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "pageFaults": {
+                                            "description": "The number of page faults occurred during the algorithm",
+                                            "type": "integer"
+                                        },
+                                        "pageFaultRate": {
+                                            "description": "The page fault rate calculated as a percentage",
+                                            "type": "number",
+                                            "format": "float"
+                                        },
+                                        "frameHistory": {
+                                            "description": "The state of frames after each page reference",
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "frameState": {
+                                                        "type": "array",
+                                                        "items": {
+                                                            "type": "integer",
+                                                            "nullable": true
+                                                        }
+                                                    },
+                                                    "page": {
+                                                        "description": "Page referenced in this step",
+                                                        "type": "integer"
+                                                    },
+                                                    "fault": {
+                                                        "description": "Whether a page fault occurred at this step",
+                                                        "type": "boolean"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid request data"
+                    }
+                }
+            }
+        },
+        "/api/lru": {
+            "post": {
+                "tags": [
+                    "Page Replacement"
+                ],
+                "summary": "Simulate LRU Page Replacement Algorithm",
+                "description": "This API simulates the LRU (Last Recently Used) page replacement algorithm by accepting a sequence of page references and the number of frames.",
+                "operationId": "9c279a55ae2b0d11089e4454d2f450cf",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "required": [
+                                    "Algorithm",
+                                    "Refrences",
+                                    "Frames"
+                                ],
+                                "properties": {
+                                    "Algorithm": {
+                                        "description": "Type of page replacement algorithm (e.g., LRU)",
+                                        "type": "string",
+                                        "example": "LRU"
+                                    },
+                                    "Refrences": {
+                                        "description": "A sequence of page references (space-separated integers)",
+                                        "type": "string",
+                                        "example": "1 3 0 3 5 6 3 5 6 7 3 0"
+                                    },
+                                    "Frames": {
+                                        "description": "The number of frames available in memory",
+                                        "type": "integer",
+                                        "example": 3
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "pageFaults": {
+                                            "description": "The number of page faults occurred during the algorithm",
+                                            "type": "integer"
+                                        },
+                                        "pageFaultRate": {
+                                            "description": "The page fault rate calculated as a percentage",
+                                            "type": "number",
+                                            "format": "float"
+                                        },
+                                        "frameHistory": {
+                                            "description": "The state of frames after each page reference",
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "frameState": {
+                                                        "type": "array",
+                                                        "items": {
+                                                            "type": "integer",
+                                                            "nullable": true
+                                                        }
+                                                    },
+                                                    "page": {
+                                                        "description": "Page referenced in this step",
+                                                        "type": "integer"
+                                                    },
+                                                    "fault": {
+                                                        "description": "Whether a page fault occurred at this step",
+                                                        "type": "boolean"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid request data"
+                    }
+                }
+            }
+        },
+        "/api/mru": {
+            "post": {
+                "tags": [
+                    "Page Replacement"
+                ],
+                "summary": "Simulate MRU Page Replacement Algorithm",
+                "description": "This API simulates the MRU (Most Recently Used) page replacement algorithm by accepting a sequence of page references and the number of frames.",
+                "operationId": "4ee39f88dfc331a30c413947042fc21e",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "required": [
+                                    "Algorithm",
+                                    "Refrences",
+                                    "Frames"
+                                ],
+                                "properties": {
+                                    "Algorithm": {
+                                        "description": "Type of page replacement algorithm (e.g., MRU)",
+                                        "type": "string",
+                                        "example": "MRU"
+                                    },
+                                    "Refrences": {
+                                        "description": "A sequence of page references (space-separated integers)",
+                                        "type": "string",
+                                        "example": "1 3 0 3 5 6 3 5 6 7 3 0"
+                                    },
+                                    "Frames": {
+                                        "description": "The number of frames available in memory",
+                                        "type": "integer",
+                                        "example": 3
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "pageFaults": {
+                                            "description": "The number of page faults occurred during the algorithm",
+                                            "type": "integer"
+                                        },
+                                        "pageFaultRate": {
+                                            "description": "The page fault rate calculated as a percentage",
+                                            "type": "number",
+                                            "format": "float"
+                                        },
+                                        "frameHistory": {
+                                            "description": "The state of frames after each page reference",
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "frameState": {
+                                                        "type": "array",
+                                                        "items": {
+                                                            "type": "integer",
+                                                            "nullable": true
+                                                        }
+                                                    },
+                                                    "page": {
+                                                        "description": "Page referenced in this step",
+                                                        "type": "integer"
+                                                    },
+                                                    "fault": {
+                                                        "description": "Whether a page fault occurred at this step",
+                                                        "type": "boolean"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid request data"
+                    }
+                }
+            }
+        },
+        "/api/lifo": {
+            "post": {
+                "tags": [
+                    "Page Replacement"
+                ],
+                "summary": "Simulate LIFO Page Replacement Algorithm",
+                "description": "This API simulates the LIFO (Last In First Out) page replacement algorithm by accepting a sequence of page references and the number of frames.",
+                "operationId": "fe0fc5fd4771fd16f89f376c02806bbd",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "required": [
+                                    "Algorithm",
+                                    "Refrences",
+                                    "Frames"
+                                ],
+                                "properties": {
+                                    "Algorithm": {
+                                        "description": "Type of page replacement algorithm (e.g., LIFO)",
+                                        "type": "string",
+                                        "example": "LIFO"
+                                    },
+                                    "Refrences": {
+                                        "description": "A sequence of page references (space-separated integers)",
+                                        "type": "string",
+                                        "example": "1 3 0 3 5 6 3 5 6 7 3 0"
+                                    },
+                                    "Frames": {
+                                        "description": "The number of frames available in memory",
+                                        "type": "integer",
+                                        "example": 3
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "pageFaults": {
+                                            "description": "The number of page faults occurred during the algorithm",
+                                            "type": "integer"
+                                        },
+                                        "pageFaultRate": {
+                                            "description": "The page fault rate calculated as a percentage",
+                                            "type": "number",
+                                            "format": "float"
+                                        },
+                                        "frameHistory": {
+                                            "description": "The state of frames after each page reference",
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "frameState": {
+                                                        "type": "array",
+                                                        "items": {
+                                                            "type": "integer",
+                                                            "nullable": true
+                                                        }
+                                                    },
+                                                    "page": {
+                                                        "description": "Page referenced in this step",
+                                                        "type": "integer"
+                                                    },
+                                                    "fault": {
+                                                        "description": "Whether a page fault occurred at this step",
+                                                        "type": "boolean"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid request data"
+                    }
+                }
+            }
+        },
+        "/api/lfu": {
+            "post": {
+                "tags": [
+                    "Page Replacement"
+                ],
+                "summary": "Simulate LFU Page Replacement Algorithm",
+                "description": "This API simulates the LFU (Least Frequently Used) page replacement algorithm by accepting a sequence of page references and the number of frames.",
+                "operationId": "86db8505cf0385767d2a804c3f58eff7",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "required": [
+                                    "Algorithm",
+                                    "Refrences",
+                                    "Frames"
+                                ],
+                                "properties": {
+                                    "Algorithm": {
+                                        "description": "Type of page replacement algorithm (e.g., LFU)",
+                                        "type": "string",
+                                        "example": "LFU"
+                                    },
+                                    "Refrences": {
+                                        "description": "A sequence of page references (space-separated integers)",
+                                        "type": "string",
+                                        "example": "1 3 0 3 5 6 3 5 6 7 3 0"
+                                    },
+                                    "Frames": {
+                                        "description": "The number of frames available in memory",
+                                        "type": "integer",
+                                        "example": 3
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "pageFaults": {
+                                            "description": "The number of page faults occurred during the algorithm",
+                                            "type": "integer"
+                                        },
+                                        "pageFaultRate": {
+                                            "description": "The page fault rate calculated as a percentage",
+                                            "type": "number",
+                                            "format": "float"
+                                        },
+                                        "frameHistory": {
+                                            "description": "The state of frames after each page reference",
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "frameState": {
+                                                        "type": "array",
+                                                        "items": {
+                                                            "type": "integer",
+                                                            "nullable": true
+                                                        }
+                                                    },
+                                                    "page": {
+                                                        "description": "Page referenced in this step",
+                                                        "type": "integer"
+                                                    },
+                                                    "fault": {
+                                                        "description": "Whether a page fault occurred at this step",
+                                                        "type": "boolean"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid request data"
+                    }
+                }
+            }
+        },
+        "/api/mfu": {
+            "post": {
+                "tags": [
+                    "Page Replacement"
+                ],
+                "summary": "Simulate MFU Page Replacement Algorithm",
+                "description": "This API simulates the MFU (Most Frequently Used) page replacement algorithm by accepting a sequence of page references and the number of frames.",
+                "operationId": "3759d3353a27f2e4c661fc05429f31e9",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "required": [
+                                    "Algorithm",
+                                    "Refrences",
+                                    "Frames"
+                                ],
+                                "properties": {
+                                    "Algorithm": {
+                                        "description": "Type of page replacement algorithm (e.g., MFU)",
+                                        "type": "string",
+                                        "example": "MFU"
+                                    },
+                                    "Refrences": {
+                                        "description": "A sequence of page references (space-separated integers)",
+                                        "type": "string",
+                                        "example": "1 3 0 3 5 6 3 5 6 7 3 0"
+                                    },
+                                    "Frames": {
+                                        "description": "The number of frames available in memory",
+                                        "type": "integer",
+                                        "example": 3
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "pageFaults": {
+                                            "description": "The number of page faults occurred during the algorithm",
+                                            "type": "integer"
+                                        },
+                                        "pageFaultRate": {
+                                            "description": "The page fault rate calculated as a percentage",
+                                            "type": "number",
+                                            "format": "float"
+                                        },
+                                        "frameHistory": {
+                                            "description": "The state of frames after each page reference",
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "frameState": {
+                                                        "type": "array",
+                                                        "items": {
+                                                            "type": "integer",
+                                                            "nullable": true
+                                                        }
+                                                    },
+                                                    "page": {
+                                                        "description": "Page referenced in this step",
+                                                        "type": "integer"
+                                                    },
+                                                    "fault": {
+                                                        "description": "Whether a page fault occurred at this step",
+                                                        "type": "boolean"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid request data"
+                    }
+                }
+            }
+        },
+        "/api/randompagereplacement": {
+            "post": {
+                "tags": [
+                    "Page Replacement"
+                ],
+                "summary": "Simulate Random Page Replacement Page Replacement Algorithm",
+                "description": "This API simulates the Random Page Replacement page replacement algorithm by accepting a sequence of page references and the number of frames.",
+                "operationId": "abebf657fbce3409b60816e10cf2f8b7",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "required": [
+                                    "Algorithm",
+                                    "Refrences",
+                                    "Frames"
+                                ],
+                                "properties": {
+                                    "Algorithm": {
+                                        "description": "Type of page replacement algorithm (e.g., Random Page Replacement)",
+                                        "type": "string",
+                                        "example": "Random Page Replacement"
+                                    },
+                                    "Refrences": {
+                                        "description": "A sequence of page references (space-separated integers)",
+                                        "type": "string",
+                                        "example": "1 3 0 3 5 6 3 5 6 7 3 0"
+                                    },
+                                    "Frames": {
+                                        "description": "The number of frames available in memory",
+                                        "type": "integer",
+                                        "example": 3
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "pageFaults": {
+                                            "description": "The number of page faults occurred during the algorithm",
+                                            "type": "integer"
+                                        },
+                                        "pageFaultRate": {
+                                            "description": "The page fault rate calculated as a percentage",
+                                            "type": "number",
+                                            "format": "float"
+                                        },
+                                        "frameHistory": {
+                                            "description": "The state of frames after each page reference",
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "frameState": {
+                                                        "type": "array",
+                                                        "items": {
+                                                            "type": "integer",
+                                                            "nullable": true
+                                                        }
+                                                    },
+                                                    "page": {
+                                                        "description": "Page referenced in this step",
+                                                        "type": "integer"
+                                                    },
+                                                    "fault": {
+                                                        "description": "Whether a page fault occurred at this step",
+                                                        "type": "boolean"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid request data"
+                    }
+                }
+            }
+        },
+        "/api/optimalpagereplacement": {
+            "post": {
+                "tags": [
+                    "Page Replacement"
+                ],
+                "summary": "Simulate Optimal Page Replacement Page Replacement Algorithm",
+                "description": "This API simulates the Optimal Page Replacement page replacement algorithm by accepting a sequence of page references and the number of frames.",
+                "operationId": "de797913f19a8acaef19ab7c15df3d7b",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "required": [
+                                    "Algorithm",
+                                    "Refrences",
+                                    "Frames"
+                                ],
+                                "properties": {
+                                    "Algorithm": {
+                                        "description": "Type of page replacement algorithm (e.g., Optimal Page Replacement)",
+                                        "type": "string",
+                                        "example": "Optimal Page Replacement"
+                                    },
+                                    "Refrences": {
+                                        "description": "A sequence of page references (space-separated integers)",
+                                        "type": "string",
+                                        "example": "1 3 0 3 5 6 3 5 6 7 3 0"
+                                    },
+                                    "Frames": {
+                                        "description": "The number of frames available in memory",
+                                        "type": "integer",
+                                        "example": 3
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "pageFaults": {
+                                            "description": "The number of page faults occurred during the algorithm",
+                                            "type": "integer"
+                                        },
+                                        "pageFaultRate": {
+                                            "description": "The page fault rate calculated as a percentage",
+                                            "type": "number",
+                                            "format": "float"
+                                        },
+                                        "frameHistory": {
+                                            "description": "The state of frames after each page reference",
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "frameState": {
+                                                        "type": "array",
+                                                        "items": {
+                                                            "type": "integer",
+                                                            "nullable": true
+                                                        }
+                                                    },
+                                                    "page": {
+                                                        "description": "Page referenced in this step",
+                                                        "type": "integer"
+                                                    },
+                                                    "fault": {
+                                                        "description": "Whether a page fault occurred at this step",
+                                                        "type": "boolean"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid request data"
+                    }
+                }
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "CPU Scheduling",
+            "description": "CPU Scheduling"
+        },
+        {
+            "name": "Memory Allocation",
+            "description": "Memory Allocation"
+        },
+        {
+            "name": "Page Replacement",
+            "description": "Page Replacement"
+        }
+    ]
+}
