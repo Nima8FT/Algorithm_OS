@@ -4,7 +4,7 @@ A collection of essential Operating System algorithms with a clean UI and Swagge
 
 [![Web Page](https://i.postimg.cc/yNSSLBcb/260-1x-shots-so.png)](https://github.com/Nima8FT/Algorithm_OS)
 
-[Get it here](https://github.com/Nima8FT/Algorithm_OS)
+[Get it here](https://nimidev.ir/os_algorithms_lab/design/cpu.php)
 
 Version: [1.0.0]
 ## Table of Contents
