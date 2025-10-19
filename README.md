@@ -2,7 +2,7 @@
 
 A collection of essential Operating System algorithms with a clean UI and Swagger-powered API.
 
-[![Web Page](https://github.com/Nima8FT/Algorithm_OS)](https://postimg.cc/wtgvBCWX)
+[![Web Page](https://i.postimg.cc/yNSSLBcb/260-1x-shots-so.png)](https://github.com/Nima8FT/Algorithm_OS)
 
 [Get it here](https://github.com/Nima8FT/Algorithm_OS)
 
