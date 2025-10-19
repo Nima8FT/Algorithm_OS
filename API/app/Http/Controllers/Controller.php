@@ -8,7 +8,6 @@ namespace App\Http\Controllers;
  *     version="1.0.0"
  * )
  */
-
 abstract class Controller
 {
     //

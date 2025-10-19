@@ -15,6 +15,10 @@
     font-family: sans-serif;
 }
 
+body {
+    height: 100vh;
+}
+
 a {
     color: #ffffff;
     text-decoration: none;

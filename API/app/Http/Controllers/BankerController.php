@@ -2,25 +2,23 @@
 
 namespace App\Http\Controllers;
 
-use Exception;
 use Illuminate\Http\Request;
 
 class BankerController extends Controller
 {
     public function banker(Request $request)
     {
-        if ($request->input("Algorithm") == "banker") {
+        if ($request->input('Algorithm') == 'banker') {
             $allocation = explode('#', $request->get('Allocation'));
             $allocation_matrices = [];
             foreach ($allocation as $key => $value) {
-                $allocation_matrices["P" . ($key + 1)] = array_map('intval', explode(',', $value));
+                $allocation_matrices['P'.($key + 1)] = array_map('intval', explode(',', $value));
             }
-
 
             $max = explode('#', $request->get('Max'));
             $max_matrices = [];
             foreach ($max as $key => $value) {
-                $max_matrices["P" . ($key + 1)] = array_map('intval', explode(',', $value));
+                $max_matrices['P'.($key + 1)] = array_map('intval', explode(',', $value));
             }
 
             $instance = array_map('intval', explode(' ', $request->get('Instance')));
@@ -37,16 +35,14 @@ class BankerController extends Controller
                 $available[$i] = $instance[$i] - $allocation_array[$i];
             }
 
-
-
             $need = [];
             for ($i = 0; $i < count($max); $i++) {
                 for ($j = 0; $j < count($instance); $j++) {
-                    $need["P" . $i + 1][$j] = $max_matrices["P" . $i + 1][$j] - $allocation_matrices["P" . $i + 1][$j];
+                    $need['P'.$i + 1][$j] = $max_matrices['P'.$i + 1][$j] - $allocation_matrices['P'.$i + 1][$j];
                 }
             }
 
-            $available_array["Resource"] = $available;
+            $available_array['Resource'] = $available;
             $is_process_complete = array_fill(0, count($need), false);
             $index = -1;
             $k = 0;
@@ -55,25 +51,24 @@ class BankerController extends Controller
 
             while ($k < count($need)) {
                 for ($j = 0; $j < count($instance); $j++) {
-                    if ($need["P" . $k + 1][$j] > $available[$j]) {
+                    if ($need['P'.$k + 1][$j] > $available[$j]) {
                         $index = -1;
                         break;
                     }
                     $index = $k;
                 }
 
-                if ($index !== -1 && !$is_process_complete[$index]) {
+                if ($index !== -1 && ! $is_process_complete[$index]) {
                     for ($j = 0; $j < count($instance); $j++) {
-                        $available[$j] += $allocation_matrices["P" . $index + 1][$j];
-                        $available_array["P" . $index + 1] = $available;
+                        $available[$j] += $allocation_matrices['P'.$index + 1][$j];
+                        $available_array['P'.$index + 1] = $available;
                     }
                     $is_process_complete[$index] = true;
                 }
 
-
                 if ($k == count($need) - 1) {
                     for ($i = 0; $i < count($need); $i++) {
-                        if (!$is_process_complete[$i]) {
+                        if (! $is_process_complete[$i]) {
                             $k = -1;
                             break;
                         }
@@ -91,7 +86,7 @@ class BankerController extends Controller
                 return $carry && $item;
             }, true);
 
-            if (!$all_processes_completed) {
+            if (! $all_processes_completed) {
                 return response()->json(['status' => false, 'message' => 'Deadlock detected or system is not in a safe state']);
             } else {
                 $process_sequence = [];
@@ -104,12 +99,12 @@ class BankerController extends Controller
                 return response()->json(
                     [
                         'status' => true,
-                        "Instance" => $instance,
-                        "Allocation" => $allocation_matrices,
-                        "Max" => $max_matrices,
-                        "Need" => $need,
-                        "Available" => $available_array,
-                        "Process Sequence" => $process_sequence,
+                        'Instance' => $instance,
+                        'Allocation' => $allocation_matrices,
+                        'Max' => $max_matrices,
+                        'Need' => $need,
+                        'Available' => $available_array,
+                        'Process Sequence' => $process_sequence,
                     ],
                 );
             }

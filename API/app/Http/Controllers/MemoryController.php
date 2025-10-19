@@ -12,13 +12,17 @@ class MemoryController extends Controller
      *     summary="Simulate Best Fit Memory Allocation Algorithm",
      *     description="This API simulates the Best Fit memory allocation algorithm by accepting block sizes and process sizes to allocate memory efficiently.",
      *     tags={"Memory Allocation"},
+     *
      *     @OA\RequestBody(
      *         required=true,
+     *
      *         @OA\MediaType(
      *             mediaType="application/x-www-form-urlencoded",
+     *
      *             @OA\Schema(
      *                 type="object",
      *                 required={"Block", "Process"},
+     *
      *                 @OA\Property(
      *                     property="Algorithm",
      *                     type="string",
@@ -40,6 +44,7 @@ class MemoryController extends Controller
      *             )
      *         )
      *     ),
+     *
      *     @OA\Response(
      *         response=200,
      *         description="Successful operation with memory allocation results"
@@ -52,9 +57,9 @@ class MemoryController extends Controller
      */
     public function best_fit(Request $request)
     {
-        if ($request->input('Algorithm') == "bestfit") {
-            $block_array = explode(' ', $request->get("Block"));
-            $process_array = explode(' ', $request->get("Process"));
+        if ($request->input('Algorithm') == 'bestfit') {
+            $block_array = explode(' ', $request->get('Block'));
+            $process_array = explode(' ', $request->get('Process'));
 
             $j = 0;
             $processes = [];
@@ -101,13 +106,17 @@ class MemoryController extends Controller
      *     summary="Simulate First Fit Memory Allocation Algorithm",
      *     description="This API simulates the First Fit memory allocation algorithm by accepting block sizes and process sizes to allocate memory efficiently.",
      *     tags={"Memory Allocation"},
+     *
      *     @OA\RequestBody(
      *         required=true,
+     *
      *         @OA\MediaType(
      *             mediaType="application/x-www-form-urlencoded",
+     *
      *             @OA\Schema(
      *                 type="object",
      *                 required={"Block", "Process"},
+     *
      *                 @OA\Property(
      *                     property="Algorithm",
      *                     type="string",
@@ -129,6 +138,7 @@ class MemoryController extends Controller
      *             )
      *         )
      *     ),
+     *
      *     @OA\Response(
      *         response=200,
      *         description="Successful operation with memory allocation results"
@@ -141,9 +151,9 @@ class MemoryController extends Controller
      */
     public function first_fit(Request $request)
     {
-        if ($request->input('Algorithm') == "firstfit") {
-            $block_array = explode(' ', $request->get("Block"));
-            $process_array = explode(' ', $request->get("Process"));
+        if ($request->input('Algorithm') == 'firstfit') {
+            $block_array = explode(' ', $request->get('Block'));
+            $process_array = explode(' ', $request->get('Process'));
 
             $j = 0;
             $processes = [];
@@ -189,13 +199,17 @@ class MemoryController extends Controller
      *     summary="Simulate First Fit Memory Allocation Algorithm",
      *     description="This API simulates the Worst Fit memory allocation algorithm by accepting block sizes and process sizes to allocate memory efficiently.",
      *     tags={"Memory Allocation"},
+     *
      *     @OA\RequestBody(
      *         required=true,
+     *
      *         @OA\MediaType(
      *             mediaType="application/x-www-form-urlencoded",
+     *
      *             @OA\Schema(
      *                 type="object",
      *                 required={"Block", "Process"},
+     *
      *                 @OA\Property(
      *                     property="Algorithm",
      *                     type="string",
@@ -217,6 +231,7 @@ class MemoryController extends Controller
      *             )
      *         )
      *     ),
+     *
      *     @OA\Response(
      *         response=200,
      *         description="Successful operation with memory allocation results"
@@ -229,9 +244,9 @@ class MemoryController extends Controller
      */
     public function worst_fit(Request $request)
     {
-        if ($request->input('Algorithm') == "worstfit") {
-            $block_array = explode(' ', $request->get("Block"));
-            $process_array = explode(' ', $request->get("Process"));
+        if ($request->input('Algorithm') == 'worstfit') {
+            $block_array = explode(' ', $request->get('Block'));
+            $process_array = explode(' ', $request->get('Process'));
 
             $j = 0;
             $processes = [];
@@ -243,7 +258,7 @@ class MemoryController extends Controller
                 $process_num = -1;
 
                 for ($i = 0; $i < count($process_array); $i++) {
-                    if ($block_array[$j] <= $process_array[$i] && !$is_process_complete[$i] && $process_array[$i] >= $shortest_process) {
+                    if ($block_array[$j] <= $process_array[$i] && ! $is_process_complete[$i] && $process_array[$i] >= $shortest_process) {
                         $shortest_process = $process_array[$i];
                         $process_num = $i;
                     }
@@ -280,13 +295,17 @@ class MemoryController extends Controller
      *     summary="Simulate Next Fit Memory Allocation Algorithm",
      *     description="This API simulates the Next Fit memory allocation algorithm by accepting block sizes and process sizes to allocate memory efficiently.",
      *     tags={"Memory Allocation"},
+     *
      *     @OA\RequestBody(
      *         required=true,
+     *
      *         @OA\MediaType(
      *             mediaType="application/x-www-form-urlencoded",
+     *
      *             @OA\Schema(
      *                 type="object",
      *                 required={"Block", "Process"},
+     *
      *                 @OA\Property(
      *                     property="Algorithm",
      *                     type="string",
@@ -308,6 +327,7 @@ class MemoryController extends Controller
      *             )
      *         )
      *     ),
+     *
      *     @OA\Response(
      *         response=200,
      *         description="Successful operation with memory allocation results"
@@ -320,9 +340,9 @@ class MemoryController extends Controller
      */
     public function next_fit(Request $request)
     {
-        if ($request->input('Algorithm') == "nextfit") {
-            $block_array = explode(' ', $request->get("Block"));
-            $process_array = explode(' ', $request->get("Process"));
+        if ($request->input('Algorithm') == 'nextfit') {
+            $block_array = explode(' ', $request->get('Block'));
+            $process_array = explode(' ', $request->get('Process'));
 
             $j = 0;
             $processes = [];
@@ -334,7 +354,7 @@ class MemoryController extends Controller
                 $is_process = false;
 
                 for ($i = $process_num; $i < count($process_array); $i++) {
-                    if ($block_array[$j] <= $process_array[$i] && !$is_process_complete[$i]) {
+                    if ($block_array[$j] <= $process_array[$i] && ! $is_process_complete[$i]) {
                         $is_process = true;
                         $process_num = $i;
                         break;

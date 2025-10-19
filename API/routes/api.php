@@ -1,17 +1,17 @@
 <?php
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\CpuController;
 use App\Http\Controllers\BankerController;
+use App\Http\Controllers\CpuController;
 use App\Http\Controllers\MemoryController;
 use App\Http\Controllers\PageReplacementController;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
 
 // Route::get('/user', function (Request $request) {
 //     return $request->user();
 // })->middleware('auth:sanctum');
 
-//cpu scheduling controller route
+// cpu scheduling controller route
 Route::post('/fcfs', [CpuController::class, 'fcfs']);
 Route::post('/sjf', [CpuController::class, 'sjf']);
 Route::post('/ljf', [CpuController::class, 'ljf']);
@@ -22,13 +22,13 @@ Route::post('/hrrn', [CpuController::class, 'hrrn']);
 Route::post('/nonpreemptive', [CpuController::class, 'priority_none_preemptive']);
 Route::post('/preemptive', [CpuController::class, 'priority_preemptive']);
 
-//memory allocation controller routes
+// memory allocation controller routes
 Route::post('/bestfit', [MemoryController::class, 'best_fit']);
 Route::post('/firstfit', [MemoryController::class, 'first_fit']);
 Route::post('/worstfit', [MemoryController::class, 'worst_fit']);
 Route::post('/nextfit', [MemoryController::class, 'next_fit']);
 
-//page replacement controller routes
+// page replacement controller routes
 Route::post('/fifo', [PageReplacementController::class, 'fifo']);
 Route::post('/lifo', [PageReplacementController::class, 'lifo']);
 Route::post('/lru', [PageReplacementController::class, 'lru']);
@@ -38,5 +38,5 @@ Route::post('/mfu', [PageReplacementController::class, 'mfu']);
 Route::post('/randompagereplacement', [PageReplacementController::class, 'rendomPageReplacement']);
 Route::post('/optimalpagereplacement', [PageReplacementController::class, 'optimalPageReplacement']);
 
-//banker's controller routes
+// banker's controller routes
 Route::post('/banker', [BankerController::class, 'banker']);

@@ -184,7 +184,6 @@ function getDataApi(data, algorithm) {
     }
     ganttChartContainer.innerHTML = ganttChartContainerHtml;
     var process = data.Process;
-    console.log(algorithm);
     for (let i = 0; i < process.length; i++) {
         if (algorithm == "PREEMPTIVE" || algorithm == "NONPREEMPTIVE") {
             processHtml += '<tr scope="row"><td>' + process[i]["process"] + '</td><td>' + process[i]["arrival_time"] + '</td><td>' + process[i]["burst_time"] + '</td><td>' + process[i]["priority"] + '</td><td>' + process[i]["finish_time"] + '</td><td>' + process[i]["turnaround_time"] + '</td><td>' + process[i]["waiting_time"] + '</td><td>' + process[i]["response_time"] + '</td>';
